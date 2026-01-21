@@ -1,0 +1,13 @@
+Compte rendu de la séance du 21 janvier :
+
+Participants : Thomas COIPEL, Clément DAI, Martial WANG, Matteo ZHOU.
+
+Objectifs : Créer un groupe et Déterminer le sprint hebdomadaire
+
+Prochaine réunion : Mercredi 28 janvier
+
+Après avoir formé le groupe R2D2, nous avons crée le Trello afin de pouvoir organiser la quinzaine de taches à réaliser pendant cette semaine ainsi que le repository github pour pouvoir centraliser les codes du groupe.
+Nous avons pour objectif, pour le mercredi 28/01 de pouvoir faire une démo de notre première simulation de robot Dexter.
+Elle permettra d'interagir avec le robot en lui transmettant des coordonnées. 
+Ce dernier devra donc, s'il n'a pas déjà une tache en cours, se diriger, depuis sa position actuelle, vers le point désigné.
+L'affichage se fera grâce à ne matrice de O, représentants les espaces vides, et d'un R pour la case occupée par le robot. Il sera actualisé à chaque déplacement du robot afin de pouvoir suivre son trajet en temps réel.
