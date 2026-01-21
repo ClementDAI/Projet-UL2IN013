@@ -22,11 +22,11 @@ class Robot(object):
         i=0
         while (i<t):
             if (self.direction == 1):
-                bouger(self,vitesse,0)
+                bouger(self,-vitesse,0)
             if (self.direction == 2):
                 bouger(self,0,vitesse)
             if (self.direction == 3):
-                bouger(self,-vitesse,0)
+                bouger(self,vitesse,0)
             if (self.direction == 4):
                 bouger(self,0,-vitesse)
             i=i+1
@@ -34,11 +34,11 @@ class Robot(object):
 
         t=distance%vitesse
         if (self.direction == 1):
-            bouger(self,t,0)
+            bouger(self,-t,0)
         if (self.direction == 2):
             bouger(self,0,t)
         if (self.direction == 3):
-            bouger(self,-t,0)
+            bouger(self,t,0)
         if (self.direction == 4):
             bouger(self,0,-t)
         time.sleep(t/vitesse)
@@ -66,4 +66,27 @@ class Salle(object):
     def obstacle(self,x,y):
         self.posx = x
         self.posy = y
+
+    def cree_matrice(self):
+        VIDE = 0
+        ROBOT = 1
+        matrice = []
+        liste_y = []
+        for j in range(self.ymax):
+            liste_y.append(VIDE)
+        for i in range(self.xmax):
+            matrice.append(liste_y)
+        x,y = self.rob
+        matrice[x][y] = ROBOT
+        return matrice
+
+    def affiche_matrice(self):
+        for ligne in self.cree_matrice():
+            for case in ligne:
+                if case == 0:
+                    print('_', end(' ')) #si on met un espace on va pas voir les "case" de la matrice juste un R au mileu de rien et je met un espace entre chaque _ pour aéré sinon tout est collé
+                else:
+                    print('R')
+            print()     #retour a la ligne dans l affichage
+                
 
