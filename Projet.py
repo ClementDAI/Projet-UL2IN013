@@ -87,25 +87,52 @@ class Salle(object):
                     print('R', end=' ')
             print()     #retour a la ligne dans l affichage
 
+    def aller_a(self,x_cible,y_cible):
+        if not (0 <= x_cible < self.xmax and 0 <= y_cible < self.ymax):
+            print("Les coordonnées passées en paramètres ne sont pas dans la salle.")
+            return
+        mx = x_cible-self.rob.x
+        if mx != 0:
+            if mx > 0:
+                dir = 2 #X cible > X actuel donc on doit aller vers l'est donc 2
+            else :
+                dir = 4 #vers l'ouest donc 4
+            while self.rob.direction != dir:
+                tourneD = (dir-self.rob.direction)%4 #calcule le nombre de fois quon doit tourner a droite pour optimiser
+                if tourneD <= 2:
+                    self.rob.tourner(1)
+                else:
+                    self.rob.tourner(0)
+            self.rob.avancer(1, abs(mx)) #abs = val absolue
+        my = y_cible-self.rob.y
+        if my != 0:
+            if my > 0:
+                dir = 3
+            else :
+                dir = 1
+            while self.rob.direction != dir:
+                tourneD = (dir-self.rob.direction)%4
+                if tourneD <= 2:
+                    self.rob.tourner(1)
+                else:
+                    self.rob.tourner(0)
+            self.rob.avancer(1, abs(my))
+
 
 if __name__ == "__main__":
     r = Robot('R1', 3)
     s = Salle(r, 5, 5)
     print("Matrice initiale :")
     s.affiche_matrice()
-    r.avancer(1,2)
-    print("Matrice Apres avoir avancé de 2 cases vers le bas :")
+    print("Déplacement vers (0,2) :")
+    s.aller_a(0, 2)
     s.affiche_matrice()
-    r.tourner(0)
-    r.avancer(1,2)
-    print("Matrice Apres avoir avancé de 2 cases vers la droite :")
+    print("Déplacement vers (2,2) :")
+    s.aller_a(2, 2)
     s.affiche_matrice()
-    r.tourner(0)
-    r.avancer(1,2)
-    print("Matrice Apres avoir avancé de 2 cases vers le haut :")
+    print("Déplacement vers (2,0) :")
+    s.aller_a(2, 0)
     s.affiche_matrice()
-    r.tourner(0)
-    r.avancer(1,2)
-    print("Matrice Apres avoir avancé de 2 cases vers la gauche :")
+    print("Déplacement vers (0,0) :")
+    s.aller_a(0, 0)
     s.affiche_matrice()
-
