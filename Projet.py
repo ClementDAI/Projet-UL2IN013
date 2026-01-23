@@ -82,7 +82,7 @@ class Salle(object):
         matrice[y][x] = ROBOT
         return matrice
 
-      def affiche_matrice(self):
+    def affiche_matrice(self):
         for ligne in self.cree_matrice():
             for case in ligne:
                 if case == 0:
@@ -91,8 +91,8 @@ class Salle(object):
                     print('R', end=' ')
             print()     #retour a la ligne dans l affichage
         print()
-          
-  def aller_a(self,x_cible,y_cible):
+        
+    def aller_a(self,x_cible,y_cible):
         if not (0 <= x_cible < self.xmax and 0 <= y_cible < self.ymax):
             print("Les coordonnées passées en paramètres ne sont pas dans la salle.")
             return
