@@ -108,3 +108,4 @@ if __name__ == "__main__":
     r.avancer(1,2)
     print("Matrice Apres avoir avancé de 2 cases vers la gauche :")
     s.affiche_matrice()
+
