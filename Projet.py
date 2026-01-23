@@ -16,7 +16,7 @@ class Robot(object):
     def position(self):
         return self.x,self.y
 
-    def avancer(self,vitesse,distance):
+    def avancer(self,salle,vitesse,distance):
         self.vitesse = vitesse
         if vitesse == 0:
             print("Vitesse à 0")
@@ -27,12 +27,16 @@ class Robot(object):
         while (i<t):
             if (self.direction == 1):
                 self.bouger(0,-vitesse)
+                salle.affiche_matrice()
             if (self.direction == 2):
                 self.bouger(vitesse,0)
+                salle.affiche_matrice()
             if (self.direction == 3):
                 self.bouger(0,vitesse)
+                salle.affiche_matrice()
             if (self.direction == 4):
                 self.bouger(-vitesse,0)
+                salle.affiche_matrice()
             i=i+1
             time.sleep(1)
 
@@ -78,7 +82,7 @@ class Salle(object):
         matrice[y][x] = ROBOT
         return matrice
 
-    def affiche_matrice(self):
+      def affiche_matrice(self):
         for ligne in self.cree_matrice():
             for case in ligne:
                 if case == 0:
@@ -86,8 +90,9 @@ class Salle(object):
                 else:
                     print('R', end=' ')
             print()     #retour a la ligne dans l affichage
-
-    def aller_a(self,x_cible,y_cible):
+        print()
+          
+  def aller_a(self,x_cible,y_cible):
         if not (0 <= x_cible < self.xmax and 0 <= y_cible < self.ymax):
             print("Les coordonnées passées en paramètres ne sont pas dans la salle.")
             return
@@ -103,7 +108,7 @@ class Salle(object):
                     self.rob.tourner(1)
                 else:
                     self.rob.tourner(0)
-            self.rob.avancer(1, abs(mx)) #abs = val absolue
+            self.rob.avancer(self,1, abs(mx)) #abs = val absolue
         my = y_cible-self.rob.y
         if my != 0:
             if my > 0:
@@ -116,7 +121,7 @@ class Salle(object):
                     self.rob.tourner(1)
                 else:
                     self.rob.tourner(0)
-            self.rob.avancer(1, abs(my))
+            self.rob.avancer(self,1, abs(my))
 
 
 if __name__ == "__main__":
@@ -126,13 +131,9 @@ if __name__ == "__main__":
     s.affiche_matrice()
     print("Déplacement vers (0,2) :")
     s.aller_a(0, 2)
-    s.affiche_matrice()
     print("Déplacement vers (2,2) :")
     s.aller_a(2, 2)
-    s.affiche_matrice()
     print("Déplacement vers (2,0) :")
     s.aller_a(2, 0)
-    s.affiche_matrice()
     print("Déplacement vers (0,0) :")
     s.aller_a(0, 0)
-    s.affiche_matrice()
