@@ -126,14 +126,15 @@ class Salle(object):
 
 if __name__ == "__main__":
     r = Robot('R1', 3)
-    s = Salle(r, 5, 5)
+    s = Salle(r, 10, 10)
     print("Matrice initiale :")
     s.affiche_matrice()
-    print("Déplacement vers (0,2) :")
-    s.aller_a(0, 2)
-    print("Déplacement vers (2,2) :")
-    s.aller_a(2, 2)
-    print("Déplacement vers (2,0) :")
-    s.aller_a(2, 0)
-    print("Déplacement vers (0,0) :")
-    s.aller_a(0, 0)
+    while True:
+        inp = input("Entrez les coordonnées x y cible (séparées par un espace) : ")
+        parts = inp.split()
+        if len(parts) != 2:
+            print("Veuillez entrer deux nombres séparés par un espace.")
+            continue
+        x, y = map(int, parts) #convertir les string de l'input en int
+        print(f"Déplacement vers ({x},{y}) :")
+        s.aller_a(x, y)
