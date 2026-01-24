@@ -135,6 +135,11 @@ if __name__ == "__main__":
         if len(parts) != 2:
             print("Veuillez entrer deux nombres séparés par un espace.")
             continue
-        x, y = map(int, parts) #convertir les string de l'input en int
+        if float(parts[0]) % 1 != 0 or float(parts[1]) % 1 != 0:
+            print("Au moins un nombre n'est pas un entier.")
+            print("Veuillez entrer deux nombres entiers séparés par un espace.")
+            continue
+        x, y = map(float, parts) #convertir les string de l'input en int
+        x, y = int(x), int(y)
         print(f"Déplacement vers ({x},{y}) :")
         s.aller_a(x, y)
