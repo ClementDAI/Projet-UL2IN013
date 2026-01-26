@@ -126,7 +126,14 @@ class Salle(object):
 
 if __name__ == "__main__":
     r = Robot('R1', 3)
-    s = Salle(r, 10, 10)
+    while True:
+        try:
+            xmax = int(input("Entrez la longueur de la matrice : "))
+            ymax = int(input("Entrez la largeur de la matrice : "))
+            break
+        except ValueError:
+            print("Veuillez entrer des nombres entier.")
+    s = Salle(r, xmax, ymax)
     print("Matrice initiale :")
     s.affiche_matrice()
     while True:
