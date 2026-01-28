@@ -140,6 +140,9 @@ if __name__ == "__main__":
         inp = input("Entrez les coordonnées x y cible (séparées par un espace) : ")
         parts = inp.split()
         if len(parts) != 2:
+            if "exit" in parts:
+                print("Fin de simulation")
+                exit()
             print("Veuillez entrer deux nombres séparés par un espace.")
             continue
         if float(parts[0]) % 1 != 0 or float(parts[1]) % 1 != 0:
