@@ -1,0 +1,10 @@
+Compte rendu de la 2ème séance (28 janvier)
+
+Participants : Thomas COIPEL, Clément DAI, Martial WANG, Matteo ZHOU, Beyza AKKOYUN.
+
+Objectif pour la semaine prochaine : Créer une interface graphique dans laquelle un "robot" pourra se déplacer via les touches de clavier 
+
+Après avoir présenté la promesse de cette semaine, nous nous sommes convenus de continuer le projet en prenant en compte la vitesse du robot ainsi que la mise en place d'obstacles.
+Cependant, de nombreux problèmes se sont présentés au sujet des obstacles comme la recherche d'un algorithme qui permet au robot de les contourner ou alors trouver des contraintes sur les obstacles afin de réduire les chemins possibles.
+Nous avons donc demander de l'aide à notre chargé de TD qui nous a conseillé de revoir notre approche, c'est-à-dire de ne pas trouver le meilleur "path-finding" mais plutôt de contrôler directement le robot.
+La tache que l'on aura à faire pour la semaine prochaine consiste donc à créer une interface graphique dont un robot, représenté par un rectangle, pourra s'orienter et se déplacer selon les inputs données("ZQSD" par exemple).
