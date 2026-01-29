@@ -1,7 +1,7 @@
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((600, 450))  # Taille de la fenetre largeur x hauteur
+screen = pygame.display.set_mode((1440, 810))  # Taille de la fenetre largeur x hauteur
 pygame.display.set_caption("Simulation Dexter") #Titre de la fenetre
 clock = pygame.time.Clock() #Clock pour les fps
 running = True #pour la boucle infinie
@@ -16,7 +16,7 @@ while running:
     
     screen.fill("white") #couleur de la fenetre
 
-    pygame.draw.rect(screen, "black", pygame.Rect(robot_pos.x - 20, robot_pos.y - 15, 30, 40)) #40 pixels de haut 30 pixel de large et centré sur la position de base
+    pygame.draw.rect(screen, "black", pygame.Rect(robot_pos.x - 35, robot_pos.y - 20, 40, 70)) #70 pixels de haut 40 pixel de large et centré sur la position de base
 
     pygame.display.flip()
 
