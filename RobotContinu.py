@@ -1,7 +1,7 @@
 import pygame
 #Vector2 : pour les poisitons : ajouter 50 a x d'une position : pos + pygame.Vector2(50, 0)
 
-while True:
+while True: #Demande une input pour la vitesse
     vitesse = input("Choisissez la vitesse (nombre entier) du robot en pixel/s : ")
     if float(vitesse) % 1 != 0:
         print("Veuillez entrer un nombre entier")
