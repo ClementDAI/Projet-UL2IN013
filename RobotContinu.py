@@ -6,20 +6,27 @@ pygame.display.set_caption("Simulation Dexter") #Titre de la fenetre
 clock = pygame.time.Clock() #Clock pour les fps
 running = True #pour la boucle infinie
 
-robot_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2) #robot commence au centre de la fenetre
+class Robot(object):
+    def __init__(self,nom,speed,x,y):
+        self.nom = nom
+        self.pos = pygame.Vector2(x,y) #position du robot , avec pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2) le robot commence au toujour au centre de la fenetre
+        self.angle = 0 # l angle 0 va correspondre a vers le haut
+        self.speed = speed
+        self.largeur = 40
+        self.longueur = 70
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: #fermer la fenetre si on appuie sur la croix
             running = False
-    
+    r = Robot("r2d2",0,screen.get_width() / 2,screen.get_height() / 2)
     screen.fill("white") #couleur de la fenetre
 
-    pygame.draw.rect(screen, "black", pygame.Rect(robot_pos.x - 20, robot_pos.y - 35, 40, 70)) #70 pixels de haut 40 pixel de large et centré sur la position de base
+    pygame.draw.rect(screen, "black", pygame.Rect(r.pos.x - r.largeur/2, r.pos.y - r.longueur/2, r.largeur, r.longueur)) #70 pixels de haut 40 pixel de large et centré sur la position de base
 
-    pygame.draw.line(screen, "red", robot_pos + pygame.Vector2(0, -35), robot_pos + pygame.Vector2(0, -50), 2) #ligne pour la direction
-    pygame.draw.line(screen, "red", robot_pos + pygame.Vector2(0, -50), robot_pos + pygame.Vector2(-5, -45), 2) #coté gauche de la fleche
-    pygame.draw.line(screen, "red", robot_pos + pygame.Vector2(0, -50), robot_pos + pygame.Vector2(5, -45), 2) #coté droit de la fleche
+    pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -35), r.pos + pygame.Vector2(0, -50), 2) #ligne pour la direction
+    pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -50), r.pos + pygame.Vector2(-5, -45), 2) #coté gauche de la fleche
+    pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -50), r.pos + pygame.Vector2(5, -45), 2) #coté droit de la fleche
     
     pygame.display.flip() #met a jour l'ecran
 
