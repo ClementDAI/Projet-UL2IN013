@@ -1,5 +1,15 @@
 import pygame
 #Vector2 : pour les poisitons : ajouter 50 a x d'une position : pos + pygame.Vector2(50, 0)
+
+while True:
+    vitesse = input("Choisissez la vitesse (nombre entier) du robot en pixel/s : ")
+    if float(vitesse) % 1 != 0:
+        print("Veuillez entrer un nombre entier")
+    else :
+        vitesse = int(vitesse)
+        break
+
+
 pygame.init()
 screen = pygame.display.set_mode((1440, 810))  # Taille de la fenetre largeur x hauteur
 pygame.display.set_caption("Simulation Dexter") #Titre de la fenetre
@@ -25,7 +35,7 @@ class Robot(object):
         if (self.angle == 270):
             self.pos.x -= self.speed * dt
 
-r = Robot("r2d2",50,screen.get_width() / 2,screen.get_height() / 2) #speed temporairement a 50, il faudra qu il soit ajustable sans toucher le code avec x y correspond au centre de la fenetre comme dit avant
+r = Robot("r2d2",vitesse,screen.get_width() / 2,screen.get_height() / 2) #speed temporairement a 50, il faudra qu il soit ajustable sans toucher le code avec x y correspond au centre de la fenetre comme dit avant
 
 while running:
     for event in pygame.event.get():
