@@ -68,22 +68,24 @@ while running:
         pygame.draw.line(screen, "red", r.pos + pygame.Vector2(-r.longueur/2-15, 0), r.pos + pygame.Vector2(-r.longueur/2-10, 5), 2) 
     
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_z]:
+    dimension = pygame.display.get_window_size() #Tuple : (longueur,largeur)
+    longueur,largeur = dimension 
+    if keys[pygame.K_z] and r.pos.y > r.longueur/2 :
         r.angle = 0
         r.avancer_reculer(dt)
         l1 = r.largeur
         l2 = r.longueur
-    if keys[pygame.K_s]:
+    if keys[pygame.K_s] and r.pos.y < largeur - r.longueur/2:
         r.angle = 180
         r.avancer_reculer(dt)
         l1 = r.largeur
         l2 = r.longueur
-    if keys[pygame.K_q]:
+    if keys[pygame.K_q] and r.pos.x > r.longueur/2:
         r.angle = 270
         r.avancer_reculer(dt)
         l1 = r.longueur
         l2 = r.largeur
-    if keys[pygame.K_d]:
+    if keys[pygame.K_d] and r.pos.x < longueur - r.longueur/2:
         r.angle = 90
         r.avancer_reculer(dt)
         l1 = r.longueur
