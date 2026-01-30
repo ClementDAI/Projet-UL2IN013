@@ -15,11 +15,23 @@ class Robot(object):
         self.largeur = 40
         self.longueur = 70
 
+    def avancer_reculer(self,dt):
+        if (self.angle == 0):
+            self.pos.y -= self.speed * dt
+        if (self.angle == 90):
+            self.pos.x += self.speed * dt
+        if (self.angle == 180):
+            self.pos.y += self.speed * dt
+        if (self.angle == 270):
+            self.pos.x -= self.speed * dt
+
+r = Robot("r2d2",50,screen.get_width() / 2,screen.get_height() / 2) #speed temporairement 0 car pas encore codé avec x y correspond au centre de la fenetre comme dit avant
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: #fermer la fenetre si on appuie sur la croix
             running = False
-    r = Robot("r2d2",0,screen.get_width() / 2,screen.get_height() / 2) #speed temporairement 0 car pas encore codé avec x y correspond au centre de la fenetre comme dit avant
+
     screen.fill("white") #couleur de la fenetre
 
     pygame.draw.rect(screen, "black", pygame.Rect(r.pos.x - r.largeur/2, r.pos.y - r.longueur/2, r.largeur, r.longueur)) #70 pixels de haut 40 pixel de large et centré sur la position de base
@@ -28,8 +40,22 @@ while running:
     pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -50), r.pos + pygame.Vector2(-5, -45), 2) #coté gauche de la fleche
     pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -50), r.pos + pygame.Vector2(5, -45), 2) #coté droit de la fleche
     
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_z]:
+        r.angle = 0
+        r.avancer_reculer(dt)
+    if keys[pygame.K_s]:
+        r.angle = 180
+        r.avancer_reculer(dt)
+    if keys[pygame.K_q]:
+        r.angle = 270
+        r.avancer_reculer(dt)
+    if keys[pygame.K_d]:
+        r.angle = 90
+        r.avancer_reculer(dt)
+
     pygame.display.flip() #met a jour l'ecran
 
-    clock.tick(60) #max fps
+    dt = clock.tick(60)/1000 #max fps convertit pour que se soit par seconde avec la division
 
 pygame.quit()
