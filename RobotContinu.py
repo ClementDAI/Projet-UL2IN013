@@ -25,7 +25,7 @@ class Robot(object):
         if (self.angle == 270):
             self.pos.x -= self.speed * dt
 
-r = Robot("r2d2",50,screen.get_width() / 2,screen.get_height() / 2) #speed temporairement 0 car pas encore codé avec x y correspond au centre de la fenetre comme dit avant
+r = Robot("r2d2",50,screen.get_width() / 2,screen.get_height() / 2) #speed temporairement a 50, il faudra qu il soit ajustable sans toucher le code avec x y correspond au centre de la fenetre comme dit avant
 
 while running:
     for event in pygame.event.get():
