@@ -103,19 +103,19 @@ def simulation():
         dimension = pygame.display.get_window_size() 
         longueur,largeur = dimension
 
-        if keys[pygame.K_UP] and robot_pos.y > 50:
+        if (keys[pygame.K_UP] or keys[pygame.K_z]) and robot_pos.y > 50:
             if robot_angle != 0:
                 robot_angle = 0 
             robot_pos.y -= vitesse
-        if keys[pygame.K_DOWN] and robot_pos.y < largeur - 50:
+        if (keys[pygame.K_DOWN] or keys[pygame.K_s]) and robot_pos.y < largeur - 50:
             if robot_angle != 180:
                 robot_angle = 180
             robot_pos.y += vitesse
-        if keys[pygame.K_LEFT] and robot_pos.x > 50:
+        if (keys[pygame.K_LEFT] or keys[pygame.K_q]) and robot_pos.x > 50:
             if robot_angle != 90:
                 robot_angle = 90
             robot_pos.x -= vitesse
-        if keys[pygame.K_RIGHT] and robot_pos.x < longueur - 50:
+        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and robot_pos.x < longueur - 50:
             if robot_angle != 270:
                 robot_angle = 270
             robot_pos.x += vitesse
