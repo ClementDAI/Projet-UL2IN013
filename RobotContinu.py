@@ -91,9 +91,10 @@ def simulation():
 
         robot_surface = pygame.Surface((80, 100), pygame.SRCALPHA)  #Surface où on va dessiner le robot, et qui permet les déplacements et rotations
         pygame.draw.rect(robot_surface, "black", pygame.Rect(20, 15, 40, 70)) #70 pixels de haut 40 pixel de large et centré sur la surface
-        pygame.draw.line(robot_surface, "red", (50, 0), (50, 15), 2) #ligne pour la direction
-        pygame.draw.line(robot_surface, "red", (50, 0), (45, 5), 2) #coté gauche de la fleche
-        pygame.draw.line(robot_surface, "red", (50, 0), (55, 5), 2) #coté droit de la fleche
+        pygame.draw.line(robot_surface, "red", (40, 0), (40, 15), 2) #ligne pour la direction
+        pygame.draw.line(robot_surface, "red", (40, 0), (45, 5), 2) #coté gauche de la fleche
+        pygame.draw.line(robot_surface, "red", (40, 0), (35, 5), 2) #coté droit de la fleche
+
 
         rotated_robot = pygame.transform.rotate(robot_surface, robot_angle)  #robot tourné avec variable angle
         robot_rect = rotated_robot.get_rect(center=(robot_pos.x, robot_pos.y))
