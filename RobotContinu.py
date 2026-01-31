@@ -1,98 +1,137 @@
 import pygame
 #Vector2 : pour les poisitons : ajouter 50 a x d'une position : pos + pygame.Vector2(50, 0)
-
-while True: #Demande une input pour la vitesse
-    vitesse = input("Choisissez la vitesse (nombre entier) du robot en pixel/s : ")
-    if float(vitesse) % 1 != 0:
-        print("Veuillez entrer un nombre entier")
-    else :
-        vitesse = int(vitesse)
-        break
-
 pygame.init()
 screen = pygame.display.set_mode((1440, 810))  # Taille de la fenetre largeur x hauteur
 pygame.display.set_caption("Simulation Dexter") #Titre de la fenetre
 clock = pygame.time.Clock() #Clock pour les fps
-running = True #pour la boucle infinie
 
-class Robot(object):
-    def __init__(self,nom,speed,x,y):
-        self.nom = nom
-        self.pos = pygame.Vector2(x,y) #position du robot , avec pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2) le robot commence au toujour au centre de la fenetre
-        self.angle = 0 # l'angle 0 va correspondre a vers le haut et pour rappel dans pygame x est vers la droite et y vers le bas comme pour la matrice qu on a fait
-        self.speed = speed
-        self.largeur = 40
-        self.longueur = 70
+def menu():
+    pygame.display.set_caption("Menu")
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1 or event.key == pygame.K_KP1:
+                    simulation()
+                if event.key == pygame.K_2 or event.key == pygame.K_KP2 or event.key == pygame.K_ESCAPE:
+                    quitter()
+        screen.fill("white")
+        font = pygame.font.Font(None, 74)
+        title_text = font.render("Menu", True, "black")
+        screen.blit(title_text, (screen.get_width() // 2 - title_text.get_width() // 2, 100))
 
-    def avancer_reculer(self,dt):
-        if (self.angle == 0):
-            self.pos.y -= self.speed * dt
-        if (self.angle == 90):
-            self.pos.x += self.speed * dt
-        if (self.angle == 180):
-            self.pos.y += self.speed * dt
-        if (self.angle == 270):
-            self.pos.x -= self.speed * dt
+        font = pygame.font.Font(None, 50)
+        option1_text = font.render("1. Lancer la simulation", True, "black")
+        option2_text = font.render("2. Quitter", True, "black")
 
-r = Robot("r2d2",vitesse,screen.get_width() / 2,screen.get_height() / 2) # x et y correspond a sa position de départ, ici c est le centre de la fenetre
-l1 = r.largeur
-l2 = r.longueur
+        screen.blit(option1_text, (screen.get_width() // 2 - option1_text.get_width() // 2, 250))
+        screen.blit(option2_text, (screen.get_width() // 2 - option2_text.get_width() // 2, 350))
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: #fermer la fenetre si on appuie sur la croix
+        pygame.display.flip()
+        clock.tick(60)
+
+def simulation():
+    running = False
+    screen.fill("white")
+    font = pygame.font.Font(None, 74)
+    title_text = font.render("Options de Vitesse", True, "black")
+    screen.blit(title_text, (screen.get_width() // 2 - title_text.get_width() // 2, 100))
+    pygame.display.flip()
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+        vitesse = 5  # Valeur par défaut
+        font = pygame.font.Font(None, 50)
+        option1_text = font.render("Appuyez sur Q pour Vitesse Lente (2 pixels/frame)", True, "black")
+        option2_text = font.render("Appuyez sur S pour Vitesse Moyenne (5 pixels/frame)", True, "black")
+        option3_text = font.render("Appuyez sur D pour Vitesse Rapide (10 pixels/frame)", True, "black")
+        screen.blit(option1_text, (screen.get_width() // 2 - option1_text.get_width() // 2, 200))
+        screen.blit(option2_text, (screen.get_width() // 2 - option2_text.get_width() // 2, 250))
+        screen.blit(option3_text, (screen.get_width() // 2 - option3_text.get_width() // 2, 300))
+        pygame.display.flip()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_q]:
+            vitesse = 2
+        elif keys[pygame.K_s]:
+            vitesse = 5
+        elif keys[pygame.K_d]:
+            vitesse = 10
+        if keys [pygame.K_q] or keys[pygame.K_s] or keys[pygame.K_d]:
+            screen.fill("white")
+            font = pygame.font.Font(None, 50)
+            text = font.render(f"Vitesse définie à {vitesse} pixels par frame", True, "black")
+            screen.blit(text, (screen.get_width() // 2 - text.get_width() // 2, 300))
+            pygame.display.flip()
+            pygame.time.delay(2000)  #Pause de 2 secondes pour montrer la sélection
+            screen.fill("white")
+            text2 = font.render("Lancement de la simulation...", True, "black")
+            text3 = font.render("Contrôles : flèches directionnelles", True, "black")
+            screen.blit(text2, (screen.get_width() // 2 - text2.get_width() // 2, 350))
+            screen.blit(text3, (screen.get_width() // 2 - text3.get_width() // 2, 400))
+            pygame.display.flip()
+            pygame.time.delay(3000)
+            waiting = False
+    
+    if not waiting:
+        running = True #pour la boucle infinie
+        robot_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2) #robot commence au centre de la fenetre
+        robot_angle = 0  #angle pour faire les rotations
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT: #fermer la fenetre si on appuie sur la croix
+                running = False
+        
+        screen.fill("white") #couleur de la fenetre
+
+        robot_surface = pygame.Surface((80, 100), pygame.SRCALPHA)  #Surface où on va dessiner le robot, et qui permet les déplacements et rotations
+        pygame.draw.rect(robot_surface, "black", pygame.Rect(30, 15, 40, 70)) #70 pixels de haut 40 pixel de large et centré sur la surface
+        pygame.draw.line(robot_surface, "red", (50, 0), (50, 15), 2) #ligne pour la direction
+        pygame.draw.line(robot_surface, "red", (50, 0), (45, 5), 2) #coté gauche de la fleche
+        pygame.draw.line(robot_surface, "red", (50, 0), (55, 5), 2) #coté droit de la fleche
+
+        rotated_robot = pygame.transform.rotate(robot_surface, robot_angle)  #robot tourné avec variable angle
+        robot_rect = rotated_robot.get_rect(center=(robot_pos.x, robot_pos.y))
+        screen.blit(rotated_robot, robot_rect.topleft)
+            
+        keys = pygame.key.get_pressed() #inputs
+        dimension = pygame.display.get_window_size() 
+        longueur,largeur = dimension
+
+        if keys[pygame.K_UP] and robot_pos.y > 50:
+            if robot_angle != 0:
+                robot_angle = 0 
+            robot_pos.y -= vitesse
+        if keys[pygame.K_DOWN] and robot_pos.y < largeur - 50:
+            if robot_angle != 180:
+                robot_angle = 180
+            robot_pos.y += vitesse
+        if keys[pygame.K_LEFT] and robot_pos.x > 50:
+            if robot_angle != 90:
+                robot_angle = 90
+            robot_pos.x -= vitesse
+        if keys[pygame.K_RIGHT] and robot_pos.x < longueur - 50:
+            if robot_angle != 270:
+                robot_angle = 270
+            robot_pos.x += vitesse
+        
+        if keys[pygame.K_ESCAPE]:  #Retour au menu principal
             running = False
+            menu()
 
-    screen.fill("white") #couleur de la fenetre
 
-    pygame.draw.rect(screen, "black", pygame.Rect(r.pos.x - l1/2, r.pos.y - l2/2, l1, l2)) #70 pixels de haut 40 pixel de large et centré sur la position de base
+        pygame.display.flip() #met a jour l'ecran
 
-    if (r.angle == 0):
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -r.longueur/2), r.pos + pygame.Vector2(0, -r.longueur/2-15), 2) #ligne pour la direction, 15 la longueur de la fleche
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -r.longueur/2-15), r.pos + pygame.Vector2(-5, -r.longueur/2-10), 2) #coté gauche de la fleche, -5 et +5 pour faire un ligne diagonale entre le bout de la ligne et le bout du coté
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, -r.longueur/2-15), r.pos + pygame.Vector2(5, -r.longueur/2-10), 2) #coté droit de la fleche
-    
-    if (r.angle == 90):
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(r.longueur/2, 0), r.pos + pygame.Vector2(r.longueur/2+15, 0), 2) 
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(r.longueur/2+15, 0), r.pos + pygame.Vector2(r.longueur/2+10, 5), 2)
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(r.longueur/2+15, 0), r.pos + pygame.Vector2(r.longueur/2+10, -5), 2)
+        clock.tick(60) #max fps
+    pygame.quit()
 
-    if (r.angle == 180):
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, r.longueur/2), r.pos + pygame.Vector2(0, r.longueur/2+15), 2) 
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, r.longueur/2+15), r.pos + pygame.Vector2(5, r.longueur/2+10), 2)
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(0, r.longueur/2+15), r.pos + pygame.Vector2(-5, r.longueur/2+10), 2)
+def quitter():
+    pygame.quit()
+    exit()
 
-    if (r.angle == 270):
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(-r.longueur/2, 0), r.pos + pygame.Vector2(-r.longueur/2-15, 0), 2) 
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(-r.longueur/2-15, 0), r.pos + pygame.Vector2(-r.longueur/2-10, -5), 2) 
-        pygame.draw.line(screen, "red", r.pos + pygame.Vector2(-r.longueur/2-15, 0), r.pos + pygame.Vector2(-r.longueur/2-10, 5), 2) 
-    
-    keys = pygame.key.get_pressed()
-    dimension = pygame.display.get_window_size() #Tuple : (longueur,largeur)
-    longueur,largeur = dimension 
-    if keys[pygame.K_z] and r.pos.y > r.longueur/2 :
-        r.angle = 0
-        r.avancer_reculer(dt)
-        l1 = r.largeur
-        l2 = r.longueur
-    if keys[pygame.K_s] and r.pos.y < largeur - r.longueur/2:
-        r.angle = 180
-        r.avancer_reculer(dt)
-        l1 = r.largeur
-        l2 = r.longueur
-    if keys[pygame.K_q] and r.pos.x > r.longueur/2:
-        r.angle = 270
-        r.avancer_reculer(dt)
-        l1 = r.longueur
-        l2 = r.largeur
-    if keys[pygame.K_d] and r.pos.x < longueur - r.longueur/2:
-        r.angle = 90
-        r.avancer_reculer(dt)
-        l1 = r.longueur
-        l2 = r.largeur
-
-    pygame.display.flip() #met a jour l'ecran
-
-    dt = clock.tick(60)/1000 #max fps convertit pour que se soit par seconde avec la division
-
-pygame.quit()
+menu()
