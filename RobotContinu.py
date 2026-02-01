@@ -85,9 +85,17 @@ def simulation():
         screen.fill("white")
         font = pygame.font.Font(None, 50)
         text2 = font.render("Lancement de la simulation...", True, "black")
-        text3 = font.render("Contrôles : flèches directionnelles", True, "black")
-        screen.blit(text2, (screen.get_width() // 2 - text2.get_width() // 2, 350))
-        screen.blit(text3, (screen.get_width() // 2 - text3.get_width() // 2, 400))
+        text3 = font.render("Contrôles : ", True, "black")
+        text_controle_haut = font.render("Z ou Flèche haut : Haut", True, "black")
+        text_controle_gauche = font.render("Q ou Flèche gauche : Gauche", True, "black")
+        text_controle_bas = font.render("S ou Flèche bas : Bas", True, "black")
+        text_controle_droite = font.render("D ou Flèche droite : Droite", True, "black")
+        screen.blit(text2, (screen.get_width() // 2 - text2.get_width() // 2, 150))
+        screen.blit(text3, (screen.get_width() // 2 - text3.get_width() // 2, 200))
+        screen.blit(text_controle_haut, (screen.get_width() // 2 - text3.get_width() // 2 - 100, 250))
+        screen.blit(text_controle_gauche, (screen.get_width() // 2 - text3.get_width() // 2 - 150, 300))
+        screen.blit(text_controle_bas, (screen.get_width() // 2 - text3.get_width() // 2 - 80 , 350))
+        screen.blit(text_controle_droite, (screen.get_width() // 2 - text3.get_width() // 2 - 120, 400))
         pygame.display.flip()
         pygame.time.delay(3000)  # Pause de 3 secondes pour montrer la sélection
         waiting = False
@@ -116,7 +124,7 @@ def simulation():
         rotated_robot = pygame.transform.rotate(robot_surface, robot_angle)  #robot tourné avec variable angle
         robot_rect = rotated_robot.get_rect(center=(robot_pos.x, robot_pos.y))
         screen.blit(rotated_robot, robot_rect.topleft)
-            
+                
         keys = pygame.key.get_pressed() #inputs
         dimension = pygame.display.get_window_size() 
         longueur,largeur = dimension
