@@ -1,0 +1,14 @@
+Compte rendu de la 3ème séance (4 février)
+
+Participants : Thomas COIPEL, Clément DAI, Martial WANG, Matteo ZHOU, Beyza AKKOYUN.
+
+Objectif pour la semaine prochaine : Tracer un carré, avancer jusqu'à un obstacle et modifier les codes pygames en format python.
+
+Afin de suivre les conseils de notre chargé de TD, nous avons décidé de changer nos codes trop dépendants de la librairie pygame
+par des programmes python qui permettent au robot de se mouvoir indépendamment des fonctions implémentées dans pygame.
+Nous garderons néanmoins l'affichage du modèle sur pygame.
+
+La 2nde discussion avec nos chargés nous a ensuite mené vers la réalisation des 2 premiers objectifs du projet c'est-à-dire
+s'arrêter à un obstacle et tracer un carré.
+
+Après le TME, nous avons décidé de faire une réunion dans le but de clarifier les différentes fonctions (signatures, modélisation...) de nos programmes.
