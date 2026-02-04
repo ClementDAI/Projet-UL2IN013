@@ -1,4 +1,4 @@
-class obstacle(objet):
+class obstacle(object):
 
     def __init__(self,longueur,largeur): #obstacle de forme rectangulaire centré x,y
         self.x = x #coordoné x du centre du centre de l obstacle
