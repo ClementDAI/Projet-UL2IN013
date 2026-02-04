@@ -4,7 +4,10 @@ pygame.init()
 screen = pygame.display.set_mode((1440, 810))  # Taille de la fenetre largeur x hauteur
 pygame.display.set_caption("Simulation Dexter") #Titre de la fenetre
 clock = pygame.time.Clock() #Clock pour les fps
-vitesse = 100 #vitesse de base
+global vitesse 
+global maxvitesse
+acceleration = 100
+maxvitesse = 100 #vitesse max de base
 
 def menu():
     pygame.display.set_caption("Menu")
@@ -38,12 +41,12 @@ def menu():
         clock.tick(60)
 
 def option():
+    global maxvitesse
     screen.fill("white")
     font = pygame.font.Font(None, 74)
     title_text = font.render("Options de Vitesse", True, "black")
     screen.blit(title_text, (screen.get_width() // 2 - title_text.get_width() // 2, 100))
     pygame.display.flip()
-    global vitesse
     boucle = True
     while boucle:
         for event in pygame.event.get():
@@ -60,21 +63,22 @@ def option():
         pygame.display.flip()
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            vitesse = 100
+            maxvitesse = 100
         elif keys[pygame.K_s]:
-            vitesse = 200
+            maxvitesse = 200
         elif keys[pygame.K_d]:
-            vitesse = 400
+            maxvitesse = 400
         if keys [pygame.K_q] or keys[pygame.K_s] or keys[pygame.K_d]:
             screen.fill("white")
             font = pygame.font.Font(None, 50)
-            text = font.render(f"Vitesse définie à {vitesse} pixels par frame", True, "black")
+            text = font.render(f"Vitesse Max définie à {maxvitesse} pixels par frame", True, "black")
             screen.blit(text, (screen.get_width() // 2 - text.get_width() // 2, 300))
             pygame.display.flip()
             pygame.time.delay(2000)  #Pause de 2 secondes pour montrer la sélection
             boucle = False
 
 def simulation():
+    vitesse = 0
     font = pygame.font.Font(None, 74)
     waiting = True
     while waiting:
@@ -97,7 +101,7 @@ def simulation():
         screen.blit(text_controle_bas, (screen.get_width() // 2 - text3.get_width() // 2 - 80 , 350))
         screen.blit(text_controle_droite, (screen.get_width() // 2 - text3.get_width() // 2 - 120, 400))
         pygame.display.flip()
-        pygame.time.delay(3000)  # Pause de 3 secondes pour montrer la sélection
+        pygame.time.delay(1000)  # Pause de 3 secondes pour montrer la sélection
         waiting = False
 
     if not waiting:
@@ -120,6 +124,8 @@ def simulation():
         font = pygame.font.Font(None, 30)
         menu_text = font.render("Menu : Echap", True, "black")
         screen.blit(menu_text, (10, 0))
+        vit_text = font.render(f"vitesse : {int(vitesse)}" , True, "black")
+        screen.blit(vit_text, (1200, 0))
 
         rotated_robot = pygame.transform.rotate(robot_surface, robot_angle)  #robot tourné avec variable angle
         robot_rect = rotated_robot.get_rect(center=(robot_pos.x, robot_pos.y))
@@ -128,24 +134,36 @@ def simulation():
         keys = pygame.key.get_pressed() #inputs
         dimension = pygame.display.get_window_size() 
         longueur,largeur = dimension
-
+        
         if (keys[pygame.K_UP] or keys[pygame.K_z]) and robot_pos.y > 40:
+            if vitesse < maxvitesse:
+                vitesse += acceleration * dt
             if robot_angle != 0:
                 robot_angle = 0 
             robot_pos.y -= vitesse * dt
-        if (keys[pygame.K_DOWN] or keys[pygame.K_s]) and robot_pos.y < largeur - 40:
+        elif (keys[pygame.K_DOWN] or keys[pygame.K_s]) and robot_pos.y < largeur - 40:
+            if vitesse < maxvitesse:
+                vitesse += acceleration * dt
             if robot_angle != 180:
                 robot_angle = 180
             robot_pos.y += vitesse * dt
-        if (keys[pygame.K_LEFT] or keys[pygame.K_q]) and robot_pos.x > 40:
+        elif (keys[pygame.K_LEFT] or keys[pygame.K_q]) and robot_pos.x > 40:
+            if vitesse < maxvitesse:
+                vitesse += acceleration * dt
             if robot_angle != 90:
                 robot_angle = 90
             robot_pos.x -= vitesse * dt
-        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and robot_pos.x < longueur - 40:
+        elif (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and robot_pos.x < longueur - 40:
+            if vitesse < maxvitesse:
+                vitesse += acceleration * dt
             if robot_angle != 270:
                 robot_angle = 270
             robot_pos.x += vitesse * dt
         
+        else:
+            vitesse=0
+
+
         if keys[pygame.K_ESCAPE]:  #Retour au menu principal
             running = False
             menu()
