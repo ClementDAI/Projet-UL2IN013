@@ -8,6 +8,11 @@ class robot(object):
         self.longueur = longueur #valeur de sa longueur sur y
         self.largeur = largeur #valeur de sa largeur sur x
     
+
+    
     def getPosition(self):
         return self.x,self.y #renvoie le x et y du robot
+    
+    def tourner(self, angle): #Angle négatif ou positif
+        self.angle += angle % 360 
     
