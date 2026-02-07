@@ -9,15 +9,22 @@ Piece = salle(10,10)
 Piece.ajoutObstacle(obstacle(2,2,1,1))
 Piece.ajoutObstacle(obstacle(5,5,1,1))
 print(Piece.ListeObstacle[0].x)
-print("dexter avance de 5 pixels vers le haut")
+print("dexter va faire un carré de 5 par 5")
 for i in range(5):
     dexter.avancer()
-    print(dexter.getPosition())
-print("dexter tourne de 90° vers la droite et avance de 5 pixels")
+print(dexter.getPosition())
 dexter.tourner(90)
 for i in range(5):
     dexter.avancer()
-    print(dexter.getPosition())
+print(dexter.getPosition())
+dexter.tourner(90)
+for i in range(5):
+    dexter.avancer()
+print(dexter.getPosition())
+dexter.tourner(90)
+for i in range(5):
+    dexter.avancer()
+print(dexter.getPosition())
 
 def collision(rob, salle):
     """
