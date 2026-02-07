@@ -38,7 +38,7 @@ def collision(rob, salle):
     """
 
     coinHG = np.array([(rob.x - (rob.largeur / 2)), (rob.y + (rob.longueur / 2))]) # problème sur le calcul des coordonnées dans le cas où le robot est incliné
-    coinHD = np.array([(rob.x + (rob.largeur / 2)), (rob.y + (rob.longueur / 2))])
+    coinHD = np.array([(rob.x + (rob.largeur / 2)), (rob.y + (rob.longueur / 2))]) # Il faut trouver un moyen de calculer les coins peu importe l'inclinaison
     coinBG = np.array([(rob.x - (rob.largeur / 2)), (rob.y - (rob.longueur / 2))])
     coinBD = np.array([(rob.x + (rob.largeur / 2)), (rob.y - (rob.longueur / 2))])
     cote_robot = [(coinHG, coinHD), (coinBG, coinBD), (coinBG, coinHG), (coinBD, coinHD)]
@@ -51,6 +51,19 @@ def collision(rob, salle):
         coinObsBG = np.array([(xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2))])
         coinObsBD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle - (longueurObstacle / 2))])
         cote_obs = [(coinObsHG, coinObsHD), (coinObsBG, coinObsBD), (coinObsBG, coinObsHG), (coinObsBD, coinObsHD)]
-    
+        for point1_rob, point2_rob in cote_robot:
+            for point1_obs, point2_obs in cote_obs: 
+                vect_rob = point2_rob - point1_rob
+                vect_obs = point2_obs - point1_obs
 
-collision(dexter, Piece)
+                prod_vec1 = np.cross(vect_rob, point1_obs - point1_rob)
+                prod_vec2 = np.cross(vect_rob, point2_obs - point1_rob)
+                prod_vec3 = np.cross(vect_obs, point1_rob - point1_obs)
+                prod_vec4 = np.cross(vect_obs, point2_rob - point1_obs)
+
+                if (prod_vec1 * prod_vec2) < 0 and (prod_vec3 * prod_vec4) < 0: 
+                    return True
+        
+        return False
+
+print(collision(dexter, Piece))
