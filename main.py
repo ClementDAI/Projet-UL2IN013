@@ -17,18 +17,16 @@ def collision(rob, salle):
     Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
     """
 
-    coinHG_x, coinHG_y = ((rob.x - (rob.largeur / 2)), (rob.y + (rob.longueur / 2)))
-    coinHD_x, coinHD_y = ((rob.x + (rob.largeur / 2)), (rob.y + (rob.longueur / 2)))
-    coinBG_x, coinBG_y = ((rob.x - (rob.largeur / 2)), (rob.y - (rob.longueur / 2)))
-    coinBD_x, coinBD_y = ((rob.x + (rob.largeur / 2)), (rob.y - (rob.longueur / 2)))
-    for i in salle.ListeObstacle:
-        xObstacle, yObstacle = i.x, i.y
-        largeurObstacle = i.largeur
-        longueurObstacle = i.longueur
-        coinObstacleHG_x, coinObstacleHG_y = ((xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2)))
-        coinObstacleHD_x, coinObstacleHD_y = ((xObstacle + (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2)))
-        coinObstacleBG_x, coinObstacleBG_y = ((xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2)))
-        coinObstacleBD_x, coinObstacleBD_y = ((xObstacle + (largeurObstacle / 2)), (yObstacle - (longueurObstacle / 2)))
+    Robx_min = (rob.x - rob.largeur / 2)
+    Robx_max = (rob.x + rob.largeur / 2)
+    Roby_min = (rob.y - rob.longueur / 2)
+    Roby_max = (rob.y + rob.longueur / 2)
+    for obs in salle.ListeObstacle:
+        Obsx_min = (obs.x - obs.largeur / 2)
+        Obsx_max = (obs.x + obs.largeur / 2)
+        Obsy_min = (obs.y - obs.longueur / 2)
+        Obsy_max = (obs.y + obs.longueur / 2)
+
     
 
 collision(dexter, Piece)
