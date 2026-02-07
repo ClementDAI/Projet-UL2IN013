@@ -1,3 +1,5 @@
+import math
+
 class robot(object):
 
     def __init__(self,x,y,vitesse,angle,longueur,largeur):
@@ -16,3 +18,13 @@ class robot(object):
     def tourner(self, angle): #Angle négatif ou positif
         self.angle += angle % 360 
     
+    def avancer(self):
+        """
+        fonction avancer
+        fait avancer le robot de 1 pixel dans la direction de son angle
+        aucun paramètre
+        """
+        self.x += 1* math.sin(math.radians(self.angle))
+        self.y -= 1 * math.cos(math.radians(self.angle))
+        self.x = round(self.x, 2) #arrondi pour eviter les problemes de précision avec les floats
+        self.y = round(self.y, 2)
