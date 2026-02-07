@@ -21,6 +21,14 @@ def collision(rob, salle):
     coinHD_x, coinHD_y = ((rob.x + (rob.largeur / 2)), (rob.y + (rob.longueur / 2)))
     coinBG_x, coinBG_y = ((rob.x - (rob.largeur / 2)), (rob.y - (rob.longueur / 2)))
     coinBD_x, coinBD_y = ((rob.x + (rob.largeur / 2)), (rob.y - (rob.longueur / 2)))
+    for i in salle.ListeObstacle:
+        xObstacle, yObstacle = i.x, i.y
+        largeurObstacle = i.largeur
+        longueurObstacle = i.longueur
+        coinObstacleHG_x, coinObstacleHG_y = ((xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2)))
+        coinObstacleHD_x, coinObstacleHD_y = ((xObstacle + (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2)))
+        coinObstacleBG_x, coinObstacleBG_y = ((xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2)))
+        coinObstacleBD_x, coinObstacleBD_y = ((xObstacle + (largeurObstacle / 2)), (yObstacle - (longueurObstacle / 2)))
     
 
 collision(dexter, Piece)
