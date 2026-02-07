@@ -3,10 +3,12 @@ import math
 class robot(object):
 
     def __init__(self,x,y,vitesse,angle,longueur,largeur):
-        self.x = x #coordoné x du centre du robot
-        self.y = y #coordoné y du centre du robot
+        """Attention : si x augmente alors déplacement vers la droite, vers la gauche sinon
+                        si y augmente alors déplacement vers le BAS, vers le HAUT sinon"""
+        self.x = x #coordonné x du centre du robot
+        self.y = y #coordonné y du centre du robot
         self.vitesse = vitesse #vitesse en pixel par seconde
-        self.angle = angle #angle positif en degré dont son orientation initial est 0 (vers le haut)
+        self.angle = angle #angle positif ou négatif en degré dont son orientation initial est 0 (vers le haut)
         self.longueur = longueur #valeur de sa longueur sur y
         self.largeur = largeur #valeur de sa largeur sur x
     
@@ -20,9 +22,19 @@ class robot(object):
         self.angle += angle
     
     def rotation (self, x_cible, y_cible):
-        """Fait une rotation du robot vers une direction cible (x_cible,y_cible)"""
-        self.angle = (math.degrees(math.atan2(y_cible-self.y,x_cible-self.x)) + 90)% 360
-    
+        """Met à jour l'angle du robot vers une direction cible (x_cible,y_cible)"""
+        xVecteur1,yVecteur1 = (x_cible - self.x, self.y - y_cible) #Vecteur dirigé vers le x et y voulu. 
+        xVecteur2,yVecteur2 = (math.sin(math.radians(self.angle)) * 1, math.cos(math.radians(self.angle)) * 1) #Vecteur unitaire dirigé par son angle
+        norme1 = math.sqrt(xVecteur1**2 + yVecteur1**2)
+        norme2 = 1
+        PrScalaire = xVecteur1 * xVecteur2 + yVecteur1 * yVecteur2 # Produit Scalaire entre les 2 vecteurs
+        theta = math.degrees(math.acos(PrScalaire / (norme1 * norme2))) # theta(u,v) = arccos(PrScalaire(u,v) / norme(u) * norme(v))
+        PrVectoriel = xVecteur1 * yVecteur2 - xVecteur2 * yVecteur1
+        if PrVectoriel < 0:
+            theta = -theta
+        self.angle+= theta 
+        
+
     def avancer(self):
         """
         fonction avancer
