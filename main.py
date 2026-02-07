@@ -26,6 +26,9 @@ dexter.tourner(90)
 for i in range(5):
     dexter.avancer()
 print(dexter.getPosition())
+print("dexter va aller a la position (2,2) ou il y a un obstacle") #vous pourrez tester collision ici pour voir si le robot est bloqué ou pas
+dexter.aller_a(2,2)
+print(dexter.getPosition())
 
 def collision(rob, salle):
     """

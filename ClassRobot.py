@@ -28,3 +28,19 @@ class robot(object):
         self.y -= 1 * math.cos(math.radians(self.angle))
         self.x = round(self.x, 2) #arrondi pour eviter les problemes de précision avec les floats
         self.y = round(self.y, 2)
+    
+    def aller_a(self, x, y):
+        """
+        fonction aller_a
+        fait avancer le robot jusqua la position (x,y)passée en paramètre
+        """
+        distance = math.sqrt((x - self.x)**2 + (y - self.y)**2) #pythagore
+        while distance > 1: #pas egalité a cause des floats et arrondis
+            anglerad = math.atan2(y - self.y, x - self.x) #angle en radiant entre position actuelle et position cible
+            angle2 = math.degrees(anglerad) + 90  # +90 parce que l'angle 0 c'est vers le haut et pas vers la droite
+            angle2 = angle2 % 360
+            self.angle = angle2 #on utilise pas tourner parce quon tourne qu'une seule fois vers la cible pas progressivement
+            self.avancer()
+            distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)  # Recalculer la distance
+        self.x = round(x, 2) #pour eviter que le robot soit a 0.99/1.01 de la cible a cause des floats
+        self.y = round(y, 2)
