@@ -1,6 +1,7 @@
 from ClassRobot import robot
 from ClassObstacle import obstacle
 from ClassSalle import salle
+import numpy as np
 
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
 dexter = robot(10,5,0,0,5,10)
@@ -33,18 +34,20 @@ def collision(rob, salle):
     Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
     """
 
-    Robx_min = (rob.x - rob.largeur / 2)
-    Robx_max = (rob.x + rob.largeur / 2)
-    Roby_min = (rob.y - rob.longueur / 2)
-    Roby_max = (rob.y + rob.longueur / 2)
-    for obs in salle.ListeObstacle:
-        Obsx_min = (obs.x - obs.largeur / 2)
-        Obsx_max = (obs.x + obs.largeur / 2)
-        Obsy_min = (obs.y - obs.longueur / 2)
-        Obsy_max = (obs.y + obs.longueur / 2)
-        if not(Robx_max <= Obsx_min or Robx_min >= Obsx_max or Roby_max <= Obsy_min or Roby_min >= Obsy_max): # la fonction collision fonctionne uniquement si le robot a une direction vers le haut ou le bas
-            return True
-    return False
+    coinHG = np.array([(rob.x - (rob.largeur / 2)), (rob.y + (rob.longueur / 2))]) # problème sur le calcul des coordonnées dans le cas où le robot est incliné
+    coinHD = np.array([(rob.x + (rob.largeur / 2)), (rob.y + (rob.longueur / 2))])
+    coinBG = np.array([(rob.x - (rob.largeur / 2)), (rob.y - (rob.longueur / 2))])
+    coinBD = np.array([(rob.x + (rob.largeur / 2)), (rob.y - (rob.longueur / 2))])
+    cote_robot = [(coinHG, coinHD), (coinBG, coinBD), (coinBG, coinHG), (coinBD, coinHD)]
+    for i in salle.ListeObstacle:
+        xObstacle, yObstacle = i.x, i.y
+        largeurObstacle = i.largeur
+        longueurObstacle = i.longueur
+        coinObsHG = np.array([(xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))])
+        coinObsHD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))])
+        coinObsBG = np.array([(xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2))])
+        coinObsBD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle - (longueurObstacle / 2))])
+        cote_obs = [(coinObsHG, coinObsHD), (coinObsBG, coinObsBD), (coinObsBG, coinObsHG), (coinObsBD, coinObsHD)]
     
 
 collision(dexter, Piece)
