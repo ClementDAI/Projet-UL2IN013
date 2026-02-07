@@ -6,7 +6,7 @@ class robot(object):
         self.x = x #coordoné x du centre du robot
         self.y = y #coordoné y du centre du robot
         self.vitesse = vitesse #vitesse en pixel par seconde
-        self.angle = angle #angle en degrés de son orientation avec l'angle a 0
+        self.angle = angle #angle positif en degré dont son orientation initial est 0 (vers le haut)
         self.longueur = longueur #valeur de sa longueur sur y
         self.largeur = largeur #valeur de sa largeur sur x
     
@@ -15,8 +15,26 @@ class robot(object):
     def getPosition(self):
         return self.x,self.y #renvoie le x et y du robot
     
-    def tourner(self, angle): #Angle négatif ou positif
-        self.angle += angle % 360 
+    def tourner(self, x_cible, y_cible):
+        """Fait tourner le robot vers une direction cible (x_cible,y_cible)"""
+        xVecteur1,yVecteur1 = (x_cible-self.x, y_cible-self.y) #Vecteur vers la direction cible
+
+        #Calcul de x et y du vecteur qui a pour direction self.angle 
+        #On considère la norme du vecteur de la direction du robot à 1
+        #Attention sur repère orthonormé 
+        if self.angle >= 0 and self.angle <=90:
+            xVecteur2, yVecteur2 = (math.cos(90-self.angle) * 1, math.cos(self.angle) *1),   #Trigonométrie
+        elif self.angle >= 90 and self.angle <=180:
+            xVecteur2, yVecteur2 = (math.cos(self.angle-90) * 1, -math.cos(180-self.angle) *1)
+        elif self.angle >= 180 and self.angle <=270:
+            xVecteur2, yVecteur2 = (-math.cos(270-self.angle) * 1, -math.cos(self.angle-180) *1)
+        elif self.angle >= 270 and self.angle <=360:
+            xVecteur2, yVecteur2 = (-math.cos(self.angle-270) * 1, cos(360-self.angle) *1)
+
+
+        prScalaire = xVecteur1*xVecteur2 + yVecteur1*yVecteur2
+        theta = math.acos(prScalaire/1*math.sqrt(xVecteur1**2+yVecteur1**2)%360
+        self.angle+=theta
     
     def avancer(self):
         """
