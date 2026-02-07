@@ -26,7 +26,9 @@ def collision(rob, salle):
         Obsx_max = (obs.x + obs.largeur / 2)
         Obsy_min = (obs.y - obs.longueur / 2)
         Obsy_max = (obs.y + obs.longueur / 2)
-
+        if not(Robx_max <= Obsx_min or Robx_min >= Obsx_max or Roby_max <= Obsy_min or Roby_min >= Obsy_max): # la fonction collision fonctionne uniquement si le robot a une direction vers le haut ou le bas
+            return True
+    return False
     
 
 collision(dexter, Piece)
