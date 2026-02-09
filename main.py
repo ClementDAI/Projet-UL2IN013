@@ -2,33 +2,14 @@ from ClassRobot import robot
 from ClassObstacle import obstacle
 from ClassSalle import salle
 import numpy as np
+import pygame
 
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
-dexter = robot(10,5,0,0,5,10)
-print(dexter.getPosition())
+
 Piece = salle(10,10)
 Piece.ajoutObstacle(obstacle(2,2,1,1))
 Piece.ajoutObstacle(obstacle(4,5,2,2))
 print(Piece.ListeObstacle[0].x)
-print("dexter va faire un carré de 5 par 5")
-for i in range(5):
-    dexter.avancer()
-print(dexter.getPosition())
-dexter.tourner(90)
-for i in range(5):
-    dexter.avancer()
-print(dexter.getPosition())
-dexter.tourner(90)
-for i in range(5):
-    dexter.avancer()
-print(dexter.getPosition())
-dexter.tourner(90)
-for i in range(5):
-    dexter.avancer()
-print(dexter.getPosition())
-print("dexter va aller a la position (2,2) ou il y a un obstacle") #vous pourrez tester collision ici pour voir si le robot est bloqué ou pas
-dexter.aller_a(2,2)
-print(dexter.getPosition())
 
 def collision(rob, salle):
     """
@@ -81,4 +62,46 @@ def collision(rob, salle):
     
     return False
 
-print(collision(dexter, Piece))
+def menu():
+    print("Menu simulation :")
+    print("1 : test via terminal")
+    print("2 : test via interface graphique")
+    choix = input("Entrez votre choix : ")
+    if choix == "1":
+        print("Test via terminal")
+        test_terminal()
+    elif choix == "2":
+        print("Test via interface graphique")
+        test_pygame()
+    else:
+        print("Choix invalide, choissisez 1 ou 2")
+        menu()
+
+def test_terminal():
+    c = 10 #taille du carré
+    (x,y) = (5,5) #destination du robot
+    print("Test de la classe robot :")
+    dexter = robot(10,5,0,0,5,10)
+    print("position initiale de dexter :" + str(dexter.getPosition()))
+    print("dexter va faire un carré de {c} par {c}".format(c=c))
+    for i in range(c):
+        dexter.avancer()
+    print("Dexter est en " + str(dexter.getPosition()))
+    dexter.tourner(90)
+    for i in range(c):
+        dexter.avancer()
+    print("Dexter est en " + str(dexter.getPosition()))
+    dexter.tourner(90)
+    for i in range(c):
+        dexter.avancer()
+    print("Dexter est en " + str(dexter.getPosition()))
+    dexter.tourner(90)
+    for i in range(c):
+        dexter.avancer()
+    print("Dexter est en " + str(dexter.getPosition()))
+    print("dexter va aller a la position (2,2) où il y a un obstacle") #vous pourrez tester collision ici pour voir si le robot est bloqué ou pas
+    dexter.aller_a(2,2)
+    print("dexter va aller vers vers la position définie par l'utilisateur")
+    dexter.aller_a(x,y)
+    print("position finale de dexter :"+ str(dexter.getPosition()))
+
