@@ -105,3 +105,43 @@ def test_terminal():
     dexter.aller_a(x,y)
     print("position finale de dexter :"+ str(dexter.getPosition()))
 
+def test_pygame():
+    pygame.init()
+    longueur_salle = 970
+    largeur_salle = 600
+    screen = pygame.display.set_mode((longueur_salle, largeur_salle))
+    pygame.display.set_caption("Simulation de robot")
+    clock = pygame.time.Clock()
+    SCALE = 40 # Échelle pour convertir les coordonnées de la salle en pixels
+    OFFSET_X = 50
+    OFFSET_Y = 50
+    xd = longueur_salle/2
+    yd = largeur_salle/2
+    longueur_robot = 40
+    largeur_robot = 20
+    dexter = robot(xd, yd, 0, 0, longueur_robot, largeur_robot)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill((255, 255, 255))#fond
+
+        #obstacles
+        for obs in Piece.ListeObstacle:
+            obs_x = OFFSET_X + obs.x * SCALE
+            obs_y = OFFSET_Y + obs.y * SCALE
+            obs_largeur = obs.largeur * SCALE
+            obs_longueur = obs.longueur * SCALE
+            pygame.draw.rect(screen, "red", (obs_x - obs_largeur/2, obs_y - obs_longueur/2, obs_largeur, obs_longueur))
+            #centre utilisé pour début a commenter apres
+            pygame.draw.circle(screen, "black", (int(obs_x), int(obs_y)), 3)
+        
+        #robot
+        pygame.draw.rect(screen, "black", (dexter.x - dexter.largeur / 2, dexter.y - dexter.longueur / 2, dexter.largeur, dexter.longueur))
+
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+menu()
