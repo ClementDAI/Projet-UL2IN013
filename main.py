@@ -19,16 +19,24 @@ def collision(rob, salle):
     Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
     """
 
-    coinHG = np.array([(rob.x - (rob.largeur / 2)), (rob.y + (rob.longueur / 2))]) # problème sur le calcul des coordonnées dans le cas où le robot est incliné
-    coinHD = np.array([(rob.x + (rob.largeur / 2)), (rob.y + (rob.longueur / 2))]) # Il faut trouver un moyen de calculer les coins peu importe l'inclinaison
-    coinBG = np.array([(rob.x - (rob.largeur / 2)), (rob.y - (rob.longueur / 2))])
-    coinBD = np.array([(rob.x + (rob.largeur / 2)), (rob.y - (rob.longueur / 2))])
+    angle = np.deg2rad(rob.angle - 90)
+    cos = np.cos(angle)
+    sin = np.sin(angle)
+    larg = rob.largeur / 2
+    long = rob.longuer / 2
+    
+    coinHG = np.array([(rob.x - (larg * cos) - (long * sin)), (rob.y - (larg * sin) + (long * cos))]) # calcul des coins du robots
+    coinHD = np.array([(rob.x + (larg * cos) - (long * sin)), (rob.y + (larg * sin) + (long * cos))]) 
+    coinBG = np.array([(rob.x - (larg * cos) + (long * sin)), (rob.y - (larg * sin) - (long * cos))])
+    coinBD = np.array([(rob.x + (larg * cos) + (long * sin)), (rob.y + (larg * sin) - (long * cos))])
+
     cote_robot = [(coinHG, coinHD), (coinBG, coinBD), (coinBG, coinHG), (coinBD, coinHD)]
+
     for i in salle.ListeObstacle:
         xObstacle, yObstacle = i.x, i.y
         largeurObstacle = i.largeur
         longueurObstacle = i.longueur
-        coinObsHG = np.array([(xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))])
+        coinObsHG = np.array([(xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))]) # calculs des coins de l'obstacle
         coinObsHD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))])
         coinObsBG = np.array([(xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2))])
         coinObsBD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle - (longueurObstacle / 2))])
@@ -38,7 +46,7 @@ def collision(rob, salle):
                 vect_rob = point2_rob - point1_rob
                 vect_obs = point2_obs - point1_obs
 
-                prod_vec1 = np.cross(vect_rob, point1_obs - point1_rob)
+                prod_vec1 = np.cross(vect_rob, point1_obs - point1_rob) # calcul des produits vectoriels entre les cotés du robots et celle de l'obstacle pour détecter la collision
                 prod_vec2 = np.cross(vect_rob, point2_obs - point1_rob)
                 prod_vec3 = np.cross(vect_obs, point1_rob - point1_obs)
                 prod_vec4 = np.cross(vect_obs, point2_rob - point1_obs)
