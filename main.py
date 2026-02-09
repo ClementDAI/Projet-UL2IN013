@@ -8,7 +8,7 @@ dexter = robot(10,5,0,0,5,10)
 print(dexter.getPosition())
 Piece = salle(10,10)
 Piece.ajoutObstacle(obstacle(2,2,1,1))
-Piece.ajoutObstacle(obstacle(5,5,1,1))
+Piece.ajoutObstacle(obstacle(4,5,2,2))
 print(Piece.ListeObstacle[0].x)
 print("dexter va faire un carré de 5 par 5")
 for i in range(5):
@@ -63,7 +63,22 @@ def collision(rob, salle):
 
                 if (prod_vec1 * prod_vec2) < 0 and (prod_vec3 * prod_vec4) < 0: 
                     return True
-        
-        return False
+                
+    cote_salle = [(np.array([0, 0]), np.array([salle.dimensionX, 0])), (np.array([0, salle.dimensionY]), np.array([salle.dimensionX, salle.dimensionY])), (np.array([0, salle.dimensionY]), np.array([0, 0])), (np.array([salle.dimensionX, salle.dimensionY]), np.array([salle.dimensionX, 0]))]
+    
+    for point1_rob, point2_rob in cote_robot: # collision avec la salle
+        for point1_salle, point2_salle in cote_salle: 
+            vect_rob = point2_rob - point1_rob
+            vect_salle = point2_salle - point1_salle
+
+            prod_vec1 = np.cross(vect_rob, point1_salle - point1_rob)
+            prod_vec2 = np.cross(vect_rob, point2_salle - point1_rob)
+            prod_vec3 = np.cross(vect_salle, point1_rob - point1_salle)
+            prod_vec4 = np.cross(vect_salle, point2_rob - point1_salle)
+
+            if (prod_vec1 * prod_vec2) < 0 and (prod_vec3 * prod_vec4) < 0: 
+                return True
+    
+    return False
 
 print(collision(dexter, Piece))
