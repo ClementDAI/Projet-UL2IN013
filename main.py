@@ -163,7 +163,7 @@ def test_terminal():
     print("Dexter est en " + str(dexter.getPosition()))
     print("dexter va aller a la position (2,2) où il y a un obstacle") #vous pourrez tester collision ici pour voir si le robot est bloqué ou pas
     dexter.aller_a(2,2)
-    print("dexter va aller vers vers la position définie par l'utilisateur")
+    print("dexter va aller vers la position définie par l'utilisateur")
     dexter.aller_a(x,y)
     print("position finale de dexter :"+ str(dexter.getPosition()))
 
@@ -184,6 +184,9 @@ def test_pygame():
     dexter = robot(xd, yd, 0, 0, longueur_robot, largeur_robot)
     running = True
     commande_actuelle= "menu"
+    mode_deplacement = False
+    cible_x = 0
+    cible_y = 0
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -201,31 +204,25 @@ def test_pygame():
             carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c)
             commande_actuelle="menu"
         
-        if keys[pygame.K_a]:
+        if keys[pygame.K_a] and not mode_deplacement:
             print("utilisation de la commande a")
             try:
-                x = float(input("Entrez la coordonnée x de destination (unités) : "))
-                y = float(input("Entrez la coordonnée y de destination (unités) : "))
-            except ValueError:
+                cible_x = float(input("Entrez X de la destination : "))
+                cible_y = float(input("Entrez Y de la destination : "))
+                mode_deplacement = True
+                commande_actuelle = "a"
+            except:
                 print("Veuillez entrer des nombres valides.")
+        if mode_deplacement:
+            distance = math.sqrt((cible_x - dexter.x)**2 + (cible_y - dexter.y)**2)
+            if distance > 1:
+                dexter.rotation(cible_x, cible_y)
+                dexter.avancer()
             else:
-                # Animer le mouvement pas à pas
-                distance = math.sqrt((x - dexter.x)**2 + (y - dexter.y)**2)
-                while distance > 1:
-                    dexter.rotation(x, y)
-                    dexter.avancer()
-                    affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
-                    afficher_le_texte(screen, 'a')
-                    pygame.display.flip()
-                    clock.tick(30)  # Ralenti pour mieux voir
-                    distance = math.sqrt((x - dexter.x)**2 + (y - dexter.y)**2)
-                dexter.x = round(x, 2)
-                dexter.y = round(y, 2)
-                commande_actuelle="menu"
-                affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
-                afficher_le_texte(screen,commande_actuelle)
-                pygame.display.flip()
-            
+                dexter.x = round(cible_x, 2)
+                dexter.y = round(cible_y, 2)
+                mode_deplacement = False
+                commande_actuelle = "menu"
         pygame.display.flip()
         clock.tick(60)
     pygame.quit()
