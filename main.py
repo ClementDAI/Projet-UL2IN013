@@ -8,10 +8,13 @@ import math
 
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
 
-Piece = salle(10,10)
+Piece = salle(21.5,12.5)
 Piece.ajoutObstacle(obstacle(2,2,1,1))
-Piece.ajoutObstacle(obstacle(4,5,2,2))
+Piece.ajoutObstacle(obstacle(15,6,2,2))
 print(Piece.ListeObstacle[0].x)
+
+def cross2D(a, b):
+    return a[0]*b[1] - a[1]*b[0]
 
 def collision(rob, salle):
     """
@@ -47,10 +50,10 @@ def collision(rob, salle):
                 vect_rob = point2_rob - point1_rob
                 vect_obs = point2_obs - point1_obs
 
-                prod_vec1 = np.cross(vect_rob, point1_obs - point1_rob) # calcul des produits vectoriels entre les cotés du robots et celle de l'obstacle pour détecter la collision
-                prod_vec2 = np.cross(vect_rob, point2_obs - point1_rob)
-                prod_vec3 = np.cross(vect_obs, point1_rob - point1_obs)
-                prod_vec4 = np.cross(vect_obs, point2_rob - point1_obs)
+                prod_vec1 = cross2D(vect_rob, point1_obs - point1_rob) # calcul des produits vectoriels entre les cotés du robots et celle de l'obstacle pour détecter la collision
+                prod_vec2 = cross2D(vect_rob, point2_obs - point1_rob)
+                prod_vec3 = cross2D(vect_obs, point1_rob - point1_obs)
+                prod_vec4 = cross2D(vect_obs, point2_rob - point1_obs)
 
                 if (prod_vec1 * prod_vec2) < 0 and (prod_vec3 * prod_vec4) < 0: 
                     return True
@@ -62,10 +65,10 @@ def collision(rob, salle):
             vect_rob = point2_rob - point1_rob
             vect_salle = point2_salle - point1_salle
 
-            prod_vec1 = np.cross(vect_rob, point1_salle - point1_rob)
-            prod_vec2 = np.cross(vect_rob, point2_salle - point1_rob)
-            prod_vec3 = np.cross(vect_salle, point1_rob - point1_salle)
-            prod_vec4 = np.cross(vect_salle, point2_rob - point1_salle)
+            prod_vec1 = cross2D(vect_rob, point1_salle - point1_rob)
+            prod_vec2 = cross2D(vect_rob, point2_salle - point1_rob)
+            prod_vec3 = cross2D(vect_salle, point1_rob - point1_salle)
+            prod_vec4 = cross2D(vect_salle, point2_rob - point1_salle)
 
             if (prod_vec1 * prod_vec2) < 0 and (prod_vec3 * prod_vec4) < 0: 
                 return True
@@ -218,7 +221,13 @@ def test_pygame():
             distance = math.sqrt((cible_x - dexter.x)**2 + (cible_y - dexter.y)**2)
             if distance > 1:
                 dexter.rotation(cible_x, cible_y)
+                old_x, old_y = dexter.x, dexter.y
                 dexter.avancer()
+                if collision(dexter, Piece):
+                    dexter.x, dexter.y = old_x, old_y
+                    mode_deplacement = False
+                    commande_actuelle = "menu"
+                    print("Collision détectée, arrêt du déplacement")
             else:
                 dexter.x = round(cible_x, 2)
                 dexter.y = round(cible_y, 2)
