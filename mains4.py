@@ -197,7 +197,7 @@ def test_pygame():
     longueur_balise=0.5
     largeur_balise=0.5
     balise_test=balise(x_balise, y_balise,0,0,longueur_balise, largeur_balise ) # a la 
-    suivi_actif=False
+    suivi_actif=False  # a la 
 
     running = True
     while running:
@@ -205,10 +205,10 @@ def test_pygame():
             if event.type == pygame.QUIT:
                 running = False
 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN: #ici 
                 if event.key == pygame.K_b:
                     suivi_actif = not suivi_actif # Alterne entre True et False
-                    print(f"Mode suivi : {suivi_actif}")
+                    print(f"Mode suivi : {suivi_actif}") # a la 
 
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
         affiche_balise(screen,balise_test, OFFSET_X, OFFSET_Y,SCALE) #ici
@@ -226,10 +226,6 @@ def test_pygame():
         if keys[pygame.K_c]:
             c = 5 #taille du carré
             carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c)
-
-        #if keys[pygame.K_b]: #ici"""
-           # dexter.rotation(balise_test.x, balise_test.y)
-           # dexter.avancer() # a la 
         
         if keys[pygame.K_a]:
             try:
