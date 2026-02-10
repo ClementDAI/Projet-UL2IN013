@@ -40,6 +40,8 @@ def collision(rob, salle):
         xObstacle, yObstacle = i.x, i.y
         largeurObstacle = i.largeur
         longueurObstacle = i.longueur
+        if ((rob.x > xObstacle - largeurObstacle / 2) and (rob.x < xObstacle + largeurObstacle / 2) and (rob.y > yObstacle - longueurObstacle / 2) and (rob.y < yObstacle + longueurObstacle / 2)):
+            return True
         coinObsHG = np.array([(xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))]) # calculs des coins de l'obstacle
         coinObsHD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))])
         coinObsBG = np.array([(xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2))])
