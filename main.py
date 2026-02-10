@@ -23,7 +23,7 @@ def collision(rob, salle):
     cos = np.cos(angle)
     sin = np.sin(angle)
     larg = rob.largeur / 2
-    long = rob.longuer / 2
+    long = rob.longueur / 2
     
     coinHG = np.array([(rob.x - (larg * cos) - (long * sin)), (rob.y - (larg * sin) + (long * cos))]) # calcul des coins du robots
     coinHD = np.array([(rob.x + (larg * cos) - (long * sin)), (rob.y + (larg * sin) + (long * cos))]) 
