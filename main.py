@@ -1,6 +1,7 @@
 from ClassRobot import robot
 from ClassObstacle import obstacle
 from ClassSalle import salle
+from AfficherTexte import afficher_le_texte 
 import numpy as np
 import pygame
 import math
@@ -115,10 +116,12 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
         for i in range(c):
             dexter.avancer()
             affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
+            afficher_le_texte(screen, 'c')
             pygame.display.flip()
             clock.tick(30)  # Ralenti pour mieux voir
         dexter.tourner(90)
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
+        afficher_le_texte(screen, 'c')
         pygame.display.flip()
 
 def menu():
@@ -180,17 +183,23 @@ def test_pygame():
     largeur_robot = 1  # largeur du robot
     dexter = robot(xd, yd, 0, 0, longueur_robot, largeur_robot)
     running = True
+    commande_actuelle= "menu"
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
+        if commande_actuelle is not None:
+            afficher_le_texte(screen, commande_actuelle)
+            
         keys = pygame.key.get_pressed()
         if keys[pygame.K_c]:
             print("utilisation de la commande c")
+            commande_actuelle='c'
             c = 5 #taille du carré
             carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c)
+            commande_actuelle="menu"
         
         if keys[pygame.K_a]:
             print("utilisation de la commande a")
@@ -206,12 +215,15 @@ def test_pygame():
                     dexter.rotation(x, y)
                     dexter.avancer()
                     affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
+                    afficher_le_texte(screen, 'a')
                     pygame.display.flip()
                     clock.tick(30)  # Ralenti pour mieux voir
                     distance = math.sqrt((x - dexter.x)**2 + (y - dexter.y)**2)
                 dexter.x = round(x, 2)
                 dexter.y = round(y, 2)
+                commande_actuelle="menu"
                 affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
+                afficher_le_texte(screen,commande_actuelle)
                 pygame.display.flip()
             
         pygame.display.flip()
