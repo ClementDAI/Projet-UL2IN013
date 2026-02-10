@@ -45,7 +45,7 @@ class robot(object):
         fait avancer le robot de 1 pixel dans la direction de son angle
         aucun paramètre
         """
-        self.x += 1* math.sin(math.radians(self.angle))
+        self.x += 1 * math.sin(math.radians(self.angle))
         self.y -= 1 * math.cos(math.radians(self.angle))
         self.x = round(self.x, 2) #arrondi pour eviter les problemes de précision avec les floats
         self.y = round(self.y, 2)
