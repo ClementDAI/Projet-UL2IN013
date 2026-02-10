@@ -23,7 +23,7 @@ def collision(rob, salle):
     Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
     """
 
-    angle = np.deg2rad(rob.angle - 90)
+    angle = np.deg2rad(rob.angle)
     cos = np.cos(angle)
     sin = np.sin(angle)
     larg = rob.largeur / 2
