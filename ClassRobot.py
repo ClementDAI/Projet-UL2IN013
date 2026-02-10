@@ -31,12 +31,9 @@ class robot(object):
         norme1 = math.sqrt(xVecteur1**2 + yVecteur1**2)
         norme2 = 1
         PrScalaire = xVecteur1 * xVecteur2 + yVecteur1 * yVecteur2 # Produit Scalaire entre les 2 vecteurs
-        cos_theta = PrScalaire / (norme1 * norme2)
-        if cos_theta > 1:
-            round(cos_theta)
-        if cos_theta < -1:
-            round(cos_theta)
-        theta = math.degrees(math.acos(PrScalaire / (norme1 * norme2))) # theta(u,v) = arccos(PrScalaire(u,v) / norme(u) * norme(v))
+        valeur = PrScalaire / (norme1 * norme2)
+        valeur = max(-1, min(1, valeur))
+        theta = math.degrees(math.acos(valeur))) # theta(u,v) = arccos(PrScalaire(u,v) / norme(u) * norme(v))
         PrVectoriel = xVecteur1 * yVecteur2 - xVecteur2 * yVecteur1
         if PrVectoriel < 0:
             theta = -theta
