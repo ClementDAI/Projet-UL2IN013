@@ -1,0 +1,1 @@
+si utilisation de la caméra à utiliser sur pygame : https://www.pygame.org/docs/tut/CameraIntro.html
