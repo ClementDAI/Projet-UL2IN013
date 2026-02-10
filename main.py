@@ -188,10 +188,12 @@ def test_pygame():
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
         keys = pygame.key.get_pressed()
         if keys[pygame.K_c]:
+            print("utilisation de la commande c")
             c = 5 #taille du carré
             carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c)
         
         if keys[pygame.K_a]:
+            print("utilisation de la commande a")
             try:
                 x = float(input("Entrez la coordonnée x de destination (unités) : "))
                 y = float(input("Entrez la coordonnée y de destination (unités) : "))
