@@ -206,6 +206,7 @@ def test_pygame():
         
         if keys[pygame.K_a] and not mode_deplacement:
             print("utilisation de la commande a")
+            print("La salle fait du 21.5 x 12.5 unités")
             try:
                 cible_x = float(input("Entrez X de la destination : "))
                 cible_y = float(input("Entrez Y de la destination : "))
