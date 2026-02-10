@@ -23,17 +23,22 @@ class robot(object):
     
     def rotation (self, x_cible, y_cible):
         """Met à jour l'angle du robot vers une direction cible (x_cible,y_cible)"""
-        xVecteur1,yVecteur1 = (x_cible - self.x, self.y - y_cible) #Vecteur dirigé vers le x et y voulu. 
-        xVecteur2,yVecteur2 = (math.sin(math.radians(self.angle)) * 1, math.cos(math.radians(self.angle)) * 1) #Vecteur unitaire dirigé par son angle
+        xVecteur1 = x_cible - self.x # Vecteur vers la cible
+        yVecteur1 = self.y - y_cible
+        xVecteur2 = math.sin(math.radians(self.angle)) # Vecteur direction du robot
+        yVecteur2 = math.cos(math.radians(self.angle))
         norme1 = math.sqrt(xVecteur1**2 + yVecteur1**2)
         norme2 = 1
-        PrScalaire = xVecteur1 * xVecteur2 + yVecteur1 * yVecteur2 # Produit Scalaire entre les 2 vecteurs
-        theta = math.degrees(math.acos(PrScalaire / (norme1 * norme2))) # theta(u,v) = arccos(PrScalaire(u,v) / norme(u) * norme(v))
-        PrVectoriel = xVecteur1 * yVecteur2 - xVecteur2 * yVecteur1
+        if norme1 == 0: # éviter division par 0
+            return
+        PrScalaire = xVecteur1 * xVecteur2 + yVecteur1 * yVecteur2 # produit scalaire
+        valeur = PrScalaire / (norme1 * norme2) # valeur pour acos
+        valeur = max(-1, min(1, valeur)) # sécurité flottante
+        theta = math.degrees(math.acos(valeur))
+        PrVectoriel = xVecteur1 * yVecteur2 - xVecteur2 * yVecteur1 # Produit vectoriel (sens rotation)
         if PrVectoriel < 0:
             theta = -theta
-        self.angle+= theta 
-        
+        self.angle+= theta
 
     def avancer(self):
         """
