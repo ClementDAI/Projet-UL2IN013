@@ -120,10 +120,13 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
     for cote in range(4):
         for i in range(c):
             dexter.avancer()
+            if collision(dexter, Piece):
+                print("Collision détectée, arrêt du déplacement")
+                return
             affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
             afficher_le_texte(screen, 'c')
             pygame.display.flip()
-            clock.tick(30)  # Ralenti pour mieux voir
+            clock.tick(60)  # Ralenti pour mieux voir
         dexter.tourner(90)
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
         afficher_le_texte(screen, 'c')
