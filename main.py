@@ -9,7 +9,7 @@ import math
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
 
 Piece = salle(21.5,12.5)
-Piece.ajoutObstacle(obstacle(2,2,1,1))
+Piece.ajoutObstacle(obstacle(2,2,3,1))
 Piece.ajoutObstacle(obstacle(15,6,2,2))
 print(Piece.ListeObstacle[0].x)
 
@@ -125,7 +125,6 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
                 dexter.x, dexter.y = old_x, old_y
                 print("Collision détectée, arrêt du déplacement")
                 return 
-
             affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
             afficher_le_texte(screen, 'c')
             pygame.display.flip()
