@@ -119,10 +119,13 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
     """le robot fait un carré de taille cote par cote"""
     for cote in range(4):
         for i in range(c):
+            old_x, old_y = dexter.x, dexter.y
             dexter.avancer()
             if collision(dexter, Piece):
+                dexter.x, dexter.y = old_x, old_y
                 print("Collision détectée, arrêt du déplacement")
-                return
+                return 
+
             affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
             afficher_le_texte(screen, 'c')
             pygame.display.flip()
@@ -208,7 +211,7 @@ def test_pygame():
         if keys[pygame.K_c]:
             print("utilisation de la commande c")
             commande_actuelle='c'
-            c = 5 #taille du carré
+            c = 50 #taille du carré
             carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c)
             commande_actuelle="menu"
         
@@ -224,7 +227,7 @@ def test_pygame():
                 print("Veuillez entrer des nombres valides.")
         if mode_deplacement:
             distance = math.sqrt((cible_x - dexter.x)**2 + (cible_y - dexter.y)**2)
-            if distance > 1:
+            if distance > 0.1:
                 dexter.rotation(cible_x, cible_y)
                 old_x, old_y = dexter.x, dexter.y
                 dexter.avancer()
