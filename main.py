@@ -1,6 +1,6 @@
-from ClassRobot import robot
-from ClassObstacle import obstacle
-from ClassSalle import salle
+from robot import Robot
+from obstacle import Obstacle
+from salle import Salle
 from AfficherTexte import afficher_le_texte 
 import numpy as np
 import pygame
@@ -8,9 +8,9 @@ import math
 
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
 
-Piece = salle(21.5,12.5)
-Piece.ajoutObstacle(obstacle(2,2,3,1))
-Piece.ajoutObstacle(obstacle(15,6,2,2))
+Piece = Salle(21.5,12.5)
+Piece.ajoutObstacle(Obstacle(2,2,3,1))
+Piece.ajoutObstacle(Obstacle(15,6,2,2))
 print(Piece.ListeObstacle[0].x)
 
 def cross2D(a, b):
@@ -153,7 +153,7 @@ def test_terminal():
     c = 10 #taille du carré
     (x,y) = (5,5) #destination du robot
     print("Test de la classe robot :")
-    dexter = robot(10,5,0,0,5,10)
+    dexter = Robot(10,5,0,0,5,10)
     print("position initiale de dexter :" + str(dexter.getPosition()))
     print("dexter va faire un carré de {c} par {c}".format(c=c))
     for i in range(c):
@@ -191,7 +191,7 @@ def test_pygame():
     yd = 10  # position y du robot
     longueur_robot = 2  # longueur du robot
     largeur_robot = 1  # largeur du robot
-    dexter = robot(xd, yd, 0, 0, longueur_robot, largeur_robot)
+    dexter = Robot(xd, yd, 0, 0, longueur_robot, largeur_robot)
     running = True
     commande_actuelle= "menu"
     mode_deplacement = False
