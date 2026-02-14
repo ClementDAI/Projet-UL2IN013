@@ -9,8 +9,8 @@ import math
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
 
 Piece = Salle(21.5,12.5)
-Piece.ajoutObstacle(Obstacle(2,2,3,1))
-Piece.ajoutObstacle(Obstacle(15,6,2,2))
+Piece.ajoutObstacle(Obstacle(2,2,3,1,45))
+Piece.ajoutObstacle(Obstacle(15,6,2,2,160))
 print(Piece.ListeObstacle[0].x)
 
 def cross2D(a, b):
@@ -99,7 +99,6 @@ def affiche_robot(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
     rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
     screen.blit(rotated_surf, rotated_rect)
-    screen.blit(rotated_surf, rotated_rect)
 
 def affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     """Dessine les obstacles et le robot"""
@@ -110,8 +109,18 @@ def affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
         obs_y = OFFSET_Y + obs.y * SCALE
         obs_largeur = obs.largeur * SCALE
         obs_longueur = obs.longueur * SCALE
-        pygame.draw.rect(screen, "red", (obs_x - obs_largeur/2, obs_y - obs_longueur/2, obs_largeur, obs_longueur))
-        pygame.draw.circle(screen, "darkred", (int(obs_x), int(obs_y)), 3)
+        taille = math.sqrt(obs_largeur**2 + obs_longueur**2)
+        centre = taille // 2
+        obs_surface = pygame.Surface((taille,taille))
+        obs_surface.fill((255, 255, 255))
+        obs_surface.set_colorkey((255, 255, 255))
+        pygame.draw.rect(obs_surface,"red", (centre - obs_largeur/2, centre - obs_longueur/2, obs_largeur, obs_longueur))
+        pygame.draw.circle(obs_surface, "darkred", (int(centre), int(centre)), 3)
+        rotate = pygame.transform.rotate(obs_surface, -obs.inclinaison)
+        rotate_obs = rotate.get_rect(center=(int(obs_x),int(obs_y)))
+
+
+        screen.blit(rotate, rotate_obs)
     
     affiche_robot(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
 
