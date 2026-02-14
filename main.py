@@ -40,12 +40,17 @@ def collision(rob, salle):
         xObstacle, yObstacle = i.x, i.y
         largeurObstacle = i.largeur
         longueurObstacle = i.longueur
+        inclinaison = i.inclinaison
+        larg2 = i.largeur / 2
+        long2 = i.longueur / 2 
+        cos2 = np.cos(inclinaison)
+        sin2 = np.sin(inclinaison)
         if ((rob.x > xObstacle - largeurObstacle / 2) and (rob.x < xObstacle + largeurObstacle / 2) and (rob.y > yObstacle - longueurObstacle / 2) and (rob.y < yObstacle + longueurObstacle / 2)):
             return True
-        coinObsHG = np.array([(xObstacle - (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))]) # calculs des coins de l'obstacle
-        coinObsHD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle + (longueurObstacle / 2))])
-        coinObsBG = np.array([(xObstacle - (largeurObstacle/ 2)), (yObstacle - (longueurObstacle / 2))])
-        coinObsBD = np.array([(xObstacle + (largeurObstacle / 2)), (yObstacle - (longueurObstacle / 2))])
+        coinObsHG = np.array([(xObstacle - (larg2 * cos2) - (long2 * sin2)), (yObstacle - (larg2 * sin2) + (long2 * cos2))]) # calculs des coins de l'obstacle
+        coinObsHD = np.array([(xObstacle + (larg2 * cos2) - (long2 * sin2)), (yObstacle + (larg2 * sin2) + (long2 * cos2))])
+        coinObsBG = np.array([(xObstacle - (larg2 * cos2) + (long2 * sin2)), (yObstacle - (larg2 * sin2) - (long2 * cos2))])
+        coinObsBD = np.array([(xObstacle + (larg2 * cos2) + (long2 * sin2)), (yObstacle + (larg2 * sin2) - (long2 * cos2))])
         cote_obs = [(coinObsHG, coinObsHD), (coinObsBG, coinObsBD), (coinObsBG, coinObsHG), (coinObsBD, coinObsHD)]
         for point1_rob, point2_rob in cote_robot:
             for point1_obs, point2_obs in cote_obs: 
