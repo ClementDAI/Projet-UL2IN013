@@ -13,11 +13,19 @@ class Robot():
         self.longueur = longueur #valeur de sa longueur sur y
         self.largeur = largeur #valeur de sa largeur sur x
         self.capteur = 0 # initiliase la valeur du capteur d'obstacle à 0
+        self.vitesse_angD = 0 #vitesse angulaire de la roue droite 
+        self.vitesse_angG = 0 #vitesse angulaire de la roue gauche
     
 
     
     def getPosition(self):
+        """Accesseur de la position du robot"""
         return self.x,self.y #renvoie le x et y du robot
+    
+    def set_vitesse(self, vitesseD, vitesseG): 
+        """Setter de la vitesse des roues"""
+        self.vitesse_angD = vitesseD
+        self.vitesse_angG = vitesseG
     
     def tourner(self,angle):
         """Fait tourner le robot de {angle}° """
