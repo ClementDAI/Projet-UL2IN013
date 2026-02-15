@@ -5,6 +5,7 @@ from AfficherTexte import afficher_le_texte
 import numpy as np
 import pygame
 import math
+import time
 
 #test temporaire pour tester si import marche bien. enlever les pour faire le main
 
@@ -122,6 +123,7 @@ def affiche_robot(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
     rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
     screen.blit(rotated_surf, rotated_rect)
+    
 
 def affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     """Dessine les obstacles et le robot"""
@@ -153,6 +155,8 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
         for i in range(c):
             old_x, old_y = dexter.x, dexter.y
             dexter.avancer()
+            update_capteur(dexter,Piece)
+            print("Le prochain obstacle est à : ", dexter.capteur, "unités")
             if collision(dexter, Piece):
                 dexter.x, dexter.y = old_x, old_y
                 print("Collision détectée, arrêt du déplacement")
@@ -162,6 +166,8 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
             pygame.display.flip()
             clock.tick(60)  # Ralenti pour mieux voir
         dexter.tourner(90)
+        print("Changement de direction")
+        time.sleep(1)
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
         afficher_le_texte(screen, 'c')
         pygame.display.flip()
@@ -262,6 +268,8 @@ def test_pygame():
                 dexter.rotation(cible_x, cible_y)
                 old_x, old_y = dexter.x, dexter.y
                 dexter.avancer()
+                update_capteur(dexter,Piece)
+                print("Le prochain obstacle est à : ", dexter.capteur, " unités")
                 if collision(dexter, Piece):
                     dexter.x, dexter.y = old_x, old_y
                     mode_deplacement = False
