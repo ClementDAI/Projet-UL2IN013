@@ -12,6 +12,7 @@ class Robot():
         self.angle = angle #angle positif ou négatif en degré dont son orientation initial est 0 (vers le haut)
         self.longueur = longueur #valeur de sa longueur sur y
         self.largeur = largeur #valeur de sa largeur sur x
+        self.capteur = 0 # initiliase la valeur du capteur d'obstacle à 0
     
 
     

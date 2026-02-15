@@ -82,6 +82,15 @@ def collision(rob, salle):
     
     return False
 
+def update_capteur(rob, salle):
+        distance = 0
+        angle = rob.angle
+        sin = math.sin(math.radians(angle))
+        cos = -math.cos(math.radians(angle))
+        old_x, old_y = rob.x, rob.y
+
+
+
 def affiche_robot(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     """Dessine le robot"""
     robot_x = OFFSET_X + dexter.x * SCALE
