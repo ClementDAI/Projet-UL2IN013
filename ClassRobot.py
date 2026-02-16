@@ -141,7 +141,7 @@ class robot(object):
         Boucle jusqu'à la cible en orientant progressivement selon la vitesse angulaire disponible.
         """
         distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)
-        max_iters = 10000
+        max_iters = 10000 #pr le debug de boucle infinie
         it = 0
         while distance > 0.1 and it < max_iters:
             self.rotation(x, y)
