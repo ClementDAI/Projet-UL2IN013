@@ -62,62 +62,72 @@ class robot(object):
     def tourner(self,angle):
         """Fait tourner le robot de {angle}° """
         self.angle += angle
-    
-    def rotation(self, x_cible, y_cible, dt=0.1):
-        """
-        Ajuste l'angle du robot progressivement en direction de (x_cible, y_cible)
-        en tenant compte de la vitesse angulaire disponible fournie par les roues.
-        - calcule l'angle cible dans le même repère que `self.angle`
-        - applique un pas de rotation limité par `self.vitesseAngulaire * dt`
 
-        Paramètres:
-            x_cible, y_cible: coordonnées cible
-            dt: pas de temps en secondes
+    def normaliser_angle(self):
+        """Normalise self.angle dans l'intervalle [-180, 180]."""
+        self.angle = (self.angle + 180) % 360 - 180
+
+    def assurer_direction_avant(self):
         """
-        # vecteur vers la cible (même convention que dans le reste du code)
+        Si le robot a une vitesse linéaire négative (ou les deux roues avec vitesses négatives),
+        on pivote le robot de 180° et on inverse les vitesses angulaires des roues pour
+        conserver le même mouvement mais avec des vitesses positives dans la direction "avant".
+        """
+        self.calculerVitesses()
+        if self.vitesseLineaire < 0 or (self.vangGauche < 0 and self.vangDroite < 0):
+            self.angle += 180
+            self.vangGauche = -self.vangGauche
+            self.vangDroite = -self.vangDroite
+            self.calculerVitesses()
+            self.normaliser_angle()
+    
+    def rotation(self, x_cible, y_cible):
+        """
+        Ajuste l'angle du robot progressivement vers (x_cible,y_cible) en utilisant
+        la vitesse angulaire disponible fournie par la différence de vitesses des roues.
+        3 cas
+          - vitesses opposées de même norme : rotation sur place
+          - l'une des roues à 0 : pivot autour de l'autre roue (modélisé par le même kinematic)
+          - vitesses négatives : on effectue une inversion 180° pour obtenir des vitesses positives
+        """
+        self.assurer_direction_avant() #si nécessaire, remettre les vitesses en direction "avant"
+
         xVecteur1 = x_cible - self.x
         yVecteur1 = self.y - y_cible
-
-        # angle cible (en degrés) : atan2(x, y) correspond à la convention utilisée
         angle_cible = math.degrees(math.atan2(xVecteur1, yVecteur1))
 
-        # erreur angulaire (normalisée entre -180 et 180)
-        erreur = angle_cible - self.angle
-        while erreur > 180:
+        erreur = angle_cible - self.angle #erreur angulaire : différence entre l'angle cible et l'angle actuel du robot
+        while erreur >= 180:
             erreur -= 360
         while erreur < -180:
             erreur += 360
 
-        # quantité maximale de rotation disponible pendant dt (en degrés)
-        # self.vitesseAngulaire est en rad/s, on multiplie par dt puis convertit en degrés
         self.calculerVitesses()
-        delta_max_deg = abs(math.degrees(self.vitesseAngulaire * dt))
+        delta_max_deg = abs(math.degrees(self.vitesseAngulaire * 0.1)) #angle maximum que le robot peut tourner en 0.1s à la vitesse angulaire actuelle
 
-        # si on peut atteindre la cible dans ce pas, on y va directement
+        if delta_max_deg == 0: # si la vitesse angulaire est nulle (roues à la même vitesse), on tourne pas
+            return
+
         if abs(erreur) <= delta_max_deg:
             self.angle = angle_cible
         else:
-            # sinon on tourne dans le sens de l'erreur, d'une magnitude limitée
             sens = 1 if erreur > 0 else -1
             self.angle += sens * delta_max_deg
 
-    def avancer(self, dt=0.1):
-        """
-        Fait avancer le robot selon ses vitesses angulaires des roues
-        Paramètre: dt = intervalle de temps en secondes (par défaut 0.1s)
-        Utilise le modèle cinématique du robot différentiel
-        """
-        self.calculerVitesses()  # met à jour les vitesses
+        self.normaliser_angle()
 
-        # rotation pendant dt (en radians)
-        dtheta = self.vitesseAngulaire * dt
-        # mise à jour de l'angle (on convertit en degrés)
+    def avancer(self):
+        """
+        Avance pendant 0.1s en utilisant la vitesse linéaire et angulaire actuelle du robot.
+        """
+        self.calculerVitesses()
+
+        dtheta = self.vitesseAngulaire * 0.1 #angle de rotation pendant 0.1s
+        distance = self.vitesseLineaire * 0.1 #distance parcourue pendant 0.1s
+
         self.angle += math.degrees(dtheta)
+        self.normaliser_angle() #Assure que l'angle reste dans [-180, 180]
 
-        # déplacement linéaire pendant dt
-        distance = self.vitesseLineaire * dt
-
-        # utilisation de l'angle courant pour le déplacement
         dx = distance * math.sin(math.radians(self.angle))
         dy = -distance * math.cos(math.radians(self.angle))
 
@@ -126,20 +136,18 @@ class robot(object):
         self.x = round(self.x, 2)
         self.y = round(self.y, 2)
 
-    def aller_a(self, x, y, dt=0.1):
+    def aller_a(self, x, y):
         """
-        Fait avancer le robot jusqu'à la position (x,y) passée en paramètre
-        Utilise les vitesses angulaires des roues et la rotation progressive
-        Paramètres: x, y = position cible
-                    dt = intervalle de temps pour chaque étape (par défaut 0.1s)
+        Boucle jusqu'à la cible en orientant progressivement selon la vitesse angulaire disponible.
         """
         distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)
-        while distance > 0.1:  # pas egalité a cause des floats et arrondis
-            # on oriente progressivement en fonction de la vitesse angulaire
-            self.rotation(x, y, dt)
-            # puis on avance pendant dt
-            self.avancer(dt)
-            distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)  # Recalculer la distance
-        self.x = round(x, 2)  # pour eviter que le robot soit a 0.99/1.01 de la cible a cause des floats
+        max_iters = 10000
+        it = 0
+        while distance > 0.1 and it < max_iters:
+            self.rotation(x, y)
+            self.avancer()
+            distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)
+            it += 1
+        self.x = round(x, 2)
         self.y = round(y, 2)
 
