@@ -20,3 +20,7 @@ def afficher_le_texte(surface_cible, touche_pressee):
     elif touche_pressee == "c":
         surface_cible.blit(commande_c, (10, 0))
     
+def affiche_capteur(surface_cible, capteur_dst):
+    capteur = petite_police.render(f"capteur de distance : {capteur_dst}" , True, Bleu_saphir)
+    surface_cible.blit(capteur, (10, 550))
+    
