@@ -1,3 +1,4 @@
+from ClassRobot import robot
 from robot import Robot
 from obstacle import Obstacle
 from salle import Salle
@@ -111,7 +112,7 @@ def update_capteur(rob, salle):
         angle = rob.angle
         sin = math.sin(math.radians(angle))
         cos = -math.cos(math.radians(angle))
-        rob_tmp = Robot(rob.x, rob.y, rob.vitesse, rob.angle, rob.longueur, 0.1)
+        rob_tmp = robot(rob.x, rob.y, rob.vangGauche, rob.vangDroite, rob.angle, rob.longueur, 0.1)
         old_x, old_y = rob_tmp.x, rob_tmp.y
         while not(collision(rob_tmp, salle)):
             rob_tmp.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
@@ -141,10 +142,12 @@ def affiche_robot(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     
     pygame.draw.circle(robot_surf, "purple", (int(size/2), int(rect_y)), 3) #point violet pour mieux voir l'orientation du robot
 
-    capteur_longueur = dexter.capteur * SCALE
-    pos_d = (int(size/2), int(rect_y))
-    pos_f = (int(size/2), int(rect_y - capteur_longueur))
-    pygame.draw.line(robot_surf, (255, 0, 0), pos_d, pos_f, 2)
+    angle_rad = math.radians(dexter.angle)
+    distance_totale = (dexter.longueur / 2 + dexter.capteur) * SCALE # longueur de la ligne du capteur
+    fin_x = robot_x + distance_totale * math.sin(angle_rad)
+    fin_y = robot_y - distance_totale * math.cos(angle_rad)
+
+    pygame.draw.line(screen, (255, 0, 0), (robot_x, robot_y), (fin_x, fin_y), 2) # Dessin de la ligne directement sur l'écran
     
     rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
     rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
@@ -178,6 +181,7 @@ def affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
 def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
     """le robot fait un carré de taille cote par cote"""
     for cote in range(4):
+        dexter.setVitessesAngulaires(20, 20)
         for i in range(c):
             old_x, old_y = dexter.x, dexter.y
             dexter.avancer()
@@ -191,6 +195,7 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
             affiche_capteur(screen,dexter.capteur)
             pygame.display.flip()
             clock.tick(60)  # Ralenti pour mieux voir
+        dexter.setVitessesAngulaires(0, 0)
         dexter.tourner(90)
         print("Changement de direction")
         time.sleep(1)
@@ -255,7 +260,7 @@ def test_pygame():
     yd = 10  # position y du robot
     longueur_robot = 2  # longueur du robot
     largeur_robot = 1  # largeur du robot
-    dexter = Robot(xd, yd, 0, 0, longueur_robot, largeur_robot)
+    dexter = robot(xd, yd, 50, 50, 0, longueur_robot, largeur_robot)
     running = True
     commande_actuelle= "menu"
     mode_deplacement = False
@@ -294,6 +299,18 @@ def test_pygame():
             distance = math.sqrt((cible_x - dexter.x)**2 + (cible_y - dexter.y)**2)
             if distance > 0.1:
                 dexter.rotation(cible_x, cible_y)
+                dx = cible_x - dexter.x
+                dy = dexter.y - cible_y
+                angle_cible = math.degrees(math.atan2(dx, dy))
+                erreur = angle_cible - dexter.angle
+                while erreur > 180:
+                    erreur -= 360
+                while erreur < -180:
+                    erreur += 360
+                if abs(erreur) < 5:
+                    dexter.setVitessesAngulaires(20, 20) # vitesse roues identiques pour avance droit
+                else:
+                    dexter.setVitessesAngulaires(0, 0) # on n'avance pas tant qu'on n'est pas aligné
                 old_x, old_y = dexter.x, dexter.y
                 dexter.avancer()
                 update_capteur(dexter,Piece)
