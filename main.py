@@ -84,21 +84,42 @@ def collision(rob, salle):
     
     return False
 
+def collision_point(x, y, salle):
+
+    if x < 0 or x > salle.dimensionX or y < 0 or y > salle.dimensionY:
+        return True
+
+    for obs in salle.ListeObstacle:
+        dx = x - obs.x
+        dy = y - obs.y
+
+        cos_o = np.cos(-obs.inclinaison)
+        sin_o = np.sin(-obs.inclinaison)
+
+        local_x = dx * cos_o - dy * sin_o
+        local_y = dx * sin_o + dy * cos_o
+
+        if abs(local_x) <= obs.largeur/2 and abs(local_y) <= obs.longueur/2:
+            return True
+    return False
+
 def update_capteur(rob, salle):
         """rob : objet de classe robot
             salle : salle ou se trouve rob
             la fonction va mettre à jour la valeur de capteur de rob"""
         distance = 0
-        angle = rob.angle
-        sin = math.sin(math.radians(angle))
-        cos = -math.cos(math.radians(angle))
-        old_x, old_y = rob.x, rob.y
-        while not(collision(rob, salle)):
-            rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
-            rob.y += cos * 0.1
-            distance += 0.1
-        
-        rob.x, rob.y = old_x, old_y
+        angle = math.radians(rob.angle)
+        sin_a = math.sin(angle)
+        cos_a = -math.cos(angle)
+        pas = 0.05
+        start_x = rob.x + sin_a * (rob.longueur / 2)
+        start_y = rob.y + cos_a * (rob.longueur / 2)
+        test_x = start_x
+        test_y = start_y
+        while not collision_point(test_x, test_y, salle):
+            test_x += sin_a * pas
+            test_y += cos_a * pas
+            distance += pas
         rob.capteur = round(distance, 2)
 
 
@@ -120,6 +141,11 @@ def affiche_robot(screen, dexter, OFFSET_X, OFFSET_Y, SCALE):
     
     
     pygame.draw.circle(robot_surf, "purple", (int(size/2), int(rect_y)), 3) #point violet pour mieux voir l'orientation du robot
+
+    capteur_longueur = dexter.capteur * SCALE
+    pos_d = (int(size/2), int(rect_y))
+    pos_f = (int(size/2), int(rect_y - capteur_longueur))
+    pygame.draw.line(robot_surf, (255, 0, 0), pos_d, pos_f, 2)
     
     rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
     rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
