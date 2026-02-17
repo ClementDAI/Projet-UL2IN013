@@ -13,7 +13,7 @@ class robot(object):
         self.vangDroite = vangDroite #vitesse angulaire de la roue droite en rad/s
         self.rayonRoues = 0.05 #rayon des roues en m
         self.ecartRoues = 0.2 #écart entre les roues en m
-        self.calculerVitesses() #calcule les vitesses linéaire et angulaire du robot
+        self.capteur = 0 #distance entre le robot et l obstacle en face (ou la bordure de la salle)
     
     def calculerVitesses(self):
         """
@@ -97,23 +97,22 @@ class robot(object):
         angle_cible = math.degrees(math.atan2(xVecteur1, yVecteur1))
 
         erreur = angle_cible - self.angle #erreur angulaire : différence entre l'angle cible et l'angle actuel du robot
-        while erreur >= 180:
+        while erreur > 180:
             erreur -= 360
         while erreur < -180:
             erreur += 360
 
-        self.calculerVitesses()
-        delta_max_deg = abs(math.degrees(self.vitesseAngulaire * 0.1)) #angle maximum que le robot peut tourner en 0.1s à la vitesse angulaire actuelle
-
-        if delta_max_deg == 0: # si la vitesse angulaire est nulle (roues à la même vitesse), on tourne pas
+        if abs(erreur) < 1:
+            self.angle = angle_cible
+            self.normaliser_angle()
             return
 
-        if abs(erreur) <= delta_max_deg:
-            self.angle = angle_cible
-        else:
-            sens = 1 if erreur > 0 else -1
-            self.angle += sens * delta_max_deg
+        Kp = 0.1
+        rotation_deg = Kp * erreur
 
+        rotation_deg = max(min(rotation_deg, 5), -5)
+
+        self.angle += rotation_deg
         self.normaliser_angle()
 
     def avancer(self):
@@ -122,17 +121,10 @@ class robot(object):
         """
         self.calculerVitesses()
 
-        dtheta = self.vitesseAngulaire * 0.1 #angle de rotation pendant 0.1s
         distance = self.vitesseLineaire * 0.1 #distance parcourue pendant 0.1s
 
-        self.angle += math.degrees(dtheta)
-        self.normaliser_angle() #Assure que l'angle reste dans [-180, 180]
-
-        dx = distance * math.sin(math.radians(self.angle))
-        dy = -distance * math.cos(math.radians(self.angle))
-
-        self.x += dx
-        self.y += dy
+        self.x += distance * math.sin(math.radians(self.angle))
+        self.y -= distance * math.cos(math.radians(self.angle))
         self.x = round(self.x, 2)
         self.y = round(self.y, 2)
 
