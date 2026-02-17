@@ -196,7 +196,29 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
             pygame.display.flip()
             clock.tick(60)  # Ralenti pour mieux voir
         dexter.setVitessesAngulaires(0, 0)
-        dexter.tourner(90)
+        dexter.assurer_direction_avant() #si nécessaire, remettre les vitesses en direction "avant"
+        angle_cible = (dexter.angle + 90) % 360
+
+        tourne_encore = True
+        while tourne_encore:
+            erreur = angle_cible - dexter.angle
+            while erreur > 180: erreur -= 360
+            while erreur < -180: erreur += 360
+
+            if abs(erreur) < 0.5:
+                dexter.angle = angle_cible
+                tourne_encore = False
+            else:
+                Kp = 0.1
+                vitesse_rot = max(min(Kp * erreur, 5), -5)
+                dexter.angle += vitesse_rot
+                dexter.normaliser_angle()
+            update_capteur(dexter,Piece)
+            affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
+            afficher_le_texte(screen, 'c')
+            affiche_capteur(screen,dexter.capteur)
+            pygame.display.flip()
+            clock.tick(60)
         print("Changement de direction")
         time.sleep(1)
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
