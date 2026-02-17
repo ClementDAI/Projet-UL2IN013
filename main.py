@@ -108,18 +108,17 @@ def update_capteur(rob, salle):
             salle : salle ou se trouve rob
             la fonction va mettre à jour la valeur de capteur de rob"""
         distance = 0
-        angle = math.radians(rob.angle)
-        sin_a = math.sin(angle)
-        cos_a = -math.cos(angle)
-        pas = 0.05
-        start_x = rob.x + sin_a * (rob.longueur / 2)
-        start_y = rob.y + cos_a * (rob.longueur / 2)
-        test_x = start_x
-        test_y = start_y
-        while not collision_point(test_x, test_y, salle):
-            test_x += sin_a * pas
-            test_y += cos_a * pas
-            distance += pas
+        angle = rob.angle
+        sin = math.sin(math.radians(angle))
+        cos = -math.cos(math.radians(angle))
+        rob_tmp = Robot(rob.x, rob.y, rob.vitesse, rob.angle, rob.longueur, 0.1)
+        old_x, old_y = rob_tmp.x, rob_tmp.y
+        while not(collision(rob_tmp, salle)):
+            rob_tmp.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
+            rob_tmp.y += cos * 0.1
+            distance += 0.1
+        
+        rob_tmp.x, rob_tmp.y = old_x, old_y
         rob.capteur = round(distance, 2)
 
 
