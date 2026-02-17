@@ -282,7 +282,7 @@ def test_pygame():
     yd = 10  # position y du robot
     longueur_robot = 2  # longueur du robot
     largeur_robot = 1  # largeur du robot
-    dexter = robot(xd, yd, 50, 50, 0, longueur_robot, largeur_robot)
+    dexter = robot(xd, yd, 20, 20, 0, longueur_robot, largeur_robot)
     running = True
     commande_actuelle= "menu"
     mode_deplacement = False
@@ -318,30 +318,28 @@ def test_pygame():
             except:
                 print("Veuillez entrer des nombres valides.")
         if mode_deplacement:
+            dx = cible_x - dexter.x
+            dy = dexter.y - cible_y  
+            angle_cible = math.degrees(math.atan2(dx, dy))
+            erreur_angle = angle_cible - dexter.angle
+            while erreur_angle > 180: erreur_angle -= 360
+            while erreur_angle < -180: erreur_angle += 360
             distance = math.sqrt((cible_x - dexter.x)**2 + (cible_y - dexter.y)**2)
+
             if distance > 0.1:
-                dexter.rotation(cible_x, cible_y)
-                dx = cible_x - dexter.x
-                dy = dexter.y - cible_y
-                angle_cible = math.degrees(math.atan2(dx, dy))
-                erreur = angle_cible - dexter.angle
-                while erreur > 180:
-                    erreur -= 360
-                while erreur < -180:
-                    erreur += 360
-                if abs(erreur) < 5:
-                    dexter.setVitessesAngulaires(20, 20) # vitesse roues identiques pour avance droit
+                if abs(erreur_angle) > 2:
+                    dexter.rotation(cible_x, cible_y)
                 else:
-                    dexter.setVitessesAngulaires(0, 0) # on n'avance pas tant qu'on n'est pas aligné
-                old_x, old_y = dexter.x, dexter.y
-                dexter.avancer()
-                update_capteur(dexter,Piece)
-                affiche_capteur(screen,dexter.capteur)
-                if collision(dexter, Piece):
-                    dexter.x, dexter.y = old_x, old_y
-                    mode_deplacement = False
-                    commande_actuelle = "menu"
-                    print("Collision détectée, arrêt du déplacement")
+                    old_x, old_y = dexter.x, dexter.y
+                    dexter.avancer() 
+                    update_capteur(dexter, Piece)
+                    affiche_capteur(screen,dexter.capteur)
+
+                    if collision(dexter, Piece):
+                        dexter.x, dexter.y = old_x, old_y
+                        mode_deplacement = False
+                        commande_actuelle = "menu"
+                        print("Collision détectée, arrêt du déplacement")
             else:
                 dexter.x = round(cible_x, 2)
                 dexter.y = round(cible_y, 2)
