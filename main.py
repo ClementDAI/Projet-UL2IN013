@@ -92,13 +92,14 @@ def update_capteur(rob, salle):
         angle = rob.angle
         sin = math.sin(math.radians(angle))
         cos = -math.cos(math.radians(angle))
-        old_x, old_y = rob.x, rob.y
-        while not(collision(rob, salle)):
-            rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
-            rob.y += cos * 0.1
+        rob_tmp = Robot(rob.x, rob.y, rob.vitesse, rob.angle, rob.longueur, 0.1)
+        old_x, old_y = rob_tmp.x, rob_tmp.y
+        while not(collision(rob_tmp, salle)):
+            rob_tmp.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
+            rob_tmp.y += cos * 0.1
             distance += 0.1
         
-        rob.x, rob.y = old_x, old_y
+        rob_tmp.x, rob_tmp.y = old_x, old_y
         rob.capteur = round(distance, 2)
 
 
