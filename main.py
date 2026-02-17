@@ -2,6 +2,7 @@ from robot import Robot
 from obstacle import Obstacle
 from salle import Salle
 from AfficherTexte import afficher_le_texte 
+from AfficherTexte import affiche_capteur
 import numpy as np
 import pygame
 import math
@@ -156,13 +157,13 @@ def carre(screen, dexter, clock, OFFSET_X, OFFSET_Y, SCALE, c):
             old_x, old_y = dexter.x, dexter.y
             dexter.avancer()
             update_capteur(dexter,Piece)
-            print("Le prochain obstacle est à : ", dexter.capteur, "unités")
             if collision(dexter, Piece):
                 dexter.x, dexter.y = old_x, old_y
                 print("Collision détectée, arrêt du déplacement")
                 return 
             affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
             afficher_le_texte(screen, 'c')
+            affiche_capteur(screen,dexter.capteur)
             pygame.display.flip()
             clock.tick(60)  # Ralenti pour mieux voir
         dexter.tourner(90)
@@ -242,6 +243,8 @@ def test_pygame():
 
         affiche_salle(screen, dexter, OFFSET_X, OFFSET_Y, SCALE)
         if commande_actuelle is not None:
+            update_capteur(dexter,Piece)
+            affiche_capteur(screen,dexter.capteur)
             afficher_le_texte(screen, commande_actuelle)
             
         keys = pygame.key.get_pressed()
@@ -269,7 +272,7 @@ def test_pygame():
                 old_x, old_y = dexter.x, dexter.y
                 dexter.avancer()
                 update_capteur(dexter,Piece)
-                print("Le prochain obstacle est à : ", dexter.capteur, " unités")
+                affiche_capteur(screen,dexter.capteur)
                 if collision(dexter, Piece):
                     dexter.x, dexter.y = old_x, old_y
                     mode_deplacement = False
