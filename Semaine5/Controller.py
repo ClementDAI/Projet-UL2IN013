@@ -8,8 +8,6 @@ import math
 
 #def test : teste si laction actuelle st finie avant de passer à la suivante
 
-#def aller_a(robot, x, y):
-
 class Controller:
     def __init__(self, robot):
         self.robot = robot
@@ -71,4 +69,13 @@ class Controller:
         """
         for _ in range(x):
             action()
+    
+    def sarreter(self, distance_voulue, distance_parcourue):
+        """
+        Arrête le robot si il a parcouru la distance voulue.
+        """
+        if distance_parcourue >= distance_voulue:
+            self.robot.vitesseGauche = 0
+            self.robot.vitesseDroite = 0
+    
     
