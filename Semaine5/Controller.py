@@ -4,11 +4,10 @@ import math
 #Attention pas de boucles sur le temps, on doit juste regarder l’état du monde et renvoyer les actions à faire pour ce tour de simulation
 #il faut une action pour tourner avancer sarreter et aller a (surtout pour tester et debugger)
 
-#def rotation(robot, x_cible, y_cible): se tourne vers la cible en utilisant la v ang des roues
 #def sarreter(robot): regarde la distance parcourure et arrête le robot si il a parcouru la distance voulue
-#def boucle(x) : repete x fois une instruction
+
 #def test : teste si laction actuelle st finie avant de passer à la suivante
-#def avancer(robot):
+
 #def aller_a(robot, x, y):
 
 class Controller:
@@ -50,6 +49,21 @@ class Controller:
         self.robot.y -= distance * math.cos(math.radians(self.robot.angle))
         self.robot.x = round(self.robot.x, 2)
         self.robot.y = round(self.robot.y, 2)
+    
+    def allerA(self, x, y):
+        """
+        Boucle jusqu'à la cible en orientant progressivement selon la vitesse angulaire disponible.
+        """
+        distance = math.sqrt((x - self.robot.x)**2 + (y - self.robot.y)**2)
+        max_iters = 10000 #pr le debug de boucle infinie
+        it = 0
+        while distance > 0.1 and it < max_iters:
+            self.rotation(x, y)
+            self.avancer()
+            distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)
+            it += 1
+        self.robot.x = round(x, 2)
+        self.robot.y = round(y, 2)
 
     def boucle(self, x, action):
         """
@@ -57,3 +71,4 @@ class Controller:
         """
         for _ in range(x):
             action()
+    
