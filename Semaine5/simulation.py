@@ -4,10 +4,10 @@ from class_salle import Salle
 from controller import Controller
 
 class Simulation:
-    def __init__(self):
+    def __init__(self,Robot,Salle,Controlleur):
         self.rob = Robot
         self.salle = Salle
-        self.controller = Controller(self.rob)
+        self.controller = Controlleur
 
     def cross2D(a, b):
         return a[0]*b[1] - a[1]*b[0]
