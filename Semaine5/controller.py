@@ -71,8 +71,8 @@ class Controller:
         Arrête le robot si il a parcouru la distance voulue.
         """
         if distance_parcourue >= distance_voulue:
-            self.robot.vitesseGauche = 0
-            self.robot.vitesseDroite = 0
+            self.robot.vangGauche = 0
+            self.robot.vangDroite = 0
 
     def updateController(self, robot, x_cible, y_cible):
         """
