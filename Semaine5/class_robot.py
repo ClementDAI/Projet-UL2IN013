@@ -1,7 +1,7 @@
 import math
 import numpy as np
 
-class robot(object):
+class Robot(object):
 
     def __init__(self,x,y,vangGauche,vangDroite,angle,longueur,largeur):
         self.x = x #coordonné x du centre du robot

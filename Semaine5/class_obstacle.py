@@ -1,7 +1,7 @@
 import numpy as np
 import math
 
-class obstacle(object):
+class Obstacle(object):
 
     def __init__(self,x,y,largeur,longueur): #obstacle de forme rectangulaire centré x,y
         self.x = x #coordoné x du centre du centre de l obstacle

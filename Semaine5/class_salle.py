@@ -1,4 +1,4 @@
-class salle(object):
+class Salle(object):
 
     def __init__(self,longueur,largeur):
         self.dimensionX = longueur #j'ai mit dimensionX en nom d argument pcq robot et obstacle s appelle deja comme sa pour pas trop ce répéter
