@@ -1,16 +1,12 @@
 from ClassRobot import robot
 import math
-#But : Créer un module qui Regarde l’état du monde (output de simulation) et renvoie les actions à gérer (à robot et à simulation)
-#Attention pas de boucles sur le temps, on doit juste regarder l’état du monde et renvoyer les actions à faire pour ce tour de simulation
-#il faut une action pour tourner avancer sarreter et aller a (surtout pour tester et debugger)
-
-#def sarreter(robot): regarde la distance parcourure et arrête le robot si il a parcouru la distance voulue
-
-#def test : teste si laction actuelle st finie avant de passer à la suivante
 
 class Controller:
     def __init__(self, robot):
         self.robot = robot
+        xprec, yprec = self.robot.getPosition()
+        self.xprec = xprec
+        self.yprec = yprec
 
     def rotation(self, x_cible, y_cible): 
         """
@@ -63,7 +59,7 @@ class Controller:
         self.robot.x = round(x, 2)
         self.robot.y = round(y, 2)
 
-    def boucle(self, x, action):
+    def boucle(self, x, action): #je vois pas trop l'utilité encore mais le prof avait dit que c'était nécessaire
         """
         Répète x fois une instruction.
         """
@@ -77,5 +73,15 @@ class Controller:
         if distance_parcourue >= distance_voulue:
             self.robot.vitesseGauche = 0
             self.robot.vitesseDroite = 0
-    
-    
+
+    def updateController(self, robot, x_cible, y_cible):
+        """
+        Met a jour les info du controller et lance la boucle pour aller a la cible.
+        """
+        self.robot = robot
+        distance_parcourue = math.sqrt((self.robot.x - self.xprec)**2 + (self.robot.y - self.yprec)**2) #
+        distance_voulue = math.sqrt((x_cible - self.xprec)**2 + (y_cible - self.yprec)**2)
+        self.sarreter(distance_voulue, distance_parcourue)
+        self.allerA(x_cible, y_cible)
+        self.xprec = self.robot.x
+        self.yprec = self.robot.y
