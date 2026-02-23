@@ -1,15 +1,15 @@
-from Affichage import Affichage #changer les noms qd le module sera codé
-from Controller import Controller
-from Simulation import Simulation
-from ClassRobot import robot
-from ClassSalle import Salle
-from ClassObstacle import Obstacle
+from affichage import Affichage #changer les noms qd le module sera codé
+from controller import Controller
+from simulation import Simulation
+from class_robot import Robot
+from class_salle import Salle
+from class_obstacle import Obstacle
 
 xd = 10
 yd = 10
 longueur_robot = 2
 largeur_robot = 1
-dexter = robot(xd, yd, 20, 20, 0, longueur_robot, largeur_robot)
+dexter = Robot(xd, yd, 20, 20, 0, longueur_robot, largeur_robot)
 salle = Salle(100, 100)
 ob1 = Obstacle(20, 20, 5, 5)
 ob2 = Obstacle(50, 50, 10, 10)

@@ -1,4 +1,4 @@
-from ClassRobot import robot
+from class_robot import Robot
 import math
 
 class Controller:
@@ -25,7 +25,7 @@ class Controller:
             erreur += 360
 
         if abs(erreur) < 1:
-            self.robot.angle = angle_cible
+            self.robot.update_angle(angle_cible)
             self.robot.normaliser_angle()
             return
         
@@ -54,7 +54,7 @@ class Controller:
         while distance > 0.1 and it < max_iters:
             self.rotation(x, y)
             self.avancer()
-            distance = math.sqrt((x - self.x)**2 + (y - self.y)**2)
+            distance = math.sqrt((x - self.robot.x)**2 + (y - self.robot.y)**2)
             it += 1
         self.robot.x = round(x, 2)
         self.robot.y = round(y, 2)
