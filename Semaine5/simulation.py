@@ -18,35 +18,15 @@ class Simulation:
         salle : paramètre de classe Salle
         Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
         """
-
-        angle = np.deg2rad(self.rob.angle)
-        cos = np.cos(angle)
-        sin = np.sin(angle)
-        larg = self.rob.largeur / 2
-        long = self.rob.longueur / 2
     
-        coinHG = np.array([(self.rob.x - (larg * cos) - (long * sin)), (self.rob.y - (larg * sin) + (long * cos))]) # calcul des coins du robots
-        coinHD = np.array([(self.rob.x + (larg * cos) - (long * sin)), (self.rob.y + (larg * sin) + (long * cos))]) 
-        coinBG = np.array([(self.rob.x - (larg * cos) + (long * sin)), (self.rob.y - (larg * sin) - (long * cos))])
-        coinBD = np.array([(self.rob.x + (larg * cos) + (long * sin)), (self.rob.y + (larg * sin) - (long * cos))])
-
         cote_robot = self.rob.coins()
 
         for i in self.salle.ListeObstacle:
             xObstacle, yObstacle = i.x, i.y
             largeurObstacle = i.largeur
             longueurObstacle = i.longueur
-            inclinaison = i.inclinaison
-            larg2 = i.largeur / 2
-            long2 = i.longueur / 2 
-            cos2 = np.cos(inclinaison)
-            sin2 = np.sin(inclinaison)
             if ((self.rob.x > xObstacle - largeurObstacle / 2) and (self.rob.x < xObstacle + largeurObstacle / 2) and (self.rob.y > yObstacle - longueurObstacle / 2) and (self.rob.y < yObstacle + longueurObstacle / 2)):
                 return True
-            coinObsHG = np.array([(xObstacle - (larg2 * cos2) - (long2 * sin2)), (yObstacle - (larg2 * sin2) + (long2 * cos2))]) # calculs des coins de l'obstacle
-            coinObsHD = np.array([(xObstacle + (larg2 * cos2) - (long2 * sin2)), (yObstacle + (larg2 * sin2) + (long2 * cos2))])
-            coinObsBG = np.array([(xObstacle - (larg2 * cos2) + (long2 * sin2)), (yObstacle - (larg2 * sin2) - (long2 * cos2))])
-            coinObsBD = np.array([(xObstacle + (larg2 * cos2) + (long2 * sin2)), (yObstacle + (larg2 * sin2) - (long2 * cos2))])
             cote_obs = i.coins()
             for point1_rob, point2_rob in cote_robot:
                 for point1_obs, point2_obs in cote_obs: 
@@ -61,7 +41,7 @@ class Simulation:
                     if (prod_vec1 * prod_vec2) < 0 and (prod_vec3 * prod_vec4) < 0: 
                         return True
                 
-        cote_salle = [(np.array([0, 0]), np.array([self.salle.dimensionX, 0])), (np.array([0, self.salle.dimensionY]), np.array([self.salle.dimensionX, self.salle.dimensionY])), (np.array([0, self.salle.dimensionY]), np.array([0, 0])), (np.array([self.salle.dimensionX, self.salle.dimensionY]), np.array([self.salle.dimensionX, 0]))]
+        cote_salle = self.salle.coins()
     
         for point1_rob, point2_rob in cote_robot: # collision avec la salle
             for point1_salle, point2_salle in cote_salle: 
