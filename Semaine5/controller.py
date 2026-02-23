@@ -2,8 +2,8 @@ from class_robot import Robot
 import math
 
 class Controller:
-    def __init__(self, robot):
-        self.robot = robot
+    def __init__(self, Robot):
+        self.robot = Robot
         xprec, yprec = self.robot.getPosition()
         self.xprec = xprec
         self.yprec = yprec
