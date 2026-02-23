@@ -4,7 +4,9 @@ from simulation import Simulation
 from class_robot import Robot
 from class_salle import Salle
 from class_obstacle import Obstacle
+import pygame
 
+pygame.init()
 xd = 10
 yd = 10
 longueur_robot = 2
@@ -18,10 +20,10 @@ salle.ListeObstacle.append(ob1)
 salle.ListeObstacle.append(ob2)
 salle.ListeObstacle.append(ob3)
 simulation = Simulation(salle, dexter)
-affichage = Affichage(salle, dexter)
+affichage = Affichage(simulation)
 controller = Controller(dexter)
 
 while True:
     controller.updateController(dexter, 0, 0)
     simulation.updateSimulation(dexter) #a changer surement qd vous aurez fait la fonction
-    affichage.updateAffichage(dexter) #idem
+    affichage.updateAffichage() 
