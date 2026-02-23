@@ -50,3 +50,10 @@ class Controller:
         self.robot.y -= distance * math.cos(math.radians(self.robot.angle))
         self.robot.x = round(self.robot.x, 2)
         self.robot.y = round(self.robot.y, 2)
+
+    def boucle(self, x, action):
+        """
+        Répète x fois une instruction.
+        """
+        for _ in range(x):
+            action()
