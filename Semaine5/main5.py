@@ -19,7 +19,7 @@ ob3 = Obstacle(70, 70, 15, 15)
 salle.ListeObstacle.append(ob1)
 salle.ListeObstacle.append(ob2)
 salle.ListeObstacle.append(ob3)
-simulation = Simulation(salle, dexter)
+simulation = Simulation(dexter,salle)
 affichage = Affichage(simulation)
 controller = Controller(dexter)
 
