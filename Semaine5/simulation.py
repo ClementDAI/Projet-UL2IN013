@@ -12,35 +12,15 @@ def collision(rob, salle):
     Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
     """
 
-    angle = np.deg2rad(rob.angle)
-    cos = np.cos(angle)
-    sin = np.sin(angle)
-    larg = rob.largeur / 2
-    long = rob.longueur / 2
-    
-    coinHG = np.array([(rob.x - (larg * cos) - (long * sin)), (rob.y - (larg * sin) + (long * cos))]) # calcul des coins du robots
-    coinHD = np.array([(rob.x + (larg * cos) - (long * sin)), (rob.y + (larg * sin) + (long * cos))]) 
-    coinBG = np.array([(rob.x - (larg * cos) + (long * sin)), (rob.y - (larg * sin) - (long * cos))])
-    coinBD = np.array([(rob.x + (larg * cos) + (long * sin)), (rob.y + (larg * sin) - (long * cos))])
-
-    cote_robot = [(coinHG, coinHD), (coinBG, coinBD), (coinBG, coinHG), (coinBD, coinHD)]
+    cote_robot = rob.coins
 
     for i in salle.ListeObstacle:
         xObstacle, yObstacle = i.x, i.y
         largeurObstacle = i.largeur
         longueurObstacle = i.longueur
-        inclinaison = i.inclinaison
-        larg2 = i.largeur / 2
-        long2 = i.longueur / 2 
-        cos2 = np.cos(inclinaison)
-        sin2 = np.sin(inclinaison)
         if ((rob.x > xObstacle - largeurObstacle / 2) and (rob.x < xObstacle + largeurObstacle / 2) and (rob.y > yObstacle - longueurObstacle / 2) and (rob.y < yObstacle + longueurObstacle / 2)):
             return True
-        coinObsHG = np.array([(xObstacle - (larg2 * cos2) - (long2 * sin2)), (yObstacle - (larg2 * sin2) + (long2 * cos2))]) # calculs des coins de l'obstacle
-        coinObsHD = np.array([(xObstacle + (larg2 * cos2) - (long2 * sin2)), (yObstacle + (larg2 * sin2) + (long2 * cos2))])
-        coinObsBG = np.array([(xObstacle - (larg2 * cos2) + (long2 * sin2)), (yObstacle - (larg2 * sin2) - (long2 * cos2))])
-        coinObsBD = np.array([(xObstacle + (larg2 * cos2) + (long2 * sin2)), (yObstacle + (larg2 * sin2) - (long2 * cos2))])
-        cote_obs = [(coinObsHG, coinObsHD), (coinObsBG, coinObsBD), (coinObsBG, coinObsHG), (coinObsBD, coinObsHD)]
+        cote_obs = i.coins
         for point1_rob, point2_rob in cote_robot:
             for point1_obs, point2_obs in cote_obs: 
                 vect_rob = point2_rob - point1_rob

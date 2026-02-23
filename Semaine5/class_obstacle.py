@@ -29,3 +29,4 @@ class obstacle(object):
         coinObsHD = np.array([(self.x + (larg2 * cos2) - (long2 * sin2)), (self.y + (larg2 * sin2) + (long2 * cos2))])
         coinObsBG = np.array([(self.x - (larg2 * cos2) + (long2 * sin2)), (self.y - (larg2 * sin2) - (long2 * cos2))])
         coinObsBD = np.array([(self.x + (larg2 * cos2) + (long2 * sin2)), (self.y + (larg2 * sin2) - (long2 * cos2))])
+        return [(coinObsHG, coinObsHD), (coinObsBG, coinObsBD), (coinObsBG, coinObsHG), (coinObsBD, coinObsHD)]

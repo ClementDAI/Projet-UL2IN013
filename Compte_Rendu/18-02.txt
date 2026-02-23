@@ -1,0 +1,7 @@
+Compte rendu de la 5ème séance (18 février)
+
+Participants : Thomas COIPEL, Clément DAI, Martial WANG, Matteo ZHOU, Beyza AKKOYUN.
+
+Objectif pour la semaine prochaine : Réarranger nos codes, créer les modules simulation, affichage et controlleur pour qu'ils soient synchronisés
+
+Sous les conseils de nos chargés de TD/TP, nous avons décidé d'organiser nos codes pour que tout soit plus lisible et indépendant/synchronisé
