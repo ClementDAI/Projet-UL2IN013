@@ -4,10 +4,10 @@ import math
 class Obstacle(object):
 
     def __init__(self,x,y,largeur,longueur): #obstacle de forme rectangulaire centré x,y
-        self.x = x #coordoné x du centre du centre de l obstacle
-        self.y = y #coordoné y du centre du centre de l obstacle
-        self.longueur = longueur #valeur de sa longueur sur y
-        self.largeur = largeur #valeur de sa largeur sur x
+        self.x = x #coordoné x du centre du centre de l'obstacle
+        self.y = y #coordoné y du centre du centre de l'obstacle
+        self.longueur = longueur #valeur de la longueur sur y de l'obstacle
+        self.largeur = largeur #valeur de la largeur sur x de l'obstacle
         self.inclinaison = 0
 
     def ajoutObstacle(self,salle): 
@@ -15,7 +15,7 @@ class Obstacle(object):
         Cette fonction ajoute un obstacle(x,y,longueur,largeur) dans la liste de la classe salle:
         usage: salle.ajoutObstacle(obstacle) 
         """
-        salle.ListeObstacle.append(self) #le parametre doit etre une classe obstacle
+        salle.ListeObstacle.append(self) #le paramètre doit être une classe obstacle
     
     def coins(self):
         """
