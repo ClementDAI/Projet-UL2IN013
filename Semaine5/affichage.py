@@ -1,4 +1,9 @@
-import pygame 
+import pygame
+import math
+from class_robot import Robot
+from class_salle import Salle
+from simulation import Simulation
+from controller import Controller
 
 class Affichage:
     def __init__(self, simulation):
