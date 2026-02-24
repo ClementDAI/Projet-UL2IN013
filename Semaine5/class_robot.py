@@ -81,4 +81,18 @@ class Robot(object):
     def normaliser_angle(self):
         """Normalise self.angle dans l'intervalle [-180, 180]."""
         self.angle = (self.angle + 180) % 360 - 180
+
+    def assurer_direction_avant(self):
+        """
+        Si le robot a une vitesse linéaire négative (ou les deux roues avec vitesses négatives),
+        on pivote le robot de 180° et on inverse les vitesses angulaires des roues pour
+        conserver le même mouvement mais avec des vitesses positives dans la direction "avant".
+        """
+        self.calculerVitesses()
+        if self.vitesseLineaire < 0 or (self.vangGauche < 0 and self.vangDroite < 0):
+            self.angle += 180
+            self.vangGauche = -self.vangGauche
+            self.vangDroite = -self.vangDroite
+            self.calculerVitesses()
+            self.normaliser_angle()
     
