@@ -3,7 +3,7 @@ from controller import Controller
 from simulation import Simulation
 from class_robot import Robot
 from class_salle import Salle
-from class_obstacle import Obstacl
+from class_obstacle import Obstacle
 import pygame
 
 pygame.init()
