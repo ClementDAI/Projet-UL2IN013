@@ -1,8 +1,8 @@
 from affichage import Affichage #changer les noms qd le module sera codé
 from controller import Controller
-from simulation import Simulation
-from class_robot import Robot
-from class_salle import Salle
+from simulation import Simulatio
+from class_robot import Robo
+from class_salle import Sall
 from class_obstacle import Obstacle
 import pygame
 
