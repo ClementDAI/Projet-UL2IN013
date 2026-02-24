@@ -23,6 +23,7 @@ simulation = Simulation(dexter,salle)
 affichage = Affichage(simulation)
 controller = Controller(dexter)
 
+running=True
 while True:
     for event in pyagme.event.get():
         if event.type==game.QUIT:
