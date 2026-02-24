@@ -58,7 +58,7 @@ class Simulation:
     
         return False
     
-    def updateSimulation(self,Robot):
+    def updateSimulation(self,Robot, Salle):
         """
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
         """
