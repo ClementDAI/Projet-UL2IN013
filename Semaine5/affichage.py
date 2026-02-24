@@ -70,8 +70,31 @@ class Affichage:
 
     def affiche_capteur_compteur(self):
         font = pygame.font.Font(None, 24)
-        capteur = font.render(f"capteur de distance : {self.simulation.rob.capteur}" , True, "black")
+        capteur = font.render(f"capteur de distance : {self.simulation.rob.capteur:.2f}" , True, "black")
         self.screen.blit(capteur, (10, 550))
+    def affiche_etat_robot(self):
+        """Affiche l'état du robot (vitesses, angle, position)"""
+        font = pygame.font.Font(None, 20)
+        robot = self.simulation.rob
+        
+        v_lin = font.render(f"Vitesse linéaire: {robot.vitesseLineaire:.2f} m/s", True, "black")
+        v_ang = font.render(f"Vitesse angulaire: {robot.vitesseAngulaire:.2f} rad/s", True, "black")
+        angle = font.render(f"Angle: {robot.angle:.1f}°", True, "black")
+        pos = font.render(f"Position: ({robot.x:.1f}, {robot.y:.1f})", True, "black")
+        capteur = font.render(f"Capteur: {robot.capteur:.2f}", True, "black")
+        
+        if robot.capteur < 0.5:
+            capteur_color = font.render(f"Capteur: {robot.capteur:.2f} [COLLISION!]", True, "red")
+        elif robot.capteur < 1:
+            capteur_color = font.render(f"Capteur: {robot.capteur:.2f} [DANGER]", True, "orange")
+        else:
+            capteur_color = font.render(f"Capteur: {robot.capteur:.2f} [OK]", True, "green")
+        
+        self.screen.blit(v_lin, (10, 530))
+        self.screen.blit(v_ang, (10, 550))
+        self.screen.blit(angle, (10, 570))
+        self.screen.blit(pos, (200, 530))
+        self.screen.blit(capteur_color, (200, 550))
 
     def updateAffichage(self):
         """
@@ -79,5 +102,5 @@ class Affichage:
         """
         self.affiche_salle()
         self.affiche_robot()
-        self.affiche_capteur_compteur()
+        self.affiche_etat_robot()
         pygame.display.flip()
