@@ -2,6 +2,7 @@ import numpy as np
 from class_robot import Robot
 from class_salle import Salle
 from controller import Controller
+"""n'y a t-il pas beosin d'importer la classe obstacle aussi vu que ça fait partie de la salle??"""
 
 class Simulation:
     def __init__(self,Robot,Salle):
