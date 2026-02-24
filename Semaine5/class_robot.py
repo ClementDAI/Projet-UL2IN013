@@ -9,13 +9,13 @@ class Robot(object):
         self.angle = angle #angle positif ou négatif en degré dont son orientation initial est 0 (vers le haut)
         self.longueur = longueur #valeur de la longueur sur y du robot
         self.largeur = largeur #valeur de la  largeur sur x du robot
-        self.vangGauche = vangGauche #vitesse angulaire de la roue gauche en rad/s
-        self.vangDroite = vangDroite #vitesse angulaire de la roue droite en rad/s
-        self.rayonRoues = 0.05 #rayon des roues en m
-        self.ecartRoues = 0.2 #écart entre les roues en m
-        self.capteur = 0 #distance entre le robot et l obstacle en face (ou la bordure de la salle)
-        self.vitesseLineaire = 0
-        self.vitesseAngulaire = 0
+        self.vangGauche = vangGauche #vitesse angulaire de la roue gauche en rad/seconde
+        self.vangDroite = vangDroite #vitesse angulaire de la roue droite en rad/seconde
+        self.rayonRoues = 0.05 #rayon des roues en mètre
+        self.ecartRoues = 0.2 #écart entre les roues en mètre
+        self.capteur = 0 #distance entre le robot et l'obstacle en face de lui (ou la bordure de la salle)
+        self.vitesseLineaire = 0 #initialisation de la vitesse linéaire 
+        self.vitesseAngulaire = 0 #initialisation de la vitesse angulaire 
 
     def coins(self):
         angle = np.deg2rad(self.angle)
