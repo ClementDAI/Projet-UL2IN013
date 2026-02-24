@@ -14,8 +14,8 @@ class Robot(object):
         self.rayonRoues = 0.05 #rayon des roues en m
         self.ecartRoues = 0.2 #écart entre les roues en m
         self.capteur = 0 #distance entre le robot et l obstacle en face (ou la bordure de la salle)
-        self.vitesseLineaire
-        self.vitesseAngulaire
+        self.vitesseLineaire = 0
+        self.vitesseAngulaire = 0
 
     def coins(self):
         angle = np.deg2rad(self.angle)
