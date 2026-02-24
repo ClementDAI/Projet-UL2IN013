@@ -29,7 +29,7 @@ while True:
         if event.type==game.QUIT:
             running=False
             
-    controller.updateController(dexter, 0, 0)
+    controller.update_controller(dexter, 0, 0)
     simulation.updateSimulation(dexter) #a changer surement qd vous aurez fait la fonction
     affichage.updateAffichage() 
 
