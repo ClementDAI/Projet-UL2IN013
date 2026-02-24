@@ -58,4 +58,11 @@ class Simulation:
     
         return False
     
+    def updateSimulation(self,Robot):
+        """
+        updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
+        """
+        self.rob.x += self.rob.vitesse * np.cos(self.rob.angle)
+        self.rob.y += self.rob.vitesse * np.sin(self.rob.angle)
+    
     
