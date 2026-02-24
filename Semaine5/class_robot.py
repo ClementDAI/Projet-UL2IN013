@@ -7,7 +7,7 @@ class Robot(object):
         self.x = x #coordonné x(abscisse) du centre du robot
         self.y = y #coordonné y (ordonnée) du centre du robot
         self.angle = angle #angle positif ou négatif en degré dont son orientation initial est 0 (vers le haut)
-        self.longueur = longueur #valeur de la longueur sur y du robot
+        self.longueur = longueur #valeur de la longueur sur y du robo
         self.largeur = largeur #valeur de la  largeur sur x du robot
         self.vangGauche = vangGauche #vitesse angulaire de la roue gauche en rad/seconde
         self.vangDroite = vangDroite #vitesse angulaire de la roue droite en rad/seconde
