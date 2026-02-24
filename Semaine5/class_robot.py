@@ -7,7 +7,7 @@ class Robot(object):
         self.x = x #coordonné x(abscisse) du centre du robot
         self.y = y #coordonné y (ordonnée) du centre du robot
         self.angle = angle #angle positif ou négatif en degré dont son orientation initial est 0 (vers le haut)
-        self.longueur = longueur #valeur de la longueur sur y du robo
+        self.longueur = longueur #valeur de la longueur sur y du robot
         self.largeur = largeur #valeur de la  largeur sur x du robot
         self.vangGauche = vangGauche #vitesse angulaire de la roue gauche en rad/seconde
         self.vangDroite = vangDroite #vitesse angulaire de la roue droite en rad/seconde
@@ -24,12 +24,12 @@ class Robot(object):
         larg = self.largeur / 2
         long = self.longueur / 2
         
-        coinHG = np.array([(self.x - (larg * cos) - (long * sin)), (self.y - (larg * sin) + (long * cos))]) # calcul des coins du robots
-        coinHD = np.array([(self.x + (larg * cos) - (long * sin)), (self.y + (larg * sin) + (long * cos))]) 
-        coinBG = np.array([(self.x - (larg * cos) + (long * sin)), (self.y - (larg * sin) - (long * cos))])
-        coinBD = np.array([(self.x + (larg * cos) + (long * sin)), (self.y + (larg * sin) - (long * cos))])
+        coinHG = np.array([(self.x - (larg * cos) - (long * sin)), (self.y - (larg * sin) + (long * cos))]) # calcul des coins du robots #haut-gauche
+        coinHD = np.array([(self.x + (larg * cos) - (long * sin)), (self.y + (larg * sin) + (long * cos))]) #haut-droit
+        coinBG = np.array([(self.x - (larg * cos) + (long * sin)), (self.y - (larg * sin) - (long * cos))]) #bas-gauche
+        coinBD = np.array([(self.x + (larg * cos) + (long * sin)), (self.y + (larg * sin) - (long * cos))]) #bas-droit
 
-        return [(coinHG, coinHD), (coinBG, coinBD), (coinBG, coinHG), (coinBD, coinHD)]
+        return [(coinHG, coinHD), (coinBG, coinBD), (coinBG, coinHG), (coinBD, coinHD)] 
     
     def calculerVitesses(self):
         """
@@ -38,7 +38,7 @@ class Robot(object):
         la vitesse linéaire est la vitesse à laquelle il avance dans la direction de son angle
         """
         # Vitesses linéaires des roues
-        v_gauche = self.rayonRoues * self.vangGauche
+        v_gauche = self.rayonRoues * self.vangGauche #produit du rayon des roue et vitesse angulaire 
         v_droite = self.rayonRoues * self.vangDroite
         
         # Vitesse linéaire du robot (moyenne des deux roues)
