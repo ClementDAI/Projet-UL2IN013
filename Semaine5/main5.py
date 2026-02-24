@@ -6,7 +6,7 @@ from class_salle import Salle
 from class_obstacle import Obstacle
 import pygame
 
-pygame.init()
+pygame.init(
 xd = 10
 yd = 10
 longueur_robot = 2
