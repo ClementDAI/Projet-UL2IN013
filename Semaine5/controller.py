@@ -79,7 +79,7 @@ class Controller:
         Met a jour les info du controller et lance la boucle pour aller a la cible.
         """
         self.robot = robot
-        distance_parcourue = math.sqrt((self.robot.x - self.xprec)**2 + (self.robot.y - self.yprec)**2) 
+        distance_parcourue += math.sqrt((self.robot.x - self.xprec)**2 + (self.robot.y - self.yprec)**2) 
         distance_voulue = math.sqrt((x_cible - self.xprec)**2 + (y_cible - self.yprec)**2)
         self.sarreter(distance_voulue, distance_parcourue)
         self.allerA(x_cible, y_cible)

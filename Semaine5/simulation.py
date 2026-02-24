@@ -57,3 +57,5 @@ class Simulation:
                     return True
     
         return False
+    
+    
