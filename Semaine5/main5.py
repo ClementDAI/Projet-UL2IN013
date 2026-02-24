@@ -24,6 +24,7 @@ affichage = Affichage(simulation)
 controller = Controller(dexter)
 
 while True:
+    for event in pyagme.event.get():
     controller.updateController(dexter, 0, 0)
     simulation.updateSimulation(dexter) #a changer surement qd vous aurez fait la fonction
     affichage.updateAffichage() 
