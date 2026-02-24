@@ -4,7 +4,7 @@ import numpy as np
 class Robot(object):
 
     def __init__(self,x,y,vangGauche,vangDroite,angle,longueur,largeur):
-        self.x = x #coordonné x du centre du robot
+        self.x = x #coordonné x(abscisse) du centre du robot
         self.y = y #coordonné y du centre du robot
         self.angle = angle #angle positif ou négatif en degré dont son orientation initial est 0 (vers le haut)
         self.longueur = longueur #valeur de sa longueur sur y
