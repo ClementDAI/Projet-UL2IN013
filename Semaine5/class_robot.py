@@ -38,7 +38,7 @@ class Robot(object):
         la vitesse linéaire est la vitesse à laquelle il avance dans la direction de son angle
         """
         # Vitesses linéaires des roues
-        v_gauche = self.rayonRoues * self.vangGauche #produit du rayon des roue et vitesse angulaire 
+        v_gauche = self.rayonRoues * self.vangGauche #produit du rayon des roues et vitesse angulaire 
         v_droite = self.rayonRoues * self.vangDroite
         
         # Vitesse linéaire du robot (moyenne des deux roues)
@@ -65,7 +65,10 @@ class Robot(object):
         Getter pour les vitesses angulaires des roues
         Retourne: (vangGauche, vangDroite)
         """
-        return self.vangGauche, self.vangDroite
+        return self.vangGauche, self.vangDroite 
+#Question1: a t-on réleement besoin de faire une fonction get vitesse angulaire ? Pourquoi ne pas directement faire une focntion get générale qui reprend get vitesse angulaire,
+    get vitesse, et get position au meme endroit ? 
+
     
     def getVitesses(self):
         """
