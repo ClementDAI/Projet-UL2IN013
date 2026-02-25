@@ -67,13 +67,20 @@ class Simulation:
         angle = self.rob.angle
         sin = math.sin(math.radians(angle))
         cos = -math.cos(math.radians(angle))
-        old_x, old_y = self.rob.x, self.rob.y
-        while not(self.collision()):
-            self.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
-            self.rob.y += cos * 0.1
+        rob_tmp = Robot(self.rob.x, self.rob.y, self.rob.vangGauche, self.rob.vangDroite, self.rob.angle, self.rob.longueur, 0.1)
+        salle_tmp = Salle(self.salle.dimensionX, self.salle.dimensionY)
+        L = []
+        for obs in self.salle.ListeObstacle:
+            L.append(obs)
+        salle_tmp.ListeObstacle = L
+        simu_tmp = Simulation(rob_tmp, salle_tmp)
+        old_x, old_y = simu_tmp.rob.x, simu_tmp.rob.y
+        while not(simu_tmp.collision()):
+            simu_tmp.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
+            simu_tmp.rob.y += cos * 0.1
             distance += 0.1
         
-        self.rob.x, self.rob.y = old_x, old_y
+        simu_tmp.rob.x, simu_tmp.rob.y = old_x, old_y
         self.rob.capteur = round(distance, 2)
 
 
