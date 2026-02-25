@@ -24,9 +24,11 @@ affichage = Affichage(simulation)
 controller = Controller(dexter)
 
 running=True
-while True:
-
-    controller.updateController(dexter, 0, 0)
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    controller.updateController(dexter, 5, 5)
     simulation.updateSimulation(dexter) #a changer surement qd vous aurez fait la fonction
     affichage.updateAffichage() 
 

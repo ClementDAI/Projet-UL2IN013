@@ -102,5 +102,6 @@ class Affichage:
         """
         self.affiche_salle()
         self.affiche_robot()
+        self.simulation.update_capteur()
         self.affiche_etat_robot()
         pygame.display.flip()
