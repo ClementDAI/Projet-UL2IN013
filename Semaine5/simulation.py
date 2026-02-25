@@ -1,6 +1,6 @@
 import numpy as np
-from class_robot import Robot
-from class_salle import Salle
+from robot import Robot
+from salle import Salle
 from controller import Controller
 import math
 
@@ -84,7 +84,7 @@ class Simulation:
         self.rob.capteur = round(distance, 2)
 
 
-    def updateSimulation(self,Robot):
+    def updateSimulation(self):
         """
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
         """

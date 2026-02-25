@@ -1,9 +1,9 @@
 from affichage import Affichage #changer les noms qd le module sera codé
 from controller import Controller
 from simulation import Simulation
-from class_robot import Robot
-from class_salle import Salle
-from class_obstacle import Obstacle
+from robot import Robot
+from salle import Salle
+from obstacle import Obstacle
 import pygame
 
 pygame.init()
@@ -28,7 +28,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    controller.updateController(dexter, 5, 5)
-    simulation.updateSimulation(dexter) #a changer surement qd vous aurez fait la fonction
+    controller.updateController(5, 5)
+    simulation.updateSimulation() #a changer surement qd vous aurez fait la fonction
     affichage.updateAffichage() 
 

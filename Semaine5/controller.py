@@ -1,4 +1,4 @@
-from class_robot import Robot
+from robot import Robot
 import math
 
 class Controller:
@@ -73,7 +73,7 @@ class Controller:
             self.robot.vangGauche = 0
             self.robot.vangDroite = 0
 
-    def updateController(self, robot, x_cible, y_cible):
+    def updateController(self, x_cible, y_cible):
         """
         Met a jour les info du controller et lance la boucle pour aller a la cible.
         """
