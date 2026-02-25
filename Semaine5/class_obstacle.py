@@ -3,12 +3,12 @@ import math
 
 class Obstacle(object):
 
-    def __init__(self,x,y,largeur,longueur): #obstacle de forme rectangulaire centré x,y
+    def __init__(self,x,y,largeur,longueur, inclinaison): #obstacle de forme rectangulaire centré x,y
         self.x = x #coordoné x du centre du centre de l'obstacle
         self.y = y #coordoné y du centre du centre de l'obstacle
         self.longueur = longueur #valeur de la longueur sur y de l'obstacle
         self.largeur = largeur #valeur de la largeur sur x de l'obstacle
-        self.inclinaison = 0
+        self.inclinaison = inclinaison
 
     def ajoutObstacle(self,salle): 
         """
