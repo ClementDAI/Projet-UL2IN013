@@ -1,7 +1,7 @@
 import pygame
 import math
-from class_robot import Robot
-from class_salle import Salle
+from robot import Robot
+from salle import Salle
 from simulation import Simulation
 from controller import Controller
 
