@@ -66,8 +66,6 @@ class Robot(object):
         Retourne: (vangGauche, vangDroite)
         """
         return self.vangGauche, self.vangDroite 
-"""Question1: a t-on réeleement besoin de faire une fonction get vitesse angulaire ? Pourquoi ne pas directement faire une focntion get générale qui reprend get vitesse angulaire,
-    get vitesse, et get position au meme endroit ? """
 
     
     def getVitesses(self):

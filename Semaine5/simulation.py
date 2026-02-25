@@ -2,7 +2,7 @@ import numpy as np
 from class_robot import Robot
 from class_salle import Salle
 from controller import Controller
-"""n'y a t-il pas beosin d'importer la classe obstacle aussi vu que ça fait partie de la salle??"""
+import math
 
 class Simulation:
     def __init__(self,Robot,Salle):
@@ -59,6 +59,25 @@ class Simulation:
     
         return False
     
+    def update_capteur(self):
+        """rob : objet de classe robot
+            salle : salle ou se trouve rob
+            la fonction va mettre à jour la valeur de capteur de rob"""
+        distance = 0
+        angle = self.rob.angle
+        sin = math.sin(math.radians(angle))
+        cos = -math.cos(math.radians(angle))
+        rob_tmp = Robot(self.rob.x, self.rob.y, self.rob.vangGauche, self.rob.vangDroite, self.rob.angle, self.rob.longueur, 0.1)
+        old_x, old_y = rob_tmp.x, rob_tmp.y
+        while not(self.collision(rob_tmp, self.salle)):
+            rob_tmp.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
+            rob_tmp.y += cos * 0.1
+            distance += 0.1
+        
+        rob_tmp.x, rob_tmp.y = old_x, old_y
+        self.rob.capteur = round(distance, 2)
+
+
     def updateSimulation(self,Robot):
         """
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation

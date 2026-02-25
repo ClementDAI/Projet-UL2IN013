@@ -25,12 +25,8 @@ controller = Controller(dexter)
 
 running=True
 while True:
-    for event in pyagme.event.get():
-        if event.type==game.QUIT:
-            running=False
-            
+
     controller.updateController(dexter, 0, 0)
     simulation.updateSimulation(dexter) #a changer surement qd vous aurez fait la fonction
     affichage.updateAffichage() 
 
-pygame.quit()
