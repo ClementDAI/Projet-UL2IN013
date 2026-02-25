@@ -9,9 +9,9 @@ import pygame
 pygame.init()
 xd = 10
 yd = 10
-longueur_robot = 2
-largeur_robot = 1
-dexter = Robot(xd, yd, 20, 20, 0, longueur_robot, largeur_robot)
+longueur_robot = 10
+largeur_robot = 5
+dexter = Robot(xd, yd, 20, 20, 180, longueur_robot, largeur_robot)
 salle = Salle(100, 100)
 ob1 = Obstacle(20, 20, 5, 5, 45)
 ob2 = Obstacle(50, 50, 10, 10, 192)
