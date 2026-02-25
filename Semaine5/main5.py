@@ -11,9 +11,9 @@ xd = 10
 yd = 10
 longueur_robot = 10
 largeur_robot = 5
-dexter = Robot(xd, yd, 20, 20, 110, longueur_robot, largeur_robot)
+dexter = Robot(xd, yd, -20, -20, 110, longueur_robot, largeur_robot)
 salle = Salle(100, 100)
-ob1 = Obstacle(20, 20, 5, 5, 45)
+ob1 = Obstacle(30, 10, 5, 5, 45)
 ob2 = Obstacle(50, 50, 10, 10, 192)
 ob3 = Obstacle(70, 30, 15, 15, 62)
 salle.ListeObstacle.append(ob1)

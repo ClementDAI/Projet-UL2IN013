@@ -90,5 +90,8 @@ class Simulation:
         """
         self.rob.x += self.rob.vitesseLineaire * np.cos(self.rob.angle)
         self.rob.y += self.rob.vitesseLineaire * np.sin(self.rob.angle)
+        if self.collision() :
+            self.rob.vangGauche = 0
+            self.rob.vangDroite = 0
     
     

@@ -42,9 +42,10 @@ class Controller:
 
         self.robot.x += distance * math.sin(math.radians(self.robot.angle))
         self.robot.y -= distance * math.cos(math.radians(self.robot.angle))
-        self.robot.x = round(self.robot.x, 2)
-        self.robot.y = round(self.robot.y, 2)
-    
+        print(self.robot.x)
+        print(self.robot.y)
+        print(math.cos(math.radians(self.robot.angle)))
+        print(distance)
     def allerA(self, x, y):
         """
         Boucle jusqu'à la cible en orientant progressivement selon la vitesse angulaire disponible.
@@ -83,7 +84,7 @@ class Controller:
         self.robot = robot
         self.distance_parcourue += math.sqrt((self.robot.x - self.xprec)**2 + (self.robot.y - self.yprec)**2) 
         distance_voulue = math.sqrt((x_cible - self.xprec)**2 + (y_cible - self.yprec)**2)
-        self.sarreter(distance_voulue)
-        self.allerA(x_cible, y_cible)
+        self.sarreter(100)
+        self.avancer()
         self.xprec = self.robot.x
         self.yprec = self.robot.y
