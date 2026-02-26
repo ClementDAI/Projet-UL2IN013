@@ -29,6 +29,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     controller.updateController(5, 5)
-    simulation.updateSimulation() #a changer surement qd vous aurez fait la fonction
+    simulation.updateSimulation()
     affichage.updateAffichage() 
 
