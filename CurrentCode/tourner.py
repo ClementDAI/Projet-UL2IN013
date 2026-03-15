@@ -10,7 +10,7 @@ class Tourner:
         self.angle_depart = self.robot.angle
 
     def update(self):
-        self.robot.angle += 5
+        self.robot.angle += 1
 
     def stop(self):
         return self.robot.angle >= self.angle_depart + self.angle_cible
