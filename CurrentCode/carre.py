@@ -11,7 +11,7 @@ class Carre:
     def start(self):
         self.cur = -1
 
-    def start(self):
+    def step(self):
         if self.stop():
             return
         
