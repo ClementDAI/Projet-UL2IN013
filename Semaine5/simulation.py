@@ -1,13 +1,22 @@
 import numpy as np
 from robot import Robot
 from salle import Salle
+from obstacle import Obstacle
 from controller import Controller
 import math
 
 class Simulation:
-    def __init__(self,Robot,Salle):
-        self.rob = Robot
-        self.salle = Salle
+    def __init__(self, xd, yd, longueur_robot, largeur_robot, xsalle, ysalle):
+        dexter = Robot(xd, yd, -20, -20, 110, longueur_robot, largeur_robot)
+        salle = Salle(xsalle, ysalle)
+        ob1 = Obstacle(30, 10, 5, 5, 45)
+        ob2 = Obstacle(50, 50, 10, 10, 192)
+        ob3 = Obstacle(70, 30, 15, 15, 62)
+        salle.ListeObstacle.append(ob1)
+        salle.ListeObstacle.append(ob2)
+        salle.ListeObstacle.append(ob3)
+        self.rob = dexter
+        self.salle = salle
         self.controller = Controller(self.rob)
 
     def cross2D(self,a, b):
@@ -67,13 +76,11 @@ class Simulation:
         angle = self.rob.angle
         sin = math.sin(math.radians(angle))
         cos = -math.cos(math.radians(angle))
-        rob_tmp = Robot(self.rob.x, self.rob.y, self.rob.vangGauche, self.rob.vangDroite, self.rob.angle, self.rob.longueur, 0.1)
-        salle_tmp = Salle(self.salle.dimensionX, self.salle.dimensionY)
+
         L = []
         for obs in self.salle.ListeObstacle:
             L.append(obs)
-        salle_tmp.ListeObstacle = L
-        simu_tmp = Simulation(rob_tmp, salle_tmp)
+        simu_tmp = Simulation(self.rob.x, self.rob.y, self.rob.longueur, self.rob.largeur, self.salle.dimensionX, self.salle.dimensionY)
         old_x, old_y = simu_tmp.rob.x, simu_tmp.rob.y
         while not(simu_tmp.collision()):
             simu_tmp.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
