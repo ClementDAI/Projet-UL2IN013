@@ -17,4 +17,4 @@ class Avancer:
         self.parcouru += distance
 
     def stop(self):
-        return self.parcouru > self.distance
+        return self.parcouru >= self.distance

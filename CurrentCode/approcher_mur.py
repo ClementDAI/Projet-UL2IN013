@@ -7,14 +7,12 @@ class Approcher_mur:
         self.distance = rob.capteur
     
     def start(self):
-        self.distance_parcouru = 0
+        self.strat = Avancer(self.distance, self.rob)
+        self.strat.start()
 
     def step(self):
-        strat = Avancer(self.distance, self.rob)
-        strat.start()
-        if not strat.stop():
-            strat.step()
-            self.distance_parcouru += strat.parcouru
+        if not self.strat.stop():
+            self.strat.step()
 
     def stop(self):
-        return self.distance_parcouru >= self.distance
+        return self.strat.stop() # on avance jusqu'a que le capteur devienne 0
