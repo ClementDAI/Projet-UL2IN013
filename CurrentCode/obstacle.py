@@ -8,7 +8,7 @@ class Obstacle(object):
         self.y = y #coordoné y du centre du centre de l'obstacle
         self.longueur = longueur #valeur de la longueur sur y de l'obstacle
         self.largeur = largeur #valeur de la largeur sur x de l'obstacle
-        self.inclinaison = inclinaison
+        self.inclinaison = inclinaison #en radians
 
     def ajoutObstacle(self,salle): 
         """
