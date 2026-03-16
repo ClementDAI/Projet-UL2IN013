@@ -9,7 +9,7 @@ class Tourner:
     def start(self):
         self.angle_depart = self.robot.angle
 
-    def update(self):
+    def step(self):
         self.robot.angle += 1
 
     def stop(self):
