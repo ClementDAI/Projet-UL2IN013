@@ -3,10 +3,10 @@ from tourner import Tourner
 
 def test_tourner():
     rob = Robot(0,0,0,0,271,6,3)
-    test = Tourner(90,rob)
+    test = Tourner(540,rob)
     test.start()
     while not test.stop():
         test.step()
-    assert rob.angle == 1
+    assert rob.angle == 91
     
 test_tourner()
