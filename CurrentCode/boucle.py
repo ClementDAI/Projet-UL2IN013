@@ -8,24 +8,26 @@ from robot import Robot
 #les conditions d'arrêt de la stratégie et du coup on peut pas faire n fois la stratégie
 
 class Boucle():
-    def __init__(self,n,indice, rob):
+    def __init__(self, strat, n, rob):
         self.cur = -1
         self.nbIt = n
-        self.indice = indice
         self.rob = rob
-        self.strategie = None
-        self.strat = [Avancer(1, self.rob), Tourner(90, self.rob), Carre(1, self.rob)]
+        self.strategie = strat
     
     def start(self):
         self.cur = 0
-        self.strategie = self.strat[self.indice]
         self.strategie.start()
 
     def step(self):
-        while not self.strategie.stop():
-            self.strategie
-            print(self.rob.x, self.rob.y, self.rob.angle)
-            self.cur+=1
+        if self.stop():
+            return
+        
+        while self.cur < self.nbIt:
+            while not self.strategie.stop():
+                self.strategie.step()
+                print(self.rob.x, self.rob.y, self.rob.angle)
+            self.cur += 1
+            self.strategie.start()
 
     def stop(self):
         return self.cur >= self.nbIt
