@@ -8,7 +8,5 @@ def test_avancer():
     test_Avancer.start()
     while not test_Avancer.stop():
         test_Avancer.step()
-    assert math.isclose(rob.x, 0, abs_tol=1e-6)
-    assert math.isclose(rob.y, -1, abs_tol=1e-6)
-    
-test_avancer()
+    assert math.isclose(rob.x, 0, abs_tol=1e-6) #is close : == mais pour les float
+    assert math.isclose(rob.y, -1, abs_tol=1e-6) #abs_tol : tolérance pour le is close : 0.000001
