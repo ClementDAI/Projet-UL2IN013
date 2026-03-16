@@ -3,7 +3,7 @@ from carre import Carre
 from avancer import Avancer
 from tourner import Tourner
 from boucle import Boucle
-
+#normalement ici tout marche mais cf boucle.py
 class Controller:
     def __init__(self, Robot,simulation):
         self.robot = Robot
