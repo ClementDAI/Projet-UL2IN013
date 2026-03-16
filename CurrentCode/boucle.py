@@ -25,7 +25,6 @@ class Boucle():
         while self.cur < self.nbIt:
             while not self.strategie.stop():
                 self.strategie.step()
-                print(self.rob.x, self.rob.y, self.rob.angle)
             self.cur += 1
             self.strategie.start()
 

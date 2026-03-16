@@ -7,6 +7,6 @@ def test_tourner():
     test.start()
     while not test.stop():
         test.step()
-    assert rob.angle == 361
+    assert rob.angle == 1
     
 test_tourner()

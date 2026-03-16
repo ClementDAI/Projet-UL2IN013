@@ -8,9 +8,11 @@ class Tourner:
     
     def start(self):
         self.angle_depart = self.robot.angle
+        self.angle_parcouru = 0
 
     def step(self):
-        self.robot.angle += 1
+        self.robot.angle = (self.robot.angle + 1) % 360
+        self.angle_parcouru = (self.robot.angle - self.angle_depart) % 360
 
     def stop(self):
-        return self.robot.angle >= self.angle_depart + self.angle_cible
+        return self.angle_parcouru >= self.angle_cible
