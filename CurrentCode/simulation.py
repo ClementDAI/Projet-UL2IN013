@@ -6,7 +6,8 @@ from avancer import Avancer
 from tourner import Tourner
 from carre import Carre
 from approcher_mur import Approcher_mur
-import math 
+import math
+import numpy as np
 
 class Simulation:
     def __init__(self, xd, yd, longueur_robot, largeur_robot, xsalle, ysalle):
@@ -104,8 +105,8 @@ class Simulation:
                     self.rob.vangGauche = 0
                     self.rob.vangDroite = 0
                 self.act.step()
-                self.rob.x += self.rob.vitesseLineaire * np.cos(self.rob.angle)
-                self.rob.y += self.rob.vitesseLineaire * np.sin(self.rob.angle)
+                self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(self.rob.angle)
+                self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(self.rob.angle)
             self.act = None
 
         if self.controller.action == 1:

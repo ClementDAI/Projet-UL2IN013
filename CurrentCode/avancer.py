@@ -12,8 +12,6 @@ class Avancer:
     def step(self):
         self.rob.calculerVitesses()
         distance = self.rob.vitesseLineaire * 0.1
-        self.rob.x += distance * math.sin(math.radians(self.rob.angle))
-        self.rob.y -= distance * math.cos(math.radians(self.rob.angle))
         self.parcouru += distance
 
     def stop(self):
