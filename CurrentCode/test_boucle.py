@@ -4,6 +4,8 @@ from tourner import Tourner
 from carre import Carre
 from robot import Robot
 import math
+import numpy as np
+
 #regler les problems dans boucles avant de faire les tests
 def test_boucle():
     rob = Robot(0, 0, 1, 1, 0, 5, 2)
