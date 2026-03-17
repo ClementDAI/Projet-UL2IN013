@@ -8,6 +8,8 @@ class Avancer:
         
     def start(self):
         self.parcouru = 0
+        self.rob.vangGauche = 50
+        self.rob.vangDroite = 50
 
     def step(self):
         self.rob.calculerVitesses()
