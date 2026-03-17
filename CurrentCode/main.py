@@ -1,16 +1,17 @@
 from affichage import Affichage
-from controller import Controller
 from simulation import Simulation
-from robot import Robot
-from salle import Salle
-from obstacle import Obstacle
 import pygame
 
-simulation = Simulation(10,10,10,5,100,100)
+pygame.init()
+simulation = Simulation(10,10,100,10,5,100,50)
 affichage = Affichage(simulation)
-controller = Controller(simulation.rob)
+controller = simulation.controller
+running = True
 
-while True:
-#     controller.updateController()
-#     simulation.updateSimulation()
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    simulation.updateSimulation()
     affichage.updateAffichage() 
+    controller.update()
