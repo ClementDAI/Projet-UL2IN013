@@ -2,16 +2,12 @@ from robot import Robot
 from salle import Salle
 from obstacle import Obstacle
 from controller import Controller
-from avancer import Avancer
-from tourner import Tourner
-from carre import Carre
-from approcher_mur import Approcher_mur
 import math
 import numpy as np
 
 class Simulation:
-    def __init__(self, xd, yd, longueur_robot, largeur_robot, xsalle, ysalle):
-        self.rob = Robot(xd, yd, -20, -20, 110, longueur_robot, largeur_robot)
+    def __init__(self, xd, yd, rob_angl, longueur_robot, largeur_robot, xsalle, ysalle):
+        self.rob = Robot(xd, yd, -20, -20, rob_angl, longueur_robot, largeur_robot)
         self.salle = Salle(xsalle, ysalle)
         ob1 = Obstacle(30, 10, 5, 5, 45)
         ob2 = Obstacle(50, 50, 10, 10, 192)
@@ -20,7 +16,9 @@ class Simulation:
         self.salle.ListeObstacle.append(ob2)
         self.salle.ListeObstacle.append(ob3)
         self.controller = Controller(self.rob)
-        self.act = None
+        self.xprec = self.rob.x
+        self.yprec = self.rob.y
+        self.angleprec = self.rob.angle
     
     def cross2D(self,a, b):
         return a[0]*b[1] - a[1]*b[0]
@@ -83,7 +81,7 @@ class Simulation:
         L = []
         for obs in self.salle.ListeObstacle:
             L.append(obs)
-        simu_tmp = Simulation(self.rob.x, self.rob.y, self.rob.longueur, self.rob.largeur, self.salle.dimensionX, self.salle.dimensionY)
+        simu_tmp = Simulation(self.rob.x, self.rob.y, self.rob.angle, self.rob.longueur, self.rob.largeur, self.salle.dimensionX, self.salle.dimensionY)
         old_x, old_y = simu_tmp.rob.x, simu_tmp.rob.y
         while not(simu_tmp.collision()):
             simu_tmp.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
@@ -97,49 +95,21 @@ class Simulation:
         """
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
         """
-        if self.controller.action == 0:
-            self.act = Avancer(input("Entrez la distance à avancer"), self.rob)
-            self.act.start()
-            while not self.act.stop():
-                if self.collision() :
-                    self.rob.vangGauche = 0
-                    self.rob.vangDroite = 0
-                self.act.step()
-                self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(self.rob.angle)
-                self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(self.rob.angle)
-            self.act = None
-
-        if self.controller.action == 1:
-            self.act = Tourner(input("Entrez le degré de l'angle à tourner"), self.rob)
-            self.act.start()
-            while not self.act.stop():
-                if self.collision() :
-                    self.rob.vangGauche = 0
-                    self.rob.vangDroite = 0
-                self.act.step()
-                self.robot.angle = (self.robot.angle + 1) % 360 # angle compris entre [0, 360]
-            self.act = None   
-            
-        if self.controller.action == 2:
-            self.act = Carre(input("Entrez la taille du côté du carré"), self.rob)
-            self.act.start()
-            while not self.act.stop():
-                if self.collision() :
-                    self.rob.vangGauche = 0
-                    self.rob.vangDroite = 0
-                self.act.step()
-            self.act = None
-
-        if self.controller.action == 3:
-            self.act = Approcher_mur(self.rob)
-            self.act.start()
-            while not self.act.stop():
-                if self.collision() :
-                    self.rob.vangGauche = 0
-                    self.rob.vangDroite = 0
-                self.act.step()
-            self.act = None
-
+        self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(np.radians(self.rob.angle))
+        self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
+        self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * 0.2) % 360
+        if self.collision():
+            self.rob.x = self.xprec
+            self.rob.y = self.yprec
+            self.rob.angle = self.angleprec
+            self.rob.vangDroite = 0
+            self.rob.vangGauche = 0
+            return
+        self.xprec = self.rob.x
+        self.yprec = self.rob.y
+        self.angleprec = self.rob.angle
+        
+        
         
     
     
