@@ -11,8 +11,9 @@ class Tourner:
         self.angle_parcouru = 0
 
     def step(self):
-        self.robot.angle = (self.robot.angle + 1) % 360 # angle compris entre [0, 360]
-        self.angle_parcouru += 1
+        self.robot.calculerVitesses()
+        self.robot.angle = (self.robot.angle + self.robot.vitesseAngulaire) % 360 # angle compris entre [0, 360]
+        self.angle_parcouru += self.robot.vitesseAngulaire
 
     def stop(self):
         return self.angle_parcouru >= self.angle_cible or (self.rob.vangGauche == 0 and self.rob.vangDroite == 0)
