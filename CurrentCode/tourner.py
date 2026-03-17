@@ -15,4 +15,4 @@ class Tourner:
         self.angle_parcouru += 1
 
     def stop(self):
-        return self.angle_parcouru >= self.angle_cible
+        return self.angle_parcouru >= self.angle_cible or (self.rob.vangGauche == 0 and self.rob.vangDroite == 0)

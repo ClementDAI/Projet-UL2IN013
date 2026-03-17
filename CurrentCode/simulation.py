@@ -2,6 +2,10 @@ from robot import Robot
 from salle import Salle
 from obstacle import Obstacle
 from controller import Controller
+from avancer import Avancer
+from tourner import Tourner
+from carre import Carre
+from approcher_mur import Approcher_mur
 import math 
 
 class Simulation:
@@ -15,6 +19,7 @@ class Simulation:
         self.salle.ListeObstacle.append(ob2)
         self.salle.ListeObstacle.append(ob3)
         self.controller = Controller(self.rob)
+        self.act = None
     
     def cross2D(self,a, b):
         return a[0]*b[1] - a[1]*b[0]
@@ -86,3 +91,54 @@ class Simulation:
         
         simu_tmp.rob.x, simu_tmp.rob.y = old_x, old_y
         self.rob.capteur = round(distance, 2)
+
+    def updateSimulation(self):
+        """
+        updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
+        """
+        if self.controller.action == 0:
+            self.act = Avancer(input("Entrez la distance à avancer"), self.rob)
+            self.act.start()
+            while not self.act.stop():
+                if self.collision() :
+                    self.rob.vangGauche = 0
+                    self.rob.vangDroite = 0
+                self.act.step()
+                self.rob.x += self.rob.vitesseLineaire * np.cos(self.rob.angle)
+                self.rob.y += self.rob.vitesseLineaire * np.sin(self.rob.angle)
+            self.act = None
+
+        if self.controller.action == 1:
+            self.act = Tourner(input("Entrez le degré de l'angle à tourner"), self.rob)
+            self.act.start()
+            while not self.act.stop():
+                if self.collision() :
+                    self.rob.vangGauche = 0
+                    self.rob.vangDroite = 0
+                self.act.step()
+                self.robot.angle = (self.robot.angle + 1) % 360 # angle compris entre [0, 360]
+            self.act = None   
+            
+        if self.controller.action == 2:
+            self.act = Carre(input("Entrez la taille du côté du carré"), self.rob)
+            self.act.start()
+            while not self.act.stop():
+                if self.collision() :
+                    self.rob.vangGauche = 0
+                    self.rob.vangDroite = 0
+                self.act.step()
+            self.act = None
+
+        if self.controller.action == 3:
+            self.act = Approcher_mur(self.rob)
+            self.act.start()
+            while not self.act.stop():
+                if self.collision() :
+                    self.rob.vangGauche = 0
+                    self.rob.vangDroite = 0
+                self.act.step()
+            self.act = None
+
+        
+    
+    

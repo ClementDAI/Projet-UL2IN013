@@ -10,12 +10,13 @@ class Controller:
         self.xprec = Robot.x
         self.yprec = Robot.y
         self.distance_parcourue = 0
+        self.action = None
     
     def step(self): 
         """Correspond à updateController """
-        carre = Carre(1,self.robot)
-        boucle = Boucle(1,carre)
-        boucle.step()
+        self.action = input("Entrez une action : 0 pour Avancer, 1 pour tourner, 2 pour carré, 3 pour s'approcher d'un mur")
+    
+
 
 
 
