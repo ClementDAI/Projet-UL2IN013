@@ -7,13 +7,14 @@ from controller import Controller
 
 class Affichage:
     def __init__(self, simulation):
+        self.simulation = simulation
         self.longueur_salle = 970
         self.largeur_salle = 600
-        self.screen = pygame.display.set_mode((self.longueur_salle, self.largeur_salle))
         self.SCALE = 10 # Échelle pour convertir les coordonnées de la salle en pixels
+        self.screen = pygame.display.set_mode((self.simulation.salle.dimensionX * self.SCALE, self.simulation.salle.dimensionY * self.SCALE))
         self.OFFSET_X = 9.7
         self.OFFSET_Y = 6
-        self.simulation = simulation
+
 
     def affiche_robot(self):
         """Dessine le robot et sa ligne de capteur"""
