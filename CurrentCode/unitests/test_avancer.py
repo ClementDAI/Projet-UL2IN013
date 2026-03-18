@@ -1,5 +1,5 @@
-from avancer import Avancer
-from robot import Robot
+from controller.avancer import Avancer
+from simulation.robot import Robot
 import math
 import numpy as np
 

@@ -1,7 +1,7 @@
-from carre import Carre
-from avancer import Avancer
-from tourner import Tourner
-from approcher_mur import Approcher_mur
+from .carre import Carre
+from .avancer import Avancer
+from .tourner import Tourner
+from .approcher_mur import Approcher_mur
 
 class Controller:
     def __init__(self, robot):

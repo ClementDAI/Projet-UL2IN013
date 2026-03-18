@@ -1,5 +1,5 @@
-from avancer import Avancer
-from tourner import Tourner
+from .avancer import Avancer
+from .tourner import Tourner
 
 class Carre:
     def __init__(self, cote, rob):

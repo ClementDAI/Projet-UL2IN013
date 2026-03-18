@@ -1,7 +1,7 @@
-from robot import Robot
-from salle import Salle
-from obstacle import Obstacle
-from controller import Controller
+from .robot import Robot
+from .salle import Salle
+from .obstacle import Obstacle
+from controller.controller import Controller
 import math
 import numpy as np
 

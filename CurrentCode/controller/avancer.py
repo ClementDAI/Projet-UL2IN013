@@ -1,4 +1,4 @@
-from robot import Robot
+from simulation.robot import Robot
 import math
 
 class Avancer:

@@ -1,4 +1,4 @@
-from salle import Salle
+from simulation.salle import Salle
 def test_salle():
     salle = Salle(10, 5)
     coins = salle.coins()

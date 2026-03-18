@@ -1,5 +1,5 @@
-from affichage import Affichage
-from simulation import Simulation
+from affichage.affichage import Affichage
+from simulation.simulation import Simulation
 import pygame
 
 pygame.init()
