@@ -1,5 +1,5 @@
-from simulation.robot import Robot
-from controller.tourner import Tourner
+from R2D2.simulation.robot import Robot
+from R2D2.controller.tourner import Tourner
 import math
 
 def test_tourner():
