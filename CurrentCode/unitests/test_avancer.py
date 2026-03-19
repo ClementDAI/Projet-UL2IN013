@@ -1,5 +1,5 @@
-from controller.avancer import Avancer
-from simulation.robot import Robot
+from R2D2.controller.avancer import Avancer
+from R2D2.simulation.robot import Robot
 import math
 import numpy as np
 

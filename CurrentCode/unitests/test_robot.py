@@ -1,4 +1,4 @@
-from simulation.robot import Robot
+from R2D2.simulation.robot import Robot
 def test_coins():
     robot = Robot(0, 0, 0, 0, 0, 0.2, 0.1) #robot orienté vers le haut
     coins = robot.coins()

@@ -1,4 +1,4 @@
-from simulation.salle import Salle
+from R2D2.simulation.salle import Salle
 def test_salle():
     salle = Salle(10, 5)
     coins = salle.coins()

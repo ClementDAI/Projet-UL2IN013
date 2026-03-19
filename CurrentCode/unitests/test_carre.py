@@ -1,5 +1,5 @@
-from controller.carre import Carre
-from simulation.robot import Robot
+from R2D2.controller.carre import Carre
+from R2D2.simulation.robot import Robot
 import numpy as np
 
 def test_carre():

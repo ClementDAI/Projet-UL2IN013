@@ -1,5 +1,5 @@
-from simulation.obstacle import Obstacle
-from simulation.salle import Salle
+from R2D2.simulation.obstacle import Obstacle
+from R2D2.simulation.salle import Salle
 import math
 
 def test_obstacle():
