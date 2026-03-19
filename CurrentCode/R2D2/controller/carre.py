@@ -5,7 +5,7 @@ class Carre:
     def __init__(self, cote, rob):
         self.rob = rob
         self.cote = cote
-        self.strats = [Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob)]
+        self.strats = [Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob)]
         self.cur = -1
 
     def start(self):
