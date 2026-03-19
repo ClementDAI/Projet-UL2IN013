@@ -1,5 +1,5 @@
-from .avancer import Avancer
-from .tourner import Tourner
+from R2D2.controller.avancer import Avancer
+from R2D2.controller.tourner import Tourner
 
 class Carre:
     def __init__(self, cote, rob):
