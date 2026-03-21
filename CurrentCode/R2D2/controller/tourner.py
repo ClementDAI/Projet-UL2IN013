@@ -13,6 +13,8 @@ class Tourner:
         self.robot.vangDroite = 10
 
     def step(self):
+        self.robot.vangGauche = -10
+        self.robot.vangDroite = 10
         self.robot.calculerVitesses()
         self.angle_parcouru += abs(self.robot.vitesseAngulaire * 0.2)
 
