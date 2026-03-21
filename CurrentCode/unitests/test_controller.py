@@ -3,6 +3,7 @@ from R2D2.controller.tourner import Tourner
 from R2D2.controller.carre import Carre
 from R2D2.controller.approcher_mur import Approcher_mur
 from R2D2.controller.sequencielle import Sequencielle
+from R2D2.controller.boucle import Boucle
 from R2D2.simulation.robot import Robot
 import math
 import numpy as np
@@ -81,6 +82,21 @@ class TestSequencielle(unittest.TestCase):
         self.assertTrue(math.isclose(self.rob.x, 0, abs_tol=1e-6))
         self.assertTrue(math.isclose(self.rob.angle, 90, abs_tol=0.1))
 
+class TestBoucle(unittest.TestCase):
+    def setUp(self):
+        self.rob = Robot(0, 0, 1, 1, 0, 5, 2)
+        self.test_Boucle = Boucle([Avancer(1, self.rob), Tourner(90, self.rob)], 2, self.rob)
+
+    def test_boucle(self):
+        self.test_Boucle.start()
+        while not self.test_Boucle.stop():
+            self.test_Boucle.step()
+            self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(np.radians(self.rob.angle))
+            self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
+            self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * 0.2) % 360
+        self.assertTrue(math.isclose(self.rob.y, -1, abs_tol=0.05))
+        self.assertTrue(math.isclose(self.rob.x, 1, abs_tol=0.05))
+        self.assertTrue(math.isclose(self.rob.angle, 180, abs_tol=5))
 
 if __name__ == '__main__':
     unittest.main()
