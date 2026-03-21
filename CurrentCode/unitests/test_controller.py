@@ -2,6 +2,7 @@ from R2D2.controller.avancer import Avancer
 from R2D2.controller.tourner import Tourner
 from R2D2.controller.carre import Carre
 from R2D2.controller.approcher_mur import Approcher_mur
+from R2D2.controller.sequencielle import Sequencielle
 from R2D2.simulation.robot import Robot
 import math
 import numpy as np
@@ -63,6 +64,22 @@ class TestApprocherMur(unittest.TestCase):
             self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
             self.rob.capteur = max(0, self.rob.capteur - self.rob.vitesseLineaire * 0.1)
         self.assertTrue(math.isclose(self.rob.capteur, 0, abs_tol=1e-6))
+
+class TestSequencielle(unittest.TestCase):
+    def setUp(self):
+        self.rob = Robot(0, 0, 1, 1, 0, 5, 2)
+        self.test_Sequencielle = Sequencielle(self.rob, [Avancer(1, self.rob), Tourner(90, self.rob)])
+
+    def test_sequencielle(self):
+        self.test_Sequencielle.start()
+        while not self.test_Sequencielle.stop():
+            self.test_Sequencielle.step()
+            self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(np.radians(self.rob.angle))
+            self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
+            self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * 0.2) % 360
+        self.assertTrue(math.isclose(self.rob.y, -1, abs_tol=1e-6))
+        self.assertTrue(math.isclose(self.rob.x, 0, abs_tol=1e-6))
+        self.assertTrue(math.isclose(self.rob.angle, 90, abs_tol=0.1))
 
 
 if __name__ == '__main__':
