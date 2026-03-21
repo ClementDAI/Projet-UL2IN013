@@ -12,6 +12,8 @@ class Avancer:
         self.rob.vangDroite = 50
 
     def step(self):
+        self.rob.vangGauche = 50
+        self.rob.vangDroite = 50
         self.rob.calculerVitesses()
         distance = self.rob.vitesseLineaire * 0.1
         self.parcouru += distance

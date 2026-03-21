@@ -1,9 +1,9 @@
 import pygame
 import math
-from simulation.robot import Robot
-from simulation.salle import Salle
-from simulation.simulation import Simulation
-from controller.controller import Controller
+from R2D2.simulation.robot import Robot
+from R2D2.simulation.salle import Salle
+from R2D2.simulation.simulation import Simulation
+from R2D2.controller.controller import Controller
 
 class Affichage:
     def __init__(self, simulation):
