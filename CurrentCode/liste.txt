@@ -1,0 +1,34 @@
+Affichage :
+    rien logique
+
+Controller :
+    Avancer :
+        vangDroite
+        vangGauche
+        vitesseLineaire ((self.rayonRoues * self.vangGauche + self.rayonRoues * self.vangDroite) / 2)
+    
+    Approcher_mur :
+        capteur (taille capteur)
+    
+    Tourner :
+        angle
+        vangDroite
+        vangGauche
+        vitesseAngulaire ((self.rayonRoues * self.vangDroite - self.rayonRoues * self.vangGauche) / self.ecartRoues)
+    
+    Sequencielle/Boucle/carre :
+        rien appelle juste les strats
+    
+Simulation :
+    x
+    y
+    angle
+    longueur
+    largeur
+    vangDroite
+    vangGauche
+    rayonRoues
+    ecartRoues
+    capteur
+    vitesseLineaire
+    vitesseAngulaire
