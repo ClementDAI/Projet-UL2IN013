@@ -1,24 +1,21 @@
 from R2D2.controller.avancer import Avancer
 from R2D2.controller.tourner import Tourner
+from R2D2.controller.sequencielle import Sequencielle
+from R2D2.controller.boucle import Boucle
+
 
 class Carre:
     def __init__(self, cote, rob):
         self.rob = rob
         self.cote = cote
-        self.strats = [Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob), Avancer(self.cote, self.rob), Tourner(90, self.rob)]
+        self.strats = Sequencielle(rob, [Boucle([Avancer(cote, rob), Tourner(90, rob)], 4, rob)])
         self.cur = -1
 
     def start(self):
-        self.cur = -1
+        self.strats.start()
 
     def step(self):
-        if self.stop():
-            return
-        
-        if self.cur < 0 or self.strats[self.cur].stop():
-            self.cur += 1
-            self.strats[self.cur].start()
-        self.strats[self.cur].step()
+        self.strats.step()
 
     def stop(self):
-        return self.cur == len(self.strats) - 1 and self.strats[self.cur].stop()
+        return self.strats.stop()

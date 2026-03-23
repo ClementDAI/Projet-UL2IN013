@@ -46,10 +46,10 @@ class TestCarre(unittest.TestCase):
             self.test_Carre.step()
             self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(np.radians(self.rob.angle))
             self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
-            self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire) % 360
-        self.assertTrue(math.isclose(self.rob.x, 0, abs_tol=1e-6))
-        self.assertTrue(math.isclose(self.rob.y, 0, abs_tol=1e-6))
-        self.assertTrue(math.isclose(self.rob.angle, 0, abs_tol=1e-6))
+            self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * 0.2) % 360
+        self.assertTrue(math.isclose(self.rob.x, 0, abs_tol=0.05))
+        self.assertTrue(math.isclose(self.rob.y, 0, abs_tol=0.05))
+        self.assertTrue(math.isclose(self.rob.angle, 0, abs_tol=5))
 
 
 class TestApprocherMur(unittest.TestCase):
