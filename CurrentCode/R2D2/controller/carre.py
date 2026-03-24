@@ -1,7 +1,7 @@
-from R2D2.controller.avancer import Avancer
-from R2D2.controller.tourner import Tourner
-from R2D2.controller.sequencielle import Sequencielle
-from R2D2.controller.boucle import Boucle
+from .avancer import Avancer
+from .tourner import Tourner
+from .sequencielle import Sequencielle
+from .boucle import Boucle
 
 
 class Carre:

@@ -1,7 +1,7 @@
-from R2D2.controller.carre import Carre
-from R2D2.controller.avancer import Avancer
-from R2D2.controller.tourner import Tourner
-from R2D2.controller.approcher_mur import Approcher_mur
+from .carre import Carre
+from .avancer import Avancer
+from .tourner import Tourner
+from .approcher_mur import Approcher_mur
 
 class Controller:
     def __init__(self, robot):

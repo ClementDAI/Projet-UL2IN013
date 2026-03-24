@@ -1,7 +1,7 @@
-from R2D2.simulation.robot import Robot
-from R2D2.simulation.salle import Salle
-from R2D2.simulation.obstacle import Obstacle
-from R2D2.controller.controller import Controller
+from .robot import Robot
+from .salle import Salle
+from .obstacle import Obstacle
+from ..controller.controller import Controller
 import math
 import numpy as np
 
