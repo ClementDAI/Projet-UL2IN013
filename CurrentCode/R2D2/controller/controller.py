@@ -25,7 +25,7 @@ class Controller:
             
             elif self.strat == "2":
                 valeur = float(input("Valeur (positif) du coté du carré à tracer par le robot : "))
-                self.action = Carre(valeur, self.robot)
+                self.action = Carre(valeur, self.trad)
                 self.action.start()
             
             elif self.strat == "3":

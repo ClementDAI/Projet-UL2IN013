@@ -1,7 +1,6 @@
 
 class Sequencielle:
-    def __init__(self, rob, strats):
-        self.rob = rob
+    def __init__(self, strats):
         self.strats = strats
         self.cur = -1
     

@@ -5,10 +5,10 @@ from R2D2.controller.boucle import Boucle
 
 
 class Carre:
-    def __init__(self, cote, rob):
-        self.rob = rob
+    def __init__(self, cote, trad):
+        self.trad = trad
         self.cote = cote
-        self.strats = Sequencielle(rob, [Boucle([Avancer(cote, rob), Tourner(90, rob)], 4, rob)])
+        self.strats = Sequencielle([Boucle([Avancer(cote, trad), Tourner(90, trad)], 4, trad)])
         self.cur = -1
 
     def start(self):
