@@ -29,7 +29,7 @@ class Controller:
                 self.action.start()
             
             elif self.strat == "3":
-                self.action = Approcher_mur(self.robot)
+                self.action = Approcher_mur(self.trad)
                 self.action.start()
             
             else:
