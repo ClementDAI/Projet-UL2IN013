@@ -20,7 +20,7 @@ class Controller:
             
             elif self.strat == "1":
                 valeur = float(input("Angle (positif) que le robot doit tourner : "))
-                self.action = Tourner(valeur, self.robot)
+                self.action = Tourner(valeur, self.trad)
                 self.action.start()
             
             elif self.strat == "2":
