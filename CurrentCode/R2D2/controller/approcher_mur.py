@@ -1,4 +1,3 @@
-from R2D2.simulation.robot import Robot
 from .avancer import Avancer
 
 class Approcher_mur:

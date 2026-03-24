@@ -1,5 +1,3 @@
-from R2D2.controller.avancer import Avancer
-from R2D2.controller.tourner import Tourner
 
 class Sequencielle:
     def __init__(self, rob, strats):

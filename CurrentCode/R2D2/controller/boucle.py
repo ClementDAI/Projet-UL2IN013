@@ -1,9 +1,4 @@
-from R2D2.controller.avancer import Avancer
-from R2D2.controller.tourner import Tourner
-from R2D2.controller.approcher_mur import Approcher_mur
 from R2D2.controller.sequencielle import Sequencielle
-from R2D2.simulation.robot import Robot
-import numpy as np
 
 class Boucle:
     def __init__(self, strats, n, rob):

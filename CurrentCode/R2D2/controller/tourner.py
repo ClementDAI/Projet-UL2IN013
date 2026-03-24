@@ -1,4 +1,3 @@
-from R2D2.simulation.robot import Robot
 
 class Tourner:
     def __init__(self,angle,robot):

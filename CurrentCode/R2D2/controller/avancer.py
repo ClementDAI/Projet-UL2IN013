@@ -1,5 +1,3 @@
-from R2D2.simulation.robot import Robot
-import math
 
 class Avancer:
     def __init__(self, distance, rob):
