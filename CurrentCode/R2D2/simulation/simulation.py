@@ -4,6 +4,7 @@ from R2D2.simulation.obstacle import Obstacle
 from R2D2.controller.controller import Controller
 import math
 import numpy as np
+from R2D2.traducteur import Traducteur
 
 class Simulation:
     def __init__(self, xd, yd, rob_angl, longueur_robot, largeur_robot, xsalle, ysalle):
@@ -15,10 +16,11 @@ class Simulation:
         self.salle.ListeObstacle.append(ob1)
         self.salle.ListeObstacle.append(ob2)
         self.salle.ListeObstacle.append(ob3)
-        self.controller = Controller(self.rob)
         self.xprec = self.rob.x
         self.yprec = self.rob.y
         self.angleprec = self.rob.angle
+        self.trad = Traducteur(self.rob)
+        self.controller = Controller(self.trad)
     
     def cross2D(self,a, b):
         return a[0]*b[1] - a[1]*b[0]
@@ -102,8 +104,7 @@ class Simulation:
             self.rob.x = self.xprec
             self.rob.y = self.yprec
             self.rob.angle = self.angleprec
-            self.rob.vangDroite = 0
-            self.rob.vangGauche = 0
+            self.trad.set_vitesse_nulle()
             return
         self.xprec = self.rob.x
         self.yprec = self.rob.y

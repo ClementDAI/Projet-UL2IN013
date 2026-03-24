@@ -4,8 +4,8 @@ from R2D2.controller.tourner import Tourner
 from R2D2.controller.approcher_mur import Approcher_mur
 
 class Controller:
-    def __init__(self, robot):
-        self.robot = robot
+    def __init__(self, trad):
+        self.trad = trad
         self.strat = ""
         self.action = None
     
@@ -15,7 +15,7 @@ class Controller:
             self.strat = input("Entrez une action : 0 pour Avancer, 1 pour tourner, 2 pour carré, 3 pour s'approcher d'un mur : ")
             if self.strat == "0":
                 valeur = float(input("Distance (positif) que le robot avance : "))
-                self.action = Avancer(valeur, self.robot)
+                self.action = Avancer(valeur, self.trad)
                 self.action.start()
             
             elif self.strat == "1":

@@ -1,20 +1,18 @@
 
 class Avancer:
-    def __init__(self, distance, rob):
+    def __init__(self, distance, trad):
         self.distance = distance
-        self.rob = rob
+        self.trad = trad
         
     def start(self):
         self.parcouru = 0
-        self.rob.vangGauche = 50
-        self.rob.vangDroite = 50
+        self.trad.set_vitesse(50,50)
 
     def step(self):
-        self.rob.vangGauche = 50
-        self.rob.vangDroite = 50
-        self.rob.calculerVitesses()
-        distance = self.rob.vitesseLineaire * 0.1
+        self.trad.set_vitesse(50,50)
+        self.trad.robot.calculerVitesses()
+        distance = self.trad.robot.vitesseLineaire * 0.1
         self.parcouru += distance
 
     def stop(self):
-        return self.parcouru >= self.distance or (self.rob.vangGauche == 0 and self.rob.vangDroite == 0)
+        return self.parcouru >= self.distance or self.trad.rob_vit_nulle()
