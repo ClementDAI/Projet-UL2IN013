@@ -1,3 +1,5 @@
+from .avancer import Avancer
+from .tourner import Tourner
 
 class Sequencielle:
     def __init__(self, strats):

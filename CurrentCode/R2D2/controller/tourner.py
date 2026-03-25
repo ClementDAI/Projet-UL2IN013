@@ -1,3 +1,4 @@
+from ..simulation.robot import Robot
 
 class Tourner:
     def __init__(self,angle,trad):

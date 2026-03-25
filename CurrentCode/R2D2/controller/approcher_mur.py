@@ -1,3 +1,4 @@
+from ..simulation.robot import Robot
 from .avancer import Avancer
 
 class Approcher_mur:

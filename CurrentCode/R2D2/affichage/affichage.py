@@ -1,5 +1,10 @@
 import pygame
 import math
+from ..simulation.robot import Robot
+from ..simulation.salle import Salle
+from ..simulation.simulation import Simulation
+from ..controller.controller import Controller
+
 
 class Affichage:
     def __init__(self, simulation):
