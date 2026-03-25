@@ -1,22 +1,23 @@
+<<<<<<< HEAD
 from ..simulation.robot import Robot
+=======
+>>>>>>> fb13e81096299a7abca6dbd4e3a5cc1d1fe96a3f
 
 class Tourner:
-    def __init__(self,angle,robot):
+    def __init__(self,angle,trad):
         self.angle_cible = angle
         self.angle_depart = None
-        self.robot = robot
+        self.trad = trad
     
     def start(self):
-        self.angle_depart = self.robot.angle
+        self.angle_depart = self.trad.robot.angle
         self.angle_parcouru = 0
-        self.robot.vangGauche = -10
-        self.robot.vangDroite = 10
+        self.trad.set_vitesse(-10, 10)
 
     def step(self):
-        self.robot.vangGauche = -10
-        self.robot.vangDroite = 10
-        self.robot.calculerVitesses()
-        self.angle_parcouru += abs(self.robot.vitesseAngulaire * 0.2)
+        self.trad.set_vitesse(-10, 10)
+        self.trad.robot.calculerVitesses()
+        self.angle_parcouru += abs(self.trad.robot.vitesseAngulaire * 0.2)
 
     def stop(self):
-        return self.angle_parcouru >= self.angle_cible or (self.robot.vangGauche == 0 and self.robot.vangDroite == 0)
+        return self.angle_parcouru >= self.angle_cible or self.trad.rob_vit_nulle()

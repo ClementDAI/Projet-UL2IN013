@@ -1,13 +1,16 @@
+<<<<<<< HEAD
 from ..simulation.robot import Robot
+=======
+>>>>>>> fb13e81096299a7abca6dbd4e3a5cc1d1fe96a3f
 from .avancer import Avancer
 
 class Approcher_mur:
-    def __init__(self, rob):
-        self.rob = rob
-        self.distance = rob.capteur
+    def __init__(self, trad):
+        self.trad = trad
+        self.distance = trad.robot.capteur
     
     def start(self):
-        self.strat = Avancer(self.distance, self.rob)
+        self.strat = Avancer(self.distance, self.trad)
         self.strat.start()
 
     def step(self):
