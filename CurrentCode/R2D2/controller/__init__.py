@@ -6,5 +6,5 @@ from .carre import Carre
 from .sequencielle import Sequencielle
 from .tourner import Tourner
 
-__all__ = ["Avancer","Approcher_mur","Boucle","Carre","Controller","Sequencielle"]
+__all__ = ["Avancer","Approcher_mur","Boucle","Carre","Controller","Sequencielle","Tourner"]
 
