@@ -5,6 +5,7 @@ from R2D2.controller.approcher_mur import Approcher_mur
 from R2D2.controller.sequencielle import Sequencielle
 from R2D2.controller.boucle import Boucle
 from R2D2.simulation.robot import Robot
+from R2D2.traducteur import Traducteur
 import math
 import numpy as np
 import unittest
@@ -12,7 +13,8 @@ import unittest
 class TestAvancer(unittest.TestCase):
     def setUp(self):
         self.rob = Robot(0, 0, 5, 5, 90, 5, 2)
-        self.test_Avancer = Avancer(1, self.rob)
+        self.trad = Traducteur(self.rob)
+        self.test_Avancer = Avancer(1, self.trad)
 
     def test_avancer(self):
         self.test_Avancer.start()
@@ -26,7 +28,8 @@ class TestAvancer(unittest.TestCase):
 class TestTourner(unittest.TestCase):
     def setUp(self):
         self.rob = Robot(0,-1,1,0,90,6,3)
-        self.test = Tourner(90 ,self.rob)
+        self.trad = Traducteur(self.rob)
+        self.test = Tourner(90 ,self.trad)
 
     def test_tourner(self):
         self.test.start()
@@ -38,7 +41,8 @@ class TestTourner(unittest.TestCase):
 class TestCarre(unittest.TestCase):
     def setUp(self):
         self.rob = Robot(0, 0, 1, 1, 0, 5, 2)
-        self.test_Carre = Carre(1, self.rob)
+        self.trad = Traducteur(self.rob)
+        self.test_Carre = Carre(1, self.trad)
 
     def test_carre(self):
         self.test_Carre.start()
@@ -55,7 +59,8 @@ class TestCarre(unittest.TestCase):
 class TestApprocherMur(unittest.TestCase):
     def setUp(self):
         self.rob = Robot(0, 0, 1, 1, 0, 5, 2)
-        self.test_approcher_mur = Approcher_mur(self.rob)
+        self.trad = Traducteur(self.rob)
+        self.test_approcher_mur = Approcher_mur(self.trad)
 
     def test_approcher_mur(self):
         self.test_approcher_mur.start()
@@ -69,7 +74,8 @@ class TestApprocherMur(unittest.TestCase):
 class TestSequencielle(unittest.TestCase):
     def setUp(self):
         self.rob = Robot(0, 0, 1, 1, 0, 5, 2)
-        self.test_Sequencielle = Sequencielle(self.rob, [Avancer(1, self.rob), Tourner(90, self.rob)])
+        self.trad = Traducteur(self.rob)
+        self.test_Sequencielle = Sequencielle([Avancer(1, self.trad), Tourner(90, self.trad)])
 
     def test_sequencielle(self):
         self.test_Sequencielle.start()
@@ -85,7 +91,8 @@ class TestSequencielle(unittest.TestCase):
 class TestBoucle(unittest.TestCase):
     def setUp(self):
         self.rob = Robot(0, 0, 1, 1, 0, 5, 2)
-        self.test_Boucle = Boucle([Avancer(1, self.rob), Tourner(90, self.rob)], 2, self.rob)
+        self.trad = Traducteur(self.rob)
+        self.test_Boucle = Boucle([Avancer(1, self.trad), Tourner(90, self.trad)], 2, self.trad)
 
     def test_boucle(self):
         self.test_Boucle.start()
