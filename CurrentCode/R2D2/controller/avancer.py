@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 from ..simulation.robot import Robot
 import math
-=======
->>>>>>> fb13e81096299a7abca6dbd4e3a5cc1d1fe96a3f
 
 class Avancer:
     def __init__(self, distance, trad):

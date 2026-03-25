@@ -3,7 +3,6 @@ from .tourner import Tourner
 from .sequencielle import Sequencielle
 from .boucle import Boucle
 
-
 class Carre:
     def __init__(self, cote, trad):
         self.trad = trad

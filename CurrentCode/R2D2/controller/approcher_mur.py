@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 from ..simulation.robot import Robot
-=======
->>>>>>> fb13e81096299a7abca6dbd4e3a5cc1d1fe96a3f
 from .avancer import Avancer
 
 class Approcher_mur:

@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 from .avancer import Avancer
 from .tourner import Tourner
 from .approcher_mur import Approcher_mur
 from .sequencielle import Sequencielle
 from ..simulation.robot import Robot
 import numpy as np
-=======
-from R2D2.controller.sequencielle import Sequencielle
->>>>>>> fb13e81096299a7abca6dbd4e3a5cc1d1fe96a3f
 
 class Boucle:
     def __init__(self, strats, n, trad):
