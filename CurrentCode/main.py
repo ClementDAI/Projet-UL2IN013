@@ -1,5 +1,4 @@
-from R2D2.affichage import Affichage
-from R2D2.simulation import Simulation
+from R2D2 import *
 import pygame
 
 pygame.init()
