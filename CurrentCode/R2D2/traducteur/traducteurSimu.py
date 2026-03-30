@@ -1,4 +1,4 @@
-class Traducteur:
+class TraducteurSimu:
     def __init__(self, robot):
         self.robot = robot
     

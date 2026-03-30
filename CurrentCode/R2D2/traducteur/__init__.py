@@ -1,3 +1,3 @@
-from .traducteur import Traducteur
+from .traducteurSimu import TraducteurSimu
 
-__all__ = ["Traducteur"]
+__all__ = ["TraducteurSimu"]

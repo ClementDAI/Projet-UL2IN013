@@ -1,15 +1,11 @@
-from .robot import Robot
-from .salle import Salle
 from .obstacle import Obstacle
-from ..controller.controller import Controller
 import math
 import numpy as np
-from R2D2.traducteur import Traducteur
 
 class Simulation:
-    def __init__(self, xd, yd, rob_angl, longueur_robot, largeur_robot, xsalle, ysalle):
-        self.rob = Robot(xd, yd, -20, -20, rob_angl, longueur_robot, largeur_robot)
-        self.salle = Salle(xsalle, ysalle)
+    def __init__(self, rob, salle):
+        self.rob = rob
+        self.salle = salle
         ob1 = Obstacle(30, 10, 5, 5, 45)
         ob2 = Obstacle(50, 50, 10, 10, 192)
         ob3 = Obstacle(70, 30, 15, 15, 62)
@@ -19,8 +15,6 @@ class Simulation:
         self.xprec = self.rob.x
         self.yprec = self.rob.y
         self.angleprec = self.rob.angle
-        self.trad = Traducteur(self.rob)
-        self.controller = Controller(self.trad)
     
     def cross2D(self,a, b):
         return a[0]*b[1] - a[1]*b[0]
@@ -83,7 +77,7 @@ class Simulation:
         L = []
         for obs in self.salle.ListeObstacle:
             L.append(obs)
-        simu_tmp = Simulation(self.rob.x, self.rob.y, self.rob.angle, self.rob.longueur, self.rob.largeur, self.salle.dimensionX, self.salle.dimensionY)
+        simu_tmp = Simulation(self.rob, self.salle)
         old_x, old_y = simu_tmp.rob.x, simu_tmp.rob.y
         while not(simu_tmp.collision()):
             simu_tmp.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
@@ -104,7 +98,8 @@ class Simulation:
             self.rob.x = self.xprec
             self.rob.y = self.yprec
             self.rob.angle = self.angleprec
-            self.trad.set_vitesse_nulle()
+            self.rob.vangGauche = 0
+            self.rob.vangDroite = 0
             return
         self.xprec = self.rob.x
         self.yprec = self.rob.y
