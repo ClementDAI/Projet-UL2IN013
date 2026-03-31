@@ -1,11 +1,13 @@
 from .obstacle import Obstacle
 import math
 import numpy as np
+from .robot import Robot
+from .salle import Salle
 
 class Simulation:
-    def __init__(self, rob, salle):
-        self.rob = rob
-        self.salle = salle
+    def __init__(self, xd, yd, rob_angl, longueur_robot, largeur_robot, xsalle, ysalle):
+        self.rob = Robot(xd, yd, -20, -20, rob_angl, longueur_robot, largeur_robot)
+        self.salle = Salle(xsalle,ysalle)
         ob1 = Obstacle(30, 10, 5, 5, 45)
         ob2 = Obstacle(50, 50, 10, 10, 192)
         ob3 = Obstacle(70, 30, 15, 15, 62)
@@ -77,7 +79,7 @@ class Simulation:
         L = []
         for obs in self.salle.ListeObstacle:
             L.append(obs)
-        simu_tmp = Simulation(self.rob, self.salle)
+        simu_tmp = Simulation(self.rob.x, self.rob.y, self.rob.angle, self.rob.longueur, self.rob.largeur, self.salle.dimensionX, self.salle.dimensionY)
         old_x, old_y = simu_tmp.rob.x, simu_tmp.rob.y
         while not(simu_tmp.collision()):
             simu_tmp.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
