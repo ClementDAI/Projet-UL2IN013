@@ -4,7 +4,7 @@ from .avancer import Avancer
 class Approcher_mur:
     def __init__(self, trad):
         self.trad = trad
-        self.distance = trad.robot.capteur
+        self.distance = trad.robot.capteur #trad.get_capteur()
     
     def start(self):
         self.strat = Avancer(self.distance, self.trad)

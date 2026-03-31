@@ -3,6 +3,8 @@ from .avancer import Avancer
 from .tourner import Tourner
 from .approcher_mur import Approcher_mur
 
+#a modifier apres avoir testé que tout marche avec le traducteur simu et réel
+
 class Controller:
     def __init__(self, trad):
         self.trad = trad
