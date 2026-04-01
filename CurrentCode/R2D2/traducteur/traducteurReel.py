@@ -9,7 +9,7 @@ class TraducteurReel:
         self.robot.set_motor_dps(robot.MOTOR_RIGHT, vangDroite)
     
     def get_capteur(self):
-        return get_distance
+        return self.robot.get_distance()
 
     def set_angle_zero(self):
         pos_g, pos_d = self.robot.get_motor_position()
