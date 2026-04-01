@@ -6,9 +6,6 @@ class TraducteurSimu:
         self.robot.vangGauche = 0
         self.robot.vangDroite = 0
 
-    def rob_vit_nulle(self):
-        return self.robot.vangGauche == 0 and self.robot.vangDroite == 0
-
     def get_distance_parcourue(self):
         return self.robot.vitesseLineaire * 0.1
 

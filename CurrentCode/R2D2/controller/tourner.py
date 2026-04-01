@@ -13,7 +13,6 @@ class Tourner:
 
     def step(self):
         self.trad.set_vitesse(-10, 10)
-        self.trad.robot.calculerVitesses() #aussi inutile
-        self.angle_parcouru += abs(self.trad.robot.vitesseAngulaire * 0.2) #+= self.trad.get_angle_parcouru() 
+        self.angle_parcouru += abs(self.trad.get_angle_parcouru())
     def stop(self):
-        return self.angle_parcouru >= self.angle_cible or self.trad.rob_vit_nulle()
+        return self.angle_parcouru >= self.angle_cible 

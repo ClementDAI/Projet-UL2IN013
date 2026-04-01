@@ -93,6 +93,7 @@ class Simulation:
         """
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
         """
+        self.rob.calculerVitesses()
         self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(np.radians(self.rob.angle))
         self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
         self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * 0.2) % 360
