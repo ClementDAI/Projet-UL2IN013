@@ -9,7 +9,9 @@ if Simu:
     simulation = Simulation(10,10,100,10,5,96,60)
     affichage = Affichage(simulation)
     traducteur = TraducteurSimu(simulation.rob)
-#else
+# else:
+#     creer robot pour robot irl
+#     traducteur = TraducteurReel()
 controller = Controller(traducteur)
 while running:
     for event in pygame.event.get():
