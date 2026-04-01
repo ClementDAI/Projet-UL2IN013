@@ -1,6 +1,11 @@
 class TraducteurSimu:
     def __init__(self, robot):
         self.robot = robot
+    
+    def set_vitesse(self, vangGauche, vangDroite):
+        self.robot.vangGauche = vangGauche
+        self.robot.vangDroite = vangDroite
+        self.robot.calculerVitesses()
 
     def set_vitesse_nulle(self):
         self.robot.vangGauche = 0
@@ -15,7 +20,3 @@ class TraducteurSimu:
     def get_capteur(self):
         return self.robot.capteur
     
-    def set_vitesse(self, vangGauche, vangDroite):
-        self.robot.vangGauche = vangGauche
-        self.robot.vangDroite = vangDroite
-        self.robot.calculerVitesses()

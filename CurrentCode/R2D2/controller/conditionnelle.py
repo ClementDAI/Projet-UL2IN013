@@ -1,4 +1,4 @@
-from  .avancer import Avancer
+from .avancer import Avancer
 from .tourner import Tourner
 from .boucle import Boucle
 from .approcher_mur import Approcher_mur
