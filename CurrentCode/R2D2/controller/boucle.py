@@ -1,16 +1,14 @@
 from .sequencielle import Sequencielle
 
 class Boucle:
-    def __init__(self, strats, n, trad):
+    def __init__(self, strategie, n, trad):
         self.cur = -1
         self.nbIt = n
         self.trad = trad
-        self.strats = strats #tab des strats
-        self.strategie = None #strat actuelle
+        self.strategie = strategie
 
     def start(self):
         self.cur = 0
-        self.strategie = Sequencielle(self.strats)
         self.strategie.start()
 
     def step(self):
@@ -20,7 +18,6 @@ class Boucle:
         if self.strategie.stop():
             self.cur += 1
             if not self.stop():
-                self.strategie = Sequencielle(self.strats)
                 self.strategie.start()
         else:
             self.strategie.step()
