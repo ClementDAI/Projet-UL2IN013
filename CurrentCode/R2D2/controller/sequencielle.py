@@ -19,4 +19,4 @@ class Sequencielle:
         self.strats[self.cur].step()
     
     def stop(self):
-        return self.cur == len(self.strats) - 1 and self.strats[self.cur].stop()
+        return self.cur >= len(self.strats) - 1 and self.strats[self.cur].stop()

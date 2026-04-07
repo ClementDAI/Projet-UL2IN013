@@ -16,6 +16,7 @@ class Robot(object):
         self.capteur = 0 #distance entre le robot et l'obstacle en face de lui (ou la bordure de la salle)
         self.vitesseLineaire = 0 #initialisation de la vitesse linéaire 
         self.vitesseAngulaire = 0 #initialisation de la vitesse angulaire
+        self.temps = 0
 
     def coins(self):
         """
