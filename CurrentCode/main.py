@@ -24,7 +24,7 @@ while running:
     controller.update()
     fin = time.time()
     temps = fin - deb
-    print(temps)
+
 
 
     

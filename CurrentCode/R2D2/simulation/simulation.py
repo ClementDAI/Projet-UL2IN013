@@ -6,7 +6,7 @@ from .salle import Salle
 
 class Simulation:
     def __init__(self, xd, yd, rob_angl, longueur_robot, largeur_robot, xsalle, ysalle):
-        self.rob = Robot(xd, yd, -20, -20, rob_angl, longueur_robot, largeur_robot)
+        self.rob = Robot(xd, yd, 0, 0, rob_angl, longueur_robot, largeur_robot)
         self.salle = Salle(xsalle,ysalle)
         ob1 = Obstacle(30, 10, 5, 5, 45)
         ob2 = Obstacle(50, 50, 10, 10, 192)

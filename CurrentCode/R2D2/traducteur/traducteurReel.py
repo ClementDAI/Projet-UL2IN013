@@ -1,4 +1,4 @@
-import robot2i013
+import robot2I013
 import math
 class TraducteurReel:
     def __init__(self, robot):
@@ -8,7 +8,7 @@ class TraducteurReel:
         self.robot.set_motor_dps(robot.MOTOR_LEFT, vangGauche)
         self.robot.set_motor_dps(robot.MOTOR_RIGHT, vangDroite)
     
-    def set_vitesse_nulle(self)
+    def set_vitesse_nulle(self):
         self.set_vitesse(0,0)
     
     def set_angle_zero(self):
