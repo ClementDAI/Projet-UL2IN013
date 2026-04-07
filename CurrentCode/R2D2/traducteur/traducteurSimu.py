@@ -12,10 +12,10 @@ class TraducteurSimu:
         self.robot.vangDroite = 0
 
     def get_distance_parcourue(self):
-        return self.robot.vitesseLineaire * 0.1
+        return self.robot.vitesseLineaire * self.robot.temps
 
     def get_angle_parcouru(self):
-        return self.robot.vitesseAngulaire * 0.2
+        return self.robot.vitesseAngulaire * self.robot.temps
 
     def get_capteur(self):
         return self.robot.capteur

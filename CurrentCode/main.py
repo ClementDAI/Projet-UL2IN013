@@ -1,9 +1,10 @@
 from R2D2 import *
 import pygame
-
+import time 
 pygame.init()
 running = True
 Simu = True
+temps = 0
 
 if Simu:
     simulation = Simulation(10,10,100,10,5,96,60)
@@ -17,8 +18,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    simulation.updateSimulation()
+    deb = time.time() #secondes passés
+    simulation.updateSimulation(temps)
     affichage.updateAffichage()
     controller.update()
+    fin = time.time()
+    temps = fin - deb
+    print(temps)
+
+
     
