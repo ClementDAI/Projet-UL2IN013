@@ -15,7 +15,7 @@ class TraducteurSimu:
         return self.robot.vitesseLineaire * 0.1
 
     def get_angle_parcouru(self):
-        return self.robot.vitesseAngulaire * 0.1
+        return self.robot.vitesseAngulaire * 0.2
 
     def get_capteur(self):
         return self.robot.capteur

@@ -9,7 +9,7 @@ class Controller:
     def __init__(self, trad):
         self.trad = trad
         self.strat = ""
-        self.action = [ Hexagone(20,trad)]
+        self.action = [ Carre(5,trad)]
         self.current = -1
     
     def update(self): 

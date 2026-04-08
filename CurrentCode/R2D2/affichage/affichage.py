@@ -47,7 +47,7 @@ class Affichage:
         rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
         rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
         self.screen.blit(rotated_surf, rotated_rect)
-
+    
     
     def affiche_salle(self):
         """Dessine les obstacle et la salle"""
