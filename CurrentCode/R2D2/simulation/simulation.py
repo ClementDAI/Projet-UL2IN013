@@ -8,9 +8,9 @@ class Simulation:
     def __init__(self, xd, yd, rob_angl, longueur_robot, largeur_robot, xsalle, ysalle):
         self.rob = Robot(xd, yd, 0, 0, rob_angl, longueur_robot, largeur_robot)
         self.salle = Salle(xsalle,ysalle)
-        ob1 = Obstacle(30, 10, 5, 5, 45)
-        ob2 = Obstacle(50, 50, 10, 10, 192)
-        ob3 = Obstacle(70, 30, 15, 15, 62)
+        ob1 = Obstacle(50, 55, 5, 5, 0)
+        ob2 = Obstacle(50, 30, 5, 5, 0)
+        ob3 = Obstacle(50, 5, 5, 5, 0)
         self.salle.ListeObstacle.append(ob1)
         self.salle.ListeObstacle.append(ob2)
         self.salle.ListeObstacle.append(ob3)
@@ -89,15 +89,14 @@ class Simulation:
         simu_tmp.rob.x, simu_tmp.rob.y = old_x, old_y
         self.rob.capteur = round(distance, 2)
 
-    def updateSimulation(self,temps):
+    def updateSimulation(self):
         """
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
         """
-        self.rob.temps = temps
         self.rob.calculerVitesses()
-        self.rob.x += self.rob.vitesseLineaire * temps * np.sin(np.radians(self.rob.angle))
-        self.rob.y -= self.rob.vitesseLineaire * temps * np.cos(np.radians(self.rob.angle))
-        self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * temps) % 360
+        self.rob.x += self.rob.vitesseLineaire * 0.1 * np.sin(np.radians(self.rob.angle))
+        self.rob.y -= self.rob.vitesseLineaire * 0.1 * np.cos(np.radians(self.rob.angle))
+        self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * 0.2) % 360
         if self.collision():
             self.rob.x = self.xprec
             self.rob.y = self.yprec

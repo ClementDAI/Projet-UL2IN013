@@ -2,14 +2,14 @@ from .carre import Carre
 from .avancer import Avancer
 from .tourner import Tourner
 from .approcher_mur import Approcher_mur
-
+from .hexagone import Hexagone
 #a modifier apres avoir testé que tout marche avec le traducteur simu et réel
 
 class Controller:
     def __init__(self, trad):
         self.trad = trad
         self.strat = ""
-        self.action = [ Avancer(10,self.trad),Tourner(90, self.trad),Carre(10,self.trad)]
+        self.action = [ Hexagone(20,trad)]
         self.current = -1
     
     def update(self): 
