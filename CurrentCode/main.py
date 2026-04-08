@@ -7,7 +7,7 @@ Simu = True
 temps = 0
 
 if Simu:
-    simulation = Simulation(10,10,100,10,5,96,60)
+    simulation = Simulation(3,44,0,13,5,51,51)
     affichage = Affichage(simulation)
     traducteur = TraducteurSimu(simulation.rob)
 # else:
