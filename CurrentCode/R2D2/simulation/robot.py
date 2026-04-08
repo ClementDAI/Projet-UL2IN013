@@ -18,6 +18,7 @@ class Robot(object):
         self.vitesseAngulaire = 0 #initialisation de la vitesse angulaire
         self.temps = 0
         self.dessine = True
+        self.couleur = (0,0,255)
 
     def coins(self):
         """
@@ -59,3 +60,6 @@ class Robot(object):
             self.dessine = True
         else:
             self.dessine = False
+        
+    def change_couleur(R,G,B):
+        self.couleur = (R,G,B)

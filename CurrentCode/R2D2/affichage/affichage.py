@@ -49,10 +49,10 @@ class Affichage:
     
         rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
         rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
-        self.lignex += self.simulation.rob.vitesseLineaire  * np.sin(np.radians(self.simulation.rob.angle))
-        self.ligney -= self.simulation.rob.vitesseLineaire  * np.cos(np.radians(self.simulation.rob.angle))
+        self.lignex = self.simulation.rob.vitesseLineaire  * np.sin(np.radians(self.simulation.rob.angle))
+        self.ligney = self.simulation.rob.vitesseLineaire  * np.cos(np.radians(self.simulation.rob.angle))
         if self.simulation.rob.dessine:
-            pygame.draw.line(self.screen, (0, 0, 255),(self.simulation.rob.x, self.simulation.rob.y),(self.lignex, self.ligney), 2)
+            pygame.draw.line(self.screen, self.simulation.rob.couleur,(self.simulation.rob.x, self.simulation.rob.y),(self.lignex, self.ligney), 2)
         self.screen.blit(rotated_surf, rotated_rect)
 
     
