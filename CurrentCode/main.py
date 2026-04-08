@@ -19,7 +19,7 @@ if Simu:
 #     traducteur = TraducteurReel()
 controller = Controller(traducteur)
 controller2 = Controller(traducteur2)
-controller.action = [Avancer(2, traducteur), Tourner(180, traducteur), Avancer(2, traducteur)]
+controller.action = [Avancer(10, traducteur), Tourner(180, traducteur), Avancer(2, traducteur)]
 controller2.action = [Carre(2, traducteur2)]
 while running:
     for event in pygame.event.get():

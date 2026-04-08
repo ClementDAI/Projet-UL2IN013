@@ -21,24 +21,26 @@ class Simulation:
         self.xprec2 = self.rob2.x
         self.yprec2 = self.rob2.y
         self.angleprec2 = self.rob2.angle
+        self.ballon = Robot(1,1,10,5,180,3,3)
+        self.ballon.calculerVitesses()
     
     def cross2D(self,a, b):
         return a[0]*b[1] - a[1]*b[0]
 
-    def collision(self):
+    def collision(self,rob):
         """
         rob : paramètre de classe Robot
         salle : paramètre de classe Salle
         Collision va renvoyer true si la position du robot est bloqué par un obsctacle de la salle sinon false
         """
     
-        cote_robot = self.rob.coins()
+        cote_robot = rob.coins()
 
         for i in self.salle.ListeObstacle:
             xObstacle, yObstacle = i.x, i.y
             largeurObstacle = i.largeur
             longueurObstacle = i.longueur
-            if ((self.rob.x > xObstacle - largeurObstacle / 2) and (self.rob.x < xObstacle + largeurObstacle / 2) and (self.rob.y > yObstacle - longueurObstacle / 2) and (self.rob.y < yObstacle + longueurObstacle / 2)):
+            if ((rob.x > xObstacle - largeurObstacle / 2) and (rob.x < xObstacle + largeurObstacle / 2) and (rob.y > yObstacle - longueurObstacle / 2) and (rob.y < yObstacle + longueurObstacle / 2)):
                 return True
             cote_obs = i.coins()
             for point1_rob, point2_rob in cote_robot:
@@ -71,12 +73,12 @@ class Simulation:
     
         return False
     
-    def update_capteur(self):
+    def update_capteur(self, rob):
         """rob : objet de classe robot
             salle : salle ou se trouve rob
             la fonction va mettre à jour la valeur de capteur de rob"""
         distance = 0
-        angle = self.rob.angle
+        angle = rob.angle
         sin = math.sin(math.radians(angle))
         cos = -math.cos(math.radians(angle))
 
@@ -84,14 +86,14 @@ class Simulation:
         for obs in self.salle.ListeObstacle:
             L.append(obs)
         simu_tmp = Simulation(self.rob.x, self.rob.y, self.rob.angle, self.rob.longueur, self.rob.largeur, self.salle.dimensionX, self.salle.dimensionY,self.rob2.x, self.rob2.y, self.rob2.angle, self.rob2.longueur, self.rob2.largeur)
-        old_x, old_y = simu_tmp.rob.x, simu_tmp.rob.y
-        while not(simu_tmp.collision()):
-            simu_tmp.rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
-            simu_tmp.rob.y += cos * 0.1
+        old_x, old_y = rob.x, rob.y
+        while not(simu_tmp.collision(rob)):
+            rob.x += sin * 0.1  # pas de 0.1 pour le vecteur capteur
+            rob.y += cos * 0.1
             distance += 0.1
         
-        simu_tmp.rob.x, simu_tmp.rob.y = old_x, old_y
-        self.rob.capteur = round(distance, 2)
+        rob.x, rob.y = old_x, old_y
+        rob.capteur = round(distance, 2)
 
     def updateSimulation(self,temps):
         """
@@ -107,7 +109,7 @@ class Simulation:
         self.rob2.x += self.rob2.vitesseLineaire * temps * np.sin(np.radians(self.rob2.angle))
         self.rob2.y -= self.rob2.vitesseLineaire * temps * np.cos(np.radians(self.rob2.angle))
         self.rob2.angle = (self.rob2.angle + self.rob2.vitesseAngulaire * temps) % 360
-        if self.collision():
+        if self.collision(self.rob):
             self.rob.x = self.xprec
             self.rob.y = self.yprec
             self.rob.angle = self.angleprec
@@ -125,7 +127,15 @@ class Simulation:
         self.xprec2 = self.rob2.x
         self.yprec2 = self.rob2.y
         self.angleprec2 = self.rob2.angle
-        
+        murdroite = 1
+        murhaut = 1
+        self.ballon.x += self.ballon.vitesseLineaire * np.sin(np.radians(self.ballon.angle)) * murdroite
+        self.ballon.y -= self.ballon.vitesseLineaire * np.cos(np.radians(self.ballon.angle)) * murhaut
+        if self.collision(self.ballon):
+            if self.ballon.x >= self.salle.dimensionX or self.ballon.x <= self.salle.dimensionX:
+                murdroite = murdroite * -1 # il faut modifier le x du vecteur mais je n'ai pas l'idée
+            if self.ballon.y >= self.salle.dimensionY or self.ballon.y <= self.salle.dimensionY:
+                murhaut = murhaut * -1
         
         
     

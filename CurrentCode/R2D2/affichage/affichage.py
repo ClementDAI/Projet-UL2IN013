@@ -49,10 +49,6 @@ class Affichage:
     
         rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
         rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
-        self.lignex = self.simulation.rob.vitesseLineaire  * np.sin(np.radians(self.simulation.rob.angle))
-        self.ligney = self.simulation.rob.vitesseLineaire  * np.cos(np.radians(self.simulation.rob.angle))
-        if self.simulation.rob.dessine:
-            pygame.draw.line(self.screen, self.simulation.rob.couleur,(self.simulation.rob.x, self.simulation.rob.y),(self.simulation.rob.x + self.lignex, self.simulation.rob.y - self.ligney), 2)
         self.screen.blit(rotated_surf, rotated_rect)
 
     
@@ -109,11 +105,16 @@ class Affichage:
         """
         Met a jour l'ensemble de affichage necessaire
         """
-        
+        self.lignex = self.simulation.rob.vitesseLineaire  * np.sin(np.radians(self.simulation.rob.angle))
+        self.ligney = self.simulation.rob.vitesseLineaire  * np.cos(np.radians(self.simulation.rob.angle))
+        if self.simulation.rob.dessine:
+            pygame.draw.line(self.screen, self.simulation.rob.couleur,(self.simulation.rob.x, self.simulation.rob.y),(self.simulation.rob.x + self.lignex, self.simulation.rob.y - self.ligney), 2)
         self.affiche_salle()
         self.affiche_robot(self.simulation.rob)
         self.affiche_robot(self.simulation.rob2)
-        self.simulation.update_capteur()
+        self.affiche_robot(self.simulation.ballon)
+        self.simulation.update_capteur(self.simulation.rob)
+        self.simulation.update_capteur(self.simulation.rob2)
         self.affiche_etat_robot()
 
         pygame.display.flip()
