@@ -103,7 +103,7 @@ class Affichage:
             x,y = point
             x = self.OFFSET_X + x * self.SCALE
             y = self.OFFSET_Y + y * self.SCALE
-            pygame.draw.circle(self.screen, "blue", (x, y), 3)
+            pygame.draw.circle(self.screen, self.simulation.rob.couleur, (x, y), 3)
 
     def updateAffichage(self):
         """

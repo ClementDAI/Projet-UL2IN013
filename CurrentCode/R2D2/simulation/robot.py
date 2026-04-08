@@ -19,6 +19,7 @@ class Robot(object):
         self.temps = 0
         self.crayon = True
         self.tracer = [] #liste de point a afficher
+        self.couleur = "blue"
 
     def coins(self):
         """

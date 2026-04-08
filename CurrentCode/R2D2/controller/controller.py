@@ -15,7 +15,7 @@ class Controller:
     def update(self): 
         """met à jour le controller """
         if self.action == None:
-            self.strat = input("Entrez une action : 0 pour Avancer, 1 pour tourner, 2 pour carré, 3 pour s'approcher d'un mur, Dessine(True) et Dessine(False) qui set le crayon: ")
+            self.strat = input("Entrez une action : 0 pour Avancer, 1 pour tourner, 2 pour carré, 3 pour s'approcher d'un mur, Dessine(True) et Dessine(False) qui set le crayon, change_couleur: ")
             if self.strat == "0":
                 valeur = float(input("Distance (positif) que le robot avance : "))
                 self.action = Avancer(valeur, self.trad)
@@ -40,6 +40,10 @@ class Controller:
             
             elif self.strat == "Dessine(False)":
                 self.trad.robot.crayon = False
+
+            elif self.strat == "change_couleur":
+                couleur = input("couleur en anglais (blue initialement) : ")
+                self.trad.robot.couleur = couleur
             
             else:
                 print("Choix invalide, aucune action, veuillez entrez une action valide : 0, 1, 2, 3")
