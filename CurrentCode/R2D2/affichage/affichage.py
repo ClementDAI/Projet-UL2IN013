@@ -15,6 +15,8 @@ class Affichage:
         self.screen = pygame.display.set_mode((self.simulation.salle.dimensionX * self.SCALE, self.simulation.salle.dimensionY * self.SCALE))
         self.OFFSET_X = 9.7
         self.OFFSET_Y = 6
+        self.robot_xprec = self.simulation.rob.x
+        self.robot_yprec = self.simulation.rob.y
 
 
     def affiche_robot(self):
@@ -46,6 +48,9 @@ class Affichage:
     
         rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
         rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
+        pygame.draw.line(self.screen, (0, 0, 255), (self.robot_xprec, self.robot_yprec), (self.simulation.rob.x, self.simulation.rob.y), 2)
+        self.robot_xprec = self.simulation.rob.x
+        self.robot_yprec = self.simulation.rob.y
         self.screen.blit(rotated_surf, rotated_rect)
 
     
@@ -102,8 +107,10 @@ class Affichage:
         """
         Met a jour l'ensemble de affichage necessaire
         """
+        
         self.affiche_salle()
         self.affiche_robot()
         self.simulation.update_capteur()
         self.affiche_etat_robot()
+
         pygame.display.flip()
