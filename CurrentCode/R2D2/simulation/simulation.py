@@ -108,6 +108,11 @@ class Simulation:
         self.xprec = self.rob.x
         self.yprec = self.rob.y
         self.angleprec = self.rob.angle
+
+    def update_tracer(self):
+        if (self.rob.x,self.rob.y) not in self.rob.tracer:
+            point = (self.rob.x,self.rob.y)
+            self.rob.tracer.append(point)
         
         
         

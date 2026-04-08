@@ -17,6 +17,8 @@ class Robot(object):
         self.vitesseLineaire = 0 #initialisation de la vitesse linéaire 
         self.vitesseAngulaire = 0 #initialisation de la vitesse angulaire
         self.temps = 0
+        self.crayon = True
+        self.tracer = [] #liste de point a afficher
 
     def coins(self):
         """

@@ -98,6 +98,13 @@ class Affichage:
         self.screen.blit(pos, (200, 530))
         self.screen.blit(capteur_color, (200, 550))
 
+    def affiche_tracer(self):
+        for point in self.simulation.rob.tracer:
+            x,y = point
+            x = self.OFFSET_X + x * self.SCALE
+            y = self.OFFSET_Y + y * self.SCALE
+            pygame.draw.circle(self.screen, "blue", (x, y), 3)
+
     def updateAffichage(self):
         """
         Met a jour l'ensemble de affichage necessaire
@@ -106,4 +113,6 @@ class Affichage:
         self.affiche_robot()
         self.simulation.update_capteur()
         self.affiche_etat_robot()
+        self.simulation.update_tracer()
+        self.affiche_tracer()
         pygame.display.flip()
