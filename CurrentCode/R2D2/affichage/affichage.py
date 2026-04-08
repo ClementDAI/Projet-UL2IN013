@@ -1,5 +1,6 @@
 import pygame
 import math
+import numpy as np
 from ..simulation.robot import Robot
 from ..simulation.salle import Salle
 from ..simulation.simulation import Simulation
@@ -15,8 +16,8 @@ class Affichage:
         self.screen = pygame.display.set_mode((self.simulation.salle.dimensionX * self.SCALE, self.simulation.salle.dimensionY * self.SCALE))
         self.OFFSET_X = 9.7
         self.OFFSET_Y = 6
-        self.robot_xprec = self.simulation.rob.x
-        self.robot_yprec = self.simulation.rob.y
+        self.lignex = self.simulation.rob.x
+        self.ligney = self.simulation.rob.y
 
 
     def affiche_robot(self):
@@ -48,9 +49,10 @@ class Affichage:
     
         rotated_surf = pygame.transform.rotate(robot_surf, -dexter.angle)
         rotated_rect = rotated_surf.get_rect(center=(int(robot_x), int(robot_y)))
-        pygame.draw.line(self.screen, (0, 0, 255), (self.robot_xprec, self.robot_yprec), (self.simulation.rob.x, self.simulation.rob.y), 2)
-        self.robot_xprec = self.simulation.rob.x
-        self.robot_yprec = self.simulation.rob.y
+        self.lignex += self.simulation.rob.vitesseLineaire  * np.sin(np.radians(self.simulation.rob.angle))
+        self.ligney -= self.simulation.rob.vitesseLineaire  * np.cos(np.radians(self.simulation.rob.angle))
+        if self.simulation.rob.dessine:
+            pygame.draw.line(self.screen, (0, 0, 255),(self.simulation.rob.x, self.simulation.rob.y),(self.lignex, self.ligney), 2)
         self.screen.blit(rotated_surf, rotated_rect)
 
     

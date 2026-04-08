@@ -17,6 +17,7 @@ class Robot(object):
         self.vitesseLineaire = 0 #initialisation de la vitesse linéaire 
         self.vitesseAngulaire = 0 #initialisation de la vitesse angulaire
         self.temps = 0
+        self.dessine = True
 
     def coins(self):
         """
@@ -52,3 +53,9 @@ class Robot(object):
         self.vitesseAngulaire = (v_droite - v_gauche) / self.ecartRoues
 
         return self.vitesseLineaire, self.vitesseAngulaire
+
+    def dessine(b):
+        if b == True:
+            self.dessine = True
+        else:
+            self.dessine = False
