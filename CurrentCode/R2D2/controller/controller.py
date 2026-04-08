@@ -9,12 +9,12 @@ class Controller:
     def __init__(self, trad):
         self.trad = trad
         self.strat = ""
-        self.action = [ Avancer(10,self.trad),Tourner(90, self.trad),Carre(10,self.trad)]
-        self.current = -1
+        self.action = None #[ Avancer(10,self.trad),Tourner(90, self.trad),Carre(10,self.trad)]
+        #self.current = -1
     
     def update(self): 
         """met à jour le controller """
-        '''if self.action == None:
+        if self.action == None:
             self.strat = input("Entrez une action : 0 pour Avancer, 1 pour tourner, 2 pour carré, 3 pour s'approcher d'un mur : ")
             if self.strat == "0":
                 valeur = float(input("Distance (positif) que le robot avance : "))
@@ -37,17 +37,9 @@ class Controller:
             
             else:
                 print("Choix invalide, aucune action, veuillez entrez une action valide : 0, 1, 2, 3")
-        else:'''
-        if self.current < 0 and len(self.action) > 0:
-            self.current = 0
-            self.action[self.current].start()
-        if self.current >= 0:
-            if not self.action[self.current].stop():
-                self.action[self.current].step()
-            elif self.current < len(self.action) - 1:
-                self.current += 1
-                self.action[self.current].start()
+        else:
+            if not self.action.stop():
+                self.action.step() 
             else:
-                self.trad.set_vitesse_nulle()
-
+                self.action = None
 
