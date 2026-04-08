@@ -20,9 +20,9 @@ class Affichage:
         self.ligney = self.simulation.rob.y
 
 
-    def affiche_robot(self):
+    def affiche_robot(self, rob):
         """Dessine le robot et sa ligne de capteur"""
-        dexter = self.simulation.rob #recup du robot de simulation
+        dexter = rob #recup du robot de simulation
         robot_x = self.OFFSET_X + dexter.x * self.SCALE
         robot_y = self.OFFSET_Y + dexter.y * self.SCALE
         robot_w = dexter.largeur * self.SCALE
@@ -111,7 +111,8 @@ class Affichage:
         """
         
         self.affiche_salle()
-        self.affiche_robot()
+        self.affiche_robot(self.simulation.rob)
+        self.affiche_robot(self.simulation.rob2)
         self.simulation.update_capteur()
         self.affiche_etat_robot()
 
