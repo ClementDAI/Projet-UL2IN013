@@ -52,7 +52,7 @@ class Affichage:
         self.lignex = self.simulation.rob.vitesseLineaire  * np.sin(np.radians(self.simulation.rob.angle))
         self.ligney = self.simulation.rob.vitesseLineaire  * np.cos(np.radians(self.simulation.rob.angle))
         if self.simulation.rob.dessine:
-            pygame.draw.line(self.screen, self.simulation.rob.couleur,(self.simulation.rob.x, self.simulation.rob.y),(self.lignex, self.ligney), 2)
+            pygame.draw.line(self.screen, self.simulation.rob.couleur,(self.simulation.rob.x, self.simulation.rob.y),(self.simulation.rob.x + self.lignex, self.simulation.rob.y - self.ligney), 2)
         self.screen.blit(rotated_surf, rotated_rect)
 
     

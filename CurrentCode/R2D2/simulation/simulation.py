@@ -18,6 +18,9 @@ class Simulation:
         self.xprec = self.rob.x
         self.yprec = self.rob.y
         self.angleprec = self.rob.angle
+        self.xprec2 = self.rob2.x
+        self.yprec2 = self.rob2.y
+        self.angleprec2 = self.rob2.angle
     
     def cross2D(self,a, b):
         return a[0]*b[1] - a[1]*b[0]
@@ -95,20 +98,33 @@ class Simulation:
         updateSimulation va mettre à jour la position du robot en fonction de sa vitesse et de son angle d'orientation
         """
         self.rob.temps = temps
+        self.rob2.temps = temps
         self.rob.calculerVitesses()
+        self.rob2.calculerVitesses()
         self.rob.x += self.rob.vitesseLineaire * temps * np.sin(np.radians(self.rob.angle))
         self.rob.y -= self.rob.vitesseLineaire * temps * np.cos(np.radians(self.rob.angle))
         self.rob.angle = (self.rob.angle + self.rob.vitesseAngulaire * temps) % 360
+        self.rob2.x += self.rob2.vitesseLineaire * temps * np.sin(np.radians(self.rob2.angle))
+        self.rob2.y -= self.rob2.vitesseLineaire * temps * np.cos(np.radians(self.rob2.angle))
+        self.rob2.angle = (self.rob2.angle + self.rob2.vitesseAngulaire * temps) % 360
         if self.collision():
             self.rob.x = self.xprec
             self.rob.y = self.yprec
             self.rob.angle = self.angleprec
             self.rob.vangGauche = 0
             self.rob.vangDroite = 0
+            self.rob2.x = self.xprec
+            self.rob2.y = self.yprec
+            self.rob2.angle = self.angleprec
+            self.rob2.vangGauche = 0
+            self.rob2.vangDroite = 0
             return
         self.xprec = self.rob.x
         self.yprec = self.rob.y
         self.angleprec = self.rob.angle
+        self.xprec2 = self.rob2.x
+        self.yprec2 = self.rob2.y
+        self.angleprec2 = self.rob2.angle
         
         
         
