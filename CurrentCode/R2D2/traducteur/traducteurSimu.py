@@ -20,3 +20,6 @@ class TraducteurSimu:
     def get_capteur(self):
         return self.robot.capteur
     
+    def get_angle(self):
+        return self.robot.angle  # en degrés
+    
