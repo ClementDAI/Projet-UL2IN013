@@ -16,3 +16,13 @@ class Tourner:
         self.angle_parcouru += abs(self.trad.get_angle_parcouru())
     def stop(self):
         return self.angle_parcouru >= self.angle_cible 
+
+
+#a tester pour le reel si ca marche mieux 
+# def start(self):
+#     self.angle_parcouru = 0
+#     self.trad.set_vitesse(-10, 10)
+
+# def step(self):
+#     self.trad.set_vitesse(-10, 10)
+#     self.angle_parcouru = abs(self.trad.get_angle_parcouru())

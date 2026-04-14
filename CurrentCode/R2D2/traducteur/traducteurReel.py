@@ -31,7 +31,4 @@ class TraducteurReel:
     
     def get_capteur(self):
         return self.robot.get_distance()
-    
-    def get_angle(self):
-        raise NotImplementedError("Pas de capteur d'angle absolu sur ce robot") #ya pas d'angle dans le reel mais on a besoin de la fonction
 
