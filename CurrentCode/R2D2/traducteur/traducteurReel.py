@@ -27,7 +27,7 @@ class TraducteurReel:
 
     def get_distance_parcourue(self):
         self.get_distance_parcourue_roue()
-        if self.distance_d = self.distance_g: #On prend la vitesse d une seul roue quand sa va tout droit car on prend pas en compte les arc de cercle qu il ferrait si il avait deux distance de roue gauche et droite diff
+        if self.distance_d == self.distance_g: #On prend la vitesse d une seul roue quand sa va tout droit car on prend pas en compte les arc de cercle qu il ferrait si il avait deux distance de roue gauche et droite diff
             return self.distance_g
         
     
