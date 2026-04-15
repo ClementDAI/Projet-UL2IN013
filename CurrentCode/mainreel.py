@@ -1,6 +1,6 @@
 from R2D2.controller import Controller
 from R2D2.robot2I013 import Robot2IN013
-from R2D2.traducteur.traducteruReel import TraducteurReel
+from R2D2.traducteur.traducteurReel import TraducteurReel
 import time 
 
 running = True
