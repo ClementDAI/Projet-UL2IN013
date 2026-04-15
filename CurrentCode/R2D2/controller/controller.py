@@ -9,7 +9,7 @@ class Controller:
     def __init__(self, trad):
         self.trad = trad
         self.strat = ""
-        self.action = [ Avancer(10,self.trad),Tourner(90, self.trad),Carre(10,self.trad)]
+        self.action = [Tourner(90, self.trad)]
         self.current = -1
     
     def update(self): 

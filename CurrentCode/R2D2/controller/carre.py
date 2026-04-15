@@ -4,10 +4,10 @@ from .sequencielle import Sequencielle
 from .boucle import Boucle
 
 class Carre:
-    def __init__(self, cote, trad):
+    def __init__(self, cote,vitesse, trad):
         self.trad = trad
         self.cote = cote
-        self.strats = Boucle(Sequencielle([Avancer(cote, trad), Tourner(90, trad)]), 4, trad)
+        self.strats = Boucle(Sequencielle([Avancer(cote,vitesse, trad), Tourner(90, trad)]), 4, trad)
         self.cur = -1
 
     def start(self):

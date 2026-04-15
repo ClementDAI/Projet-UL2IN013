@@ -4,7 +4,7 @@ from R2D2.traducteur.traducteurReel import TraducteurReel
 import time 
 
 running = True
-Simu = True
+Simu = False
 temps = 0
 
 if Simu:
@@ -17,7 +17,6 @@ else:
 controller = Controller(traducteur)
 while running:
     deb = time.time()
-    simulation.updateSimulation(temps)
     controller.update()
     fin = time.time()
     temps = fin - deb
