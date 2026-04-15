@@ -7,11 +7,11 @@ class Tourner:
         self.trad = trad
     
     def start(self):
-        self.angle_depart = 0
         self.angle_parcouru = 0
         self.trad.set_vitesse(-10, 10)
 
     def step(self):
+        self.trad.set_angle_roue_zero()
         self.trad.set_vitesse(-10, 10)
         self.angle_parcouru += abs(self.trad.get_angle_parcouru())
     def stop(self):
