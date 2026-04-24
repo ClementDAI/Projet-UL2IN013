@@ -4,10 +4,10 @@ from .avancer import Avancer
 class Approcher_mur:
     def __init__(self, trad):
         self.trad = trad
-        self.distance = trad.get_capteur()
     
     def start(self):
-        self.strat = Avancer(self.distance, self.trad)
+        distance = self.trad.get_capteur() #on lit la distance avant de commencer a avancer pour pas que le robot se mette a avancer s'il est deja collé au mur
+        self.strat = Avancer(distance, 10, self.trad)
         self.strat.start()
 
     def step(self):
