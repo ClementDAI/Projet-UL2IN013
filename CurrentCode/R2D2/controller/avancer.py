@@ -9,12 +9,13 @@ class Avancer:
         
     def start(self):
         self.parcouru = 0
+        self.trad.set_angle_roue_zero()
         self.trad.set_vitesse(self.vitesse,self.vitesse)
 
     def step(self):
+        self.parcouru += self.trad.get_distance_parcourue() #on lit dabord avant d'avancer pour si jamais pas une ligne droite ou roue qui bloque : on prend la distance parcourue de la roue qui bloque pas
         self.trad.set_angle_roue_zero()
         self.trad.set_vitesse(self.vitesse,self.vitesse)
-        self.parcouru += self.trad.get_distance_parcourue()
 
     def stop(self):
         return self.parcouru >= self.distance
