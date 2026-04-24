@@ -32,7 +32,7 @@ class TraducteurReel:
     
     def get_angle_parcouru(self):
         self.get_distance_parcourue_roue()
-        return math.degrees((self.distance_d - self.istance_g) / self.robot.WHEEL_BASE_WIDTH)
+        return math.degrees((self.distance_d - self.distance_g) / self.robot.WHEEL_BASE_WIDTH)
 
     
     def get_capteur(self):
