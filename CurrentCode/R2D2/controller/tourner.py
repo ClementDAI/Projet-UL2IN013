@@ -8,12 +8,12 @@ class Tourner:
     def start(self):
         self.angle_parcouru = 0
         self.trad.set_angle_roue_zero()
-        self.trad.set_vitesse(-20, 20)
+        self.trad.set_vitesse(-30, 30)
 
     def step(self):
         self.angle_parcouru += abs(self.trad.get_angle_parcouru())
         self.trad.set_angle_roue_zero()
-        self.trad.set_vitesse(-20, 20)
+        self.trad.set_vitesse(-30, 30)
 
     def stop(self):
         return self.angle_parcouru >= self.angle_cible 

@@ -8,14 +8,14 @@ class Controller:
         self.trad = trad
         self.current = -1
 
-        #avancer de 20m
-        #self.action = [Avancer(20, 10, self.trad)]
+        #avancer de 10m
+        #self.action = [Avancer(10, 30, self.trad)]
 
         #tourner de 90°
         #self.action = [Tourner(90, self.trad)]
 
-        #carré de 50m
-        self.action = [Carre(10, 50, self.trad)]
+        #carré de 10m
+        self.action = [Carre(10, 70, self.trad)]
 
         #avancer jusqu'au mur
         #self.action = [Approcher_mur(self.trad)]
