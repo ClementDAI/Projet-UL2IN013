@@ -7,7 +7,7 @@ class Approcher_mur:
     
     def start(self):
         distance = self.trad.get_capteur() #on lit la distance avant de commencer a avancer pour pas que le robot se mette a avancer s'il est deja collé au mur
-        self.strat = Avancer(distance, 10, self.trad)
+        self.strat = Avancer(distance, 70, self.trad)
         self.strat.start()
 
     def step(self):

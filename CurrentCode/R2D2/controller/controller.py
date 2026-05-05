@@ -8,17 +8,17 @@ class Controller:
         self.trad = trad
         self.current = -1
 
-        #avancer de 0.5m
-        self.action = [Avancer(20, 10, self.trad)]
+        #avancer de 20m
+        #self.action = [Avancer(20, 10, self.trad)]
 
         #tourner de 90°
-        # self.action = [Tourner(90, self.trad)]
+        #self.action = [Tourner(90, self.trad)]
 
-        # carré de 0.5m
-        # self.action = [Carre(0.5, 10, self.trad)]
+        #carré de 50m
+        self.action = [Carre(10, 50, self.trad)]
 
         #avancer jusqu'au mur
-        # self.action = [Approcher_mur(self.trad)]
+        #self.action = [Approcher_mur(self.trad)]
 
     def update(self):
         """Met à jour le controller : démarre, avance, et arrête la stratégie courante."""
