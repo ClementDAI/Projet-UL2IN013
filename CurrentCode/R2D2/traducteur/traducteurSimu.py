@@ -19,5 +19,10 @@ class TraducteurSimu:
 
     def get_capteur(self):
         return self.robot.capteur
+    
+    def set_angle_roue_zero(self):
+        return
+    
+
 
     

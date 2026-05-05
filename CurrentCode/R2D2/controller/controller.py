@@ -9,7 +9,7 @@ class Controller:
         self.current = -1
 
         #avancer de 0.5m
-        self.action = [Avancer(0.5, 10, self.trad)]
+        self.action = [Avancer(20, 10, self.trad)]
 
         #tourner de 90°
         # self.action = [Tourner(90, self.trad)]
